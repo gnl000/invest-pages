@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Briefing — 2026-08-12</title>
+<style>
+  :root {
+    --surface-1: #fcfcfb;
+    --page: #f9f9f7;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted: #898781;
+    --grid: #e1e0d9;
+    --baseline: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --good: #0ca30c;
+    --warning: #fab219;
+    --serious: #ec835a;
+    --critical: #d03b3b;
+    --pos: #2a78d6;
+    --neg: #e34948;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19;
+      --page: #0d0d0d;
+      --text-primary: #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted: #898781;
+      --grid: #2c2c2a;
+      --baseline: #383835;
+      --border: rgba(255,255,255,0.10);
+      --good: #0ca30c;
+      --warning: #fab219;
+      --serious: #ec835a;
+      --critical: #d03b3b;
+      --pos: #3987e5;
+      --neg: #e66767;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 16px 14px 48px; }
+  header.report-header { padding: 4px 0 14px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  header.report-header h1 { font-size: 1.25rem; margin: 0 0 4px; }
+  header.report-header .meta { color: var(--text-muted); font-size: 0.82rem; }
+
+  .summary-panel {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .summary-panel h2 { font-size: 0.95rem; margin: 0 0 8px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.02em; }
+  .summary-panel ul { margin: 0; padding-left: 1.1em; }
+  .summary-panel li { margin-bottom: 6px; }
+
+  .alert-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface-1); border: 1px solid var(--critical);
+    color: var(--critical); border-radius: 999px; padding: 3px 10px;
+    font-size: 0.8rem; font-weight: 600; margin: 2px 6px 2px 0;
+  }
+  .alert-badge.warning { border-color: var(--warning); color: var(--warning); }
+
+  details.section {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    padding: 0;
+    overflow: hidden;
+  }
+  details.section > summary {
+    cursor: pointer;
+    padding: 12px 16px;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  details.section > summary::-webkit-details-marker { display: none; }
+  details.section > summary::after { content: "+"; color: var(--text-muted); font-weight: 400; }
+  details.section[open] > summary::after { content: "\2212"; }
+  details.section .section-body { padding: 4px 16px 16px; border-top: 1px solid var(--border); }
+
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+  table.data-table th, table.data-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); }
+  table.data-table th { color: var(--text-muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
+
+  .chart-card { margin: 14px 0; }
+  .chart-card .chart-title { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 600; }
+  .chart-card canvas { max-width: 100%; }
+
+  /* 섹터 heatmap: 11개 직사각형 행 세로 정렬. 본문은 기본 텍스트 색(대비 확보),
+     방향·강도는 왼쪽 컬러 보더 + 배지(글리프·한글 병기)로 인코딩 */
+  .heatmap-list { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+  .heatmap-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--cell-light);
+    border-radius: 8px; padding: 8px 12px; font-size: 0.82rem;
+    background: var(--surface-1); color: var(--text-primary);
+  }
+  .heatmap-row .hc-badge {
+    flex: 0 0 auto; display: inline-block; margin-top: 2px;
+    padding: 2px 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 700;
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+    background-color: var(--cell-light); color: var(--badge-text-light, #fff);
+  }
+  .heatmap-row .hc-main { flex: 1 1 auto; min-width: 0; }
+  .heatmap-row .hc-name { font-weight: 600; color: var(--text-primary); }
+  .heatmap-row .hc-change { font-variant-numeric: tabular-nums; font-weight: 600; margin-left: 6px; font-size: 0.78rem; }
+  .heatmap-row .hc-change.pos { color: var(--pos); }
+  .heatmap-row .hc-change.neg { color: var(--neg); }
+  .heatmap-row .hc-reason { font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px; }
+  @media (prefers-color-scheme: dark) {
+    .heatmap-row { border-left-color: var(--cell-dark); }
+    .heatmap-row .hc-badge { background-color: var(--cell-dark); color: var(--badge-text-dark, #fff); }
+  }
+
+  .rrg-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 0.78rem; margin-top: 6px; }
+  .rrg-legend .item { display: inline-flex; align-items: center; gap: 5px; }
+  .rrg-legend .swatch {
+    width: 10px; height: 10px; border-radius: 2px; display: inline-block;
+    background-color: var(--sw-light);
+  }
+  @media (prefers-color-scheme: dark) {
+    .rrg-legend .swatch { background-color: var(--sw-dark); }
+  }
+
+  .watch-item { border-left: 3px solid var(--baseline); padding: 6px 0 6px 10px; margin-bottom: 8px; }
+  .watch-item .status { font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); }
+  .badge-status { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
+  .badge-active { background: var(--critical); color: #fff; }
+  .badge-monitoring { background: var(--warning); color: #1a1a19; }
+  .badge-dormant { background: var(--baseline); color: var(--text-primary); }
+
+  .stale-note { color: var(--text-muted); font-size: 0.74rem; }
+  .na-note { color: var(--text-muted); font-style: italic; font-size: 0.8rem; }
+
+  /* 배경 해설(비전문가용 부연 설명) — 본문과 구별되는 연한 박스 */
+  .explain-box {
+    background: var(--page); border: 1px solid var(--grid); border-radius: 6px;
+    padding: 8px 10px; margin: 6px 0; font-size: 0.8rem; color: var(--text-secondary);
+  }
+  .explain-box::before { content: "해설 "; font-weight: 700; font-size: 0.72rem; color: var(--text-muted); }
+
+  /* 용어 주석(축약어 풀이) — 각주 스타일 */
+  .glossary { margin: 6px 0 2px; padding: 0; list-style: none; font-size: 0.74rem; color: var(--text-muted); }
+  .glossary li { margin: 1px 0; padding-left: 12px; text-indent: -12px; }
+  .glossary li::before { content: "※ "; }
+  .glossary .term { font-weight: 600; color: var(--text-secondary); }
+
+  /* 운영·프로그램 문구(수명주기 원칙 적용, 1차 미확인 등) — 본문과 명확히 구별 */
+  .ops-note {
+    display: inline-block; margin: 4px 0; padding: 2px 8px;
+    border: 1px dashed var(--baseline); border-radius: 4px;
+    font-size: 0.72rem; color: var(--text-muted);
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  .ops-note::before { content: "⚙ 운영 "; font-weight: 700; }
+
+  /* 차트 보조 설명(지표가 무엇을 의미하는지) */
+  .chart-desc { font-size: 0.76rem; color: var(--text-muted); margin: 2px 0 8px; line-height: 1.45; }
+
+  /* 차트 필터 버튼(국가·섹터 토글) */
+  .chart-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; }
+  .chart-filter button {
+    border: 1px solid var(--border); background: var(--surface-1); color: var(--text-primary);
+    border-radius: 999px; padding: 3px 10px; font-size: 0.76rem; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .chart-filter button .swatch {
+    width: 9px; height: 9px; border-radius: 2px; display: inline-block;
+    background-color: var(--sw-light);
+  }
+  .chart-filter button.off { opacity: 0.42; }
+  .chart-filter button.off .swatch { background-color: var(--baseline); }
+  .chart-filter button.ctrl { color: var(--text-muted); font-size: 0.72rem; }
+  @media (prefers-color-scheme: dark) {
+    .chart-filter button .swatch { background-color: var(--sw-dark); }
+    .chart-filter button.off .swatch { background-color: var(--baseline); }
+  }
+
+  footer.report-footer { margin-top: 24px; color: var(--text-muted); font-size: 0.76rem; text-align: center; }
+
+  .kv-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--grid); font-size: 0.86rem; }
+  .kv-row .k { color: var(--text-secondary); }
+  .kv-row .v { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .v.pos { color: var(--pos); }
+  .v.neg { color: var(--neg); }
+
+  /* 지수 마감 리캡 스트립(Daily 상단) */
+  .index-strip { display: flex; align-items: baseline; gap: 10px 16px; flex-wrap: wrap;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 16px; margin-bottom: 20px; }
+  .index-strip .strip-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--text-muted); font-weight: 700; }
+  .index-strip .strip-cells { display: flex; gap: 20px; flex-wrap: wrap; }
+  .index-cell { display: inline-flex; align-items: baseline; gap: 7px; }
+  .index-cell .ix-name { font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; }
+  .index-cell .ix-level { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 0.92rem; }
+  .index-cell .ix-chg { font-variant-numeric: tabular-nums; font-size: 0.8rem; font-weight: 600; }
+  .index-cell .ix-chg.pos { color: var(--pos); }
+  .index-cell .ix-chg.neg { color: var(--neg); }
+
+  /* 속보 중요도 시각 구분 + 원문/출처 스타일 */
+  .watch-item.importance-high { border-left-color: var(--critical); border-left-width: 4px; }
+  .watch-item.importance-medium { border-left-color: var(--warning); border-left-width: 4px; }
+  .watch-item .status { display: flex; align-items: center; gap: 5px; margin-bottom: 3px; }
+  .imp-pill { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 0.68rem;
+    font-weight: 700; letter-spacing: 0.03em; }
+  .imp-pill.imp-high { background: var(--critical); color: #fff; }
+  .imp-pill.imp-medium { background: var(--warning); color: #1a1a19; }
+  .wl-tag { display: inline-block; padding: 1px 6px; border: 1px solid var(--border);
+    border-radius: 4px; font-size: 0.66rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.03em; }
+  .orig-title { color: var(--text-muted); font-weight: 400; font-size: 0.86em; }
+  .source-line { display: block; margin-top: 6px; font-size: 0.74rem; color: var(--text-muted); }
+
+  /* 커머디티 사이클 보드 (Commodity-Agent_설계서 §D.5) */
+  .commodity-board td { vertical-align: top; }
+  .cycle-bottoming { background: var(--good); color: #fff; }
+  .cycle-early_recovery { background: var(--pos); color: #fff; }
+  .cycle-mid { background: var(--baseline); color: var(--text-primary); }
+  .cycle-late { background: var(--warning); color: #1a1a19; }
+  .cycle-downturn { background: var(--critical); color: #fff; }
+  .badge-trig-hit { background: var(--critical); color: #fff; }
+  .badge-trig-cand { background: var(--serious); color: #fff; }
+  .badge-bottom-zone { background: var(--good); color: #fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="report-header">
+  <h1>Events &amp; News · Daily Briefing — 2026-08-12 (수요일)</h1>
+  <div class="meta">America/New_York 09:00 앵커 기준 · 생성 2026-08-12T13:30:00-04:00</div>
+</header>
+
+
+
+<section class="summary-panel">
+  <h2>한눈에 보기</h2>
+  <ul>
+  
+    <li>美 7월 CPI(소비자물가지수) 컨센서스 부합 — 헤드라인 3.4%y/y(전월 3.5%↓)·근원 2.5%y/y, 인플레 둔화 재확인에 3대 지수 동반 상승(S&P500 +0.32%·나스닥 +0.66%)</li>
+  
+    <li>CoreWeave·Nebius·Super Micro 등 AI 인프라 3사 실적 서프라이즈 — 매출 급증(+112%·+454%y/y)·capex 전망 상향에 주가 각 +21%·+20.5%·+9% 급등, AI 수요 둔화 우려 완화</li>
+  
+    <li>VIX 14.67(-4.0%)로 저변동성 국면 지속, 신용스프레드(HY 2.72%·IG 0.79%) 안정 — 임계 이탈 경보 없음</li>
+  
+    <li>WTI $82.85·Brent $88.49로 소폭 하락 — 호르무즈·홍해 이슈는 진행 중이나 오늘 신규 확전 신호 없이 관망 국면</li>
+  
+    <li>watchlist 6건(호르무즈·우크라이나·미중 무역·대만해협·USTR 301조·후티 홍해·캐나다 338조) 모두 어제 대비 신규 material 이벤트 없음 — 기존 active 상태 유지</li>
+  
+  </ul>
+</section>
+
+
+<section class="index-strip">
+  <div class="strip-label">전 거래일 마감</div>
+  <div class="strip-cells">
+  
+    
+    
+    <div class="index-cell">
+      <span class="ix-name">S&amp;P 500</span>
+      <span class="ix-level">7,753.01</span>
+      <span class="ix-chg pos">+0.32%</span>
+    </div>
+    
+  
+    
+    
+    <div class="index-cell">
+      <span class="ix-name">Dow</span>
+      <span class="ix-level">53,818.87</span>
+      <span class="ix-chg pos">+0.05%</span>
+    </div>
+    
+  
+    
+    
+    <div class="index-cell">
+      <span class="ix-name">Nasdaq</span>
+      <span class="ix-level">26,620.88</span>
+      <span class="ix-chg pos">+0.66%</span>
+    </div>
+    
+  
+  </div>
+</section>
+
+
+<details class="section" open>
+  <summary>당일 일정</summary>
+  <div class="section-body">
+    
+    <table class="data-table">
+      <thead><tr><th>시각(ET)</th><th>항목</th><th>컨센서스</th><th>출처</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td>08:30 ET</td>
+          <td>7월 소비자물가지수(CPI) <span class="stale-note">(Consumer Price Index (CPI) YoY)</span></td>
+          <td>3.4% y/y (core 2.5% y/y)</td>
+          <td>BLS</td>
+        </tr>
+      
+        <tr>
+          <td>12:45 ET</td>
+          <td>Bowman 연준 부의장(감독담당), CEO 서밋 화상 대담 <span class="stale-note">(Fed Vice Chair for Supervision Bowman — Fireside Chat (Virtual))</span></td>
+          <td>-</td>
+          <td>Federal Reserve Board</td>
+        </tr>
+      
+      </tbody>
+    </table>
+    
+  </div>
+</details>
+
+<details class="section" open>
+  <summary>속보</summary>
+  <div class="section-body">
+    
+      
+      <div class="watch-item importance-high">
+        <div class="status">
+          <span class="imp-pill imp-high">HIGH</span>
+          
+        </div>
+        <strong>美 7월 CPI 컨센서스 부합 — 헤드라인 3.4%y/y·근원 2.5%y/y</strong> <span class="orig-title">(July 2026 CPI in line with consensus)</span>
+        <p>BLS(노동통계국) 발표 결과 7월 CPI(소비자물가지수)는 전월대비(m/m) +0.1%, 전년대비(y/y) +3.4%로 6월(3.5%)보다 소폭 둔화. 근원(core) CPI는 m/m +0.2%·y/y +2.5%로 다우존스 컨센서스와 정확히 부합. 주거비가 월간 상승분의 약 2/3 기여, 에너지는 -1.5%. '예상대로'라는 안도감에 3대 지수 동반 상승 마감(S&P500 +0.30%, 다우 +0.11%, 나스닥 +0.59%, 러셀2000 +0.32%, 장중 기준).</p>
+        
+        
+        
+        <div class="source-line">출처: BLS; CNBC</div>
+      </div>
+      
+      <div class="watch-item importance-medium">
+        <div class="status">
+          <span class="imp-pill imp-medium">MEDIUM</span>
+          
+        </div>
+        <strong>CoreWeave(CRWV) 2분기 실적 서프라이즈 — 주가 +21%, capex 전망 상향</strong> <span class="orig-title">(CoreWeave Q2 beat, raises capex guidance)</span>
+        <p>AI 클라우드 인프라업체 CoreWeave 2분기 매출 $25.8억(전년比 +112%, 컨센서스 $25.6억 상회), 조정영업이익률 5%(컨센서스 2.7% 상회)로 '더 깨끗한 분기'라는 평가. 연간 capex(설비투자) 전망을 $310~350억에서 $350~390억으로 상향 — AI 인프라 수요 둔화 우려를 완화시키는 신호로 해석.</p>
+        
+        
+        
+        <div class="source-line">출처: CNBC</div>
+      </div>
+      
+      <div class="watch-item importance-medium">
+        <div class="status">
+          <span class="imp-pill imp-medium">MEDIUM</span>
+          
+        </div>
+        <strong>Nebius Group(NBIS) 2분기 매출 +454%y/y — 주가 +20.5%</strong> <span class="orig-title">(Nebius Q2 revenue surges 454% YoY)</span>
+        <p>AI 인프라업체 Nebius Group의 2분기 매출이 전년比 454% 급증한 $5.82억을 기록, 주가가 장중 +20.5% 급등. Super Micro Computer도 낙관적 가이던스 제시로 +9% 상승하며 AI 서버·클라우드 밸류체인 전반의 강세를 견인.</p>
+        
+        
+        
+        <div class="source-line">출처: Yahoo Finance; 24/7 Wall St.</div>
+      </div>
+      
+    
+  </div>
+</details>
+
+<details class="section" open>
+  <summary>변동성 · 유가</summary>
+  <div class="section-body">
+    <div class="chart-card">
+      <div class="chart-title">VIX 14.67 (-4.0%)</div>
+      <canvas id="chart_vix_spark" height="60"></canvas>
+      
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">WTI $82.85 · Brent $88.49</div>
+      <canvas id="chart_oil_spark" height="60"></canvas>
+    </div>
+    <p class="na-note">Dubai유: yfinance 표준 티커 부재 — WebSearch/DME Oman 선물로 보완 필요(§2.1.1)</p>
+  </div>
+</details>
+
+
+<details class="section">
+  <summary>신용지표 (임계 점검)</summary>
+  <div class="section-body">
+    <div class="kv-row"><span class="k">HY OAS</span><span class="v">272.0bp</span></div>
+    <div class="kv-row"><span class="k">IG OAS</span><span class="v">79.0bp</span></div>
+    <p class="na-note">추세·해석은 Weekly 신용 대시보드 참조. 상시 표기는 임계 돌파시에만 경보.</p>
+  </div>
+</details>
+
+
+
+<details class="section">
+  <summary>Watchlist 메모</summary>
+  <div class="section-body">
+    
+    <div class="watch-item"><span class="badge-status badge-active">active</span> 호르무즈 해협 분쟁 — 미·이란 긴장 및 통항 제한 — 오만 중재 협상 '최종 단계' 선언에도 통항 재개 미확인, 신규 material 이벤트 없음(선언≠해소 유지)</div>
+    
+    <div class="watch-item"><span class="badge-status badge-active">active</span> 러시아-우크라이나 전쟁 — 정전 협상 교착 — 신규 이벤트 없음, 교착 지속</div>
+    
+    <div class="watch-item"><span class="badge-status badge-active">active</span> 미·중 무역·기술전쟁 — 관세·반도체·희토류 갈등 — Moonshot 엔티티리스트 등재 검토 지속, 오늘 신규 확정 조치 없음</div>
+    
+    <div class="watch-item"><span class="badge-status badge-active">active</span> 대만 해협 — 中 군사 압박 및 반도체 공급망 리스크 — PLA 활동(항공기 2소티) 평소 수준, 한광훈련(~8/14) 기간 중 특이 에스컬레이션 미확인</div>
+    
+    <div class="watch-item"><span class="badge-status badge-active">active</span> USTR Section 301 강제노동 관세 — 60개국 10~12.5% — CIT 소송 진행 중에도 관세 시행 지속, 신규 진전 없음</div>
+    
+    <div class="watch-item"><span class="badge-status badge-active">active</span> 후티 홍해 봉쇄 — 사우디 유조선 공격 및 바브엘만데브 차단 — 8/9 자잔 정유시설 타격 이후 신규 공격 미확인</div>
+    
+    <div class="watch-item"><span class="badge-status badge-active">active</span> 캐나다 대상 통상법 338조 50% 관세 — USMCA 무력화 — 8/19 발효 예정, 신규 진전 없음</div>
+    
+  </div>
+</details>
+
+
+<footer class="report-footer">Events &amp; News Tracking Agent · America/New_York · 완전 자동 생성</footer>
+</div>
+
+<script>window.__CHARTS__ = [{"id": "chart_vix_spark", "config": {"type": "line", "data": {"labels": ["2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12"], "datasets": [{"label": "VIX", "data": [18.700000762939453, 18.579999923706055, 18.670000076293945, 18.209999084472656, 20.65999984741211, 17.09000015258789, 15.989999771118164, 15.859999656677246, 16.5, 15.8100004196167, 15.149999618530273, 14.899999618530273, 15.460000038146973, 15.279999732971191, 14.670000076293945], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.25, "fill": false}]}, "options": {"plugins": {"legend": {"display": false}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"x": {"display": false}, "y": {"display": false}}, "elements": {"point": {"radius": 0}}}}}, {"id": "chart_oil_spark", "config": {"type": "line", "data": {"labels": ["2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12"], "datasets": [{"label": "WTI", "data": [92.19000244140625, 89.30999755859375, 82.61000061035156, 79.26000213623047, 84.45999908447266, 83.58999633789062, 84.66999816894531, 80.33999633789062, 75.7699966430664, 75.22000122070312, 77.29000091552734, 78.18000030517578, 82.12999725341797, 83.19999694824219, 82.8499984741211], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.25, "fill": false}, {"label": "Brent", "data": [100.69000244140625, 96.77999877929688, 88.36000061035156, 84.08999633789062, 90.73999786376953, 89.02999877929688, 90.12000274658203, 83.7699966430664, 79.36000061035156, 79.44999694824219, 82.48999786376953, 83.55000305175781, 87.72000122070312, 88.91000366210938, 88.48999786376953], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.25, "fill": false}]}, "options": {"plugins": {"legend": {"display": false}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"x": {"display": false}, "y": {"display": false}}, "elements": {"point": {"radius": 0}}}}}];</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+  var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var gridColor = isDark ? '#2c2c2a' : '#e1e0d9';
+  var tickColor = isDark ? '#c3c2b7' : '#52514e';
+
+  function pickThemeColors(obj) {
+    if (Array.isArray(obj)) {
+      obj.forEach(pickThemeColors);
+      return;
+    }
+    if (obj && typeof obj === 'object') {
+      Object.keys(obj).forEach(function (key) {
+        var m = key.match(/^(.*)(Light|Dark)$/);
+        if (m) {
+          var base = m[1], mode = m[2];
+          if ((isDark && mode === 'Dark') || (!isDark && mode === 'Light')) {
+            obj[base] = obj[key];
+          }
+        }
+      });
+      Object.keys(obj).forEach(function (key) {
+        if (/^(.*)(Light|Dark)$/.test(key)) {
+          delete obj[key];
+        } else {
+          pickThemeColors(obj[key]);
+        }
+      });
+    }
+  }
+
+  var valueLabelPlugin = {
+    id: 'valueLabel',
+    afterDatasetsDraw: function (chart) {
+      var opts = chart.options.plugins && chart.options.plugins.valueLabel;
+      if (!opts || !opts.enabled) return;
+      var ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = tickColor;
+      ctx.font = '11px system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      chart.data.datasets.forEach(function (ds, di) {
+        var meta = chart.getDatasetMeta(di);
+        meta.data.forEach(function (bar, i) {
+          var v = ds.data[i];
+          if (v === null || v === undefined) return;
+          var label = (v > 0 ? '+' : '') + v.toFixed(1) + '%';
+          var y = v >= 0 ? bar.y - 6 : bar.y + 14;
+          ctx.fillText(label, bar.x, y);
+        });
+      });
+      ctx.restore();
+    },
+  };
+
+  var quadrantPlugin = {
+    id: 'quadrant',
+    afterDraw: function (chart) {
+      var opts = chart.options.plugins && chart.options.plugins.quadrant;
+      if (!opts || !opts.enabled) return;
+      var ctx = chart.ctx;
+      var xScale = chart.scales.x, yScale = chart.scales.y;
+      if (!xScale || !yScale) return;
+      var xMid = xScale.getPixelForValue(100);
+      var yMid = yScale.getPixelForValue(100);
+      ctx.save();
+      ctx.strokeStyle = gridColor;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(xMid, chart.chartArea.top);
+      ctx.lineTo(xMid, chart.chartArea.bottom);
+      ctx.moveTo(chart.chartArea.left, yMid);
+      ctx.lineTo(chart.chartArea.right, yMid);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = tickColor;
+      ctx.font = '10px system-ui, sans-serif';
+      ctx.fillText('개선', chart.chartArea.left + 20, chart.chartArea.top + 12);
+      ctx.fillText('선도', chart.chartArea.right - 20, chart.chartArea.top + 12);
+      ctx.fillText('후행', chart.chartArea.left + 20, chart.chartArea.bottom - 6);
+      ctx.fillText('둔화', chart.chartArea.right - 20, chart.chartArea.bottom - 6);
+      ctx.restore();
+    },
+  };
+
+  Chart.register(valueLabelPlugin, quadrantPlugin);
+  Chart.defaults.color = tickColor;
+  Chart.defaults.borderColor = gridColor;
+  Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', sans-serif";
+
+  var charts = window.__CHARTS__ || [];
+  var instances = {};
+  charts.forEach(function (c) {
+    var config = c.config;
+    pickThemeColors(config);
+    var el = document.getElementById(c.id);
+    if (!el) return;
+    try {
+      instances[c.id] = new Chart(el.getContext('2d'), config);
+    } catch (e) {
+      var msg = document.createElement('p');
+      msg.className = 'na-note';
+      msg.textContent = '차트 렌더링 실패: ' + c.id;
+      el.replaceWith(msg);
+    }
+  });
+  window.__CHART_INSTANCES__ = instances;
+
+  // 차트 필터 버튼: data-charts="id1,id2" data-label="시리즈명" 버튼 클릭 시 해당 데이터셋 표시/숨김.
+  // data-action="all"/"none" 버튼은 그룹 내 전체 표시/숨김.
+  function setSeries(chartIds, label, visible) {
+    chartIds.forEach(function (id) {
+      var chart = instances[id];
+      if (!chart) return;
+      chart.data.datasets.forEach(function (ds, i) {
+        if (ds.label === label) chart.setDatasetVisibility(i, visible);
+      });
+      chart.update();
+    });
+  }
+  document.querySelectorAll('.chart-filter').forEach(function (bar) {
+    var chartIds = (bar.getAttribute('data-charts') || '').split(',').filter(Boolean);
+    var seriesButtons = bar.querySelectorAll('button[data-label]');
+    bar.addEventListener('click', function (ev) {
+      var btn = ev.target.closest('button');
+      if (!btn) return;
+      var action = btn.getAttribute('data-action');
+      if (action === 'all' || action === 'none') {
+        var visible = action === 'all';
+        seriesButtons.forEach(function (b) {
+          b.classList.toggle('off', !visible);
+          setSeries(chartIds, b.getAttribute('data-label'), visible);
+        });
+        return;
+      }
+      var label = btn.getAttribute('data-label');
+      if (!label) return;
+      var nowOff = btn.classList.toggle('off');
+      setSeries(chartIds, label, !nowOff);
+    });
+  });
+})();
+</script>
+</body>
+</html>

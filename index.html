@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invest Pages</title>
+<style>
+  body { font-family: -apple-system, "Noto Sans KR", sans-serif; background: #f9f9f7; color: #0b0b0b;
+         max-width: 720px; margin: 4rem auto; padding: 0 1.5rem; }
+  h1 { font-size: 1.6rem; margin-bottom: .3rem; }
+  .updated { color: #898781; font-size: .85rem; margin-bottom: 2rem; }
+  .card { display: block; border: 1px solid #e1e0d9; border-radius: 10px; padding: 1rem 1.25rem;
+          margin-bottom: .9rem; text-decoration: none; color: inherit; transition: border-color .15s; }
+  .card:hover { border-color: #0b5ed7; }
+  .card h2 { font-size: 1.05rem; margin: 0 0 .25rem; }
+  .card p { margin: 0; color: #6c757d; font-size: .9rem; }
+  .card.disabled { opacity: .55; pointer-events: none; }
+  .links { display: flex; gap: .75rem; margin-top: .5rem; font-size: .85rem; }
+</style>
+</head>
+<body>
+  <h1>Invest Pages</h1>
+  <div class="updated">투자 관련 자동화 에이전트 산출물 모음</div>
+
+  <a class="card" href="event-news/daily.html">
+    <h2>Event & News</h2>
+    <p>일일/주간 이벤트·뉴스 브리핑</p>
+    <div class="links">
+      <a href="event-news/daily.html">Daily</a>
+      <a href="event-news/weekly.html">Weekly</a>
+    </div>
+  </a>
+
+  <a class="card" href="value-tracking-agent/latest.html">
+    <h2>Value Tracking Agent</h2>
+    <p>분기별 종목 가치평가 대시보드</p>
+  </a>
+
+  <div class="card disabled">
+    <h2>KPI Setting</h2>
+    <p>준비 중 — 온보딩 진행 후 연동 예정</p>
+  </div>
+</body>
+</html>

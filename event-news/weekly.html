@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Report — 2026-W33</title>
+<style>
+  :root {
+    --surface-1: #fcfcfb;
+    --page: #f9f9f7;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted: #898781;
+    --grid: #e1e0d9;
+    --baseline: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --good: #0ca30c;
+    --warning: #fab219;
+    --serious: #ec835a;
+    --critical: #d03b3b;
+    --pos: #2a78d6;
+    --neg: #e34948;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19;
+      --page: #0d0d0d;
+      --text-primary: #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted: #898781;
+      --grid: #2c2c2a;
+      --baseline: #383835;
+      --border: rgba(255,255,255,0.10);
+      --good: #0ca30c;
+      --warning: #fab219;
+      --serious: #ec835a;
+      --critical: #d03b3b;
+      --pos: #3987e5;
+      --neg: #e66767;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 16px 14px 48px; }
+  header.report-header { padding: 4px 0 14px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  header.report-header h1 { font-size: 1.25rem; margin: 0 0 4px; }
+  header.report-header .meta { color: var(--text-muted); font-size: 0.82rem; }
+
+  .summary-panel {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .summary-panel h2 { font-size: 0.95rem; margin: 0 0 8px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.02em; }
+  .summary-panel ul { margin: 0; padding-left: 1.1em; }
+  .summary-panel li { margin-bottom: 6px; }
+
+  .alert-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface-1); border: 1px solid var(--critical);
+    color: var(--critical); border-radius: 999px; padding: 3px 10px;
+    font-size: 0.8rem; font-weight: 600; margin: 2px 6px 2px 0;
+  }
+  .alert-badge.warning { border-color: var(--warning); color: var(--warning); }
+
+  details.section {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    padding: 0;
+    overflow: hidden;
+  }
+  details.section > summary {
+    cursor: pointer;
+    padding: 12px 16px;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  details.section > summary::-webkit-details-marker { display: none; }
+  details.section > summary::after { content: "+"; color: var(--text-muted); font-weight: 400; }
+  details.section[open] > summary::after { content: "\2212"; }
+  details.section .section-body { padding: 4px 16px 16px; border-top: 1px solid var(--border); }
+
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+  table.data-table th, table.data-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); }
+  table.data-table th { color: var(--text-muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
+
+  .chart-card { margin: 14px 0; }
+  .chart-card .chart-title { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 600; }
+  .chart-card canvas { max-width: 100%; }
+
+  /* 섹터 heatmap: 11개 직사각형 행 세로 정렬. 본문은 기본 텍스트 색(대비 확보),
+     방향·강도는 왼쪽 컬러 보더 + 배지(글리프·한글 병기)로 인코딩 */
+  .heatmap-list { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+  .heatmap-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--cell-light);
+    border-radius: 8px; padding: 8px 12px; font-size: 0.82rem;
+    background: var(--surface-1); color: var(--text-primary);
+  }
+  .heatmap-row .hc-badge {
+    flex: 0 0 auto; display: inline-block; margin-top: 2px;
+    padding: 2px 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 700;
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+    background-color: var(--cell-light); color: var(--badge-text-light, #fff);
+  }
+  .heatmap-row .hc-main { flex: 1 1 auto; min-width: 0; }
+  .heatmap-row .hc-name { font-weight: 600; color: var(--text-primary); }
+  .heatmap-row .hc-change { font-variant-numeric: tabular-nums; font-weight: 600; margin-left: 6px; font-size: 0.78rem; }
+  .heatmap-row .hc-change.pos { color: var(--pos); }
+  .heatmap-row .hc-change.neg { color: var(--neg); }
+  .heatmap-row .hc-reason { font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px; }
+  @media (prefers-color-scheme: dark) {
+    .heatmap-row { border-left-color: var(--cell-dark); }
+    .heatmap-row .hc-badge { background-color: var(--cell-dark); color: var(--badge-text-dark, #fff); }
+  }
+
+  .rrg-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 0.78rem; margin-top: 6px; }
+  .rrg-legend .item { display: inline-flex; align-items: center; gap: 5px; }
+  .rrg-legend .swatch {
+    width: 10px; height: 10px; border-radius: 2px; display: inline-block;
+    background-color: var(--sw-light);
+  }
+  @media (prefers-color-scheme: dark) {
+    .rrg-legend .swatch { background-color: var(--sw-dark); }
+  }
+
+  .watch-item { border-left: 3px solid var(--baseline); padding: 6px 0 6px 10px; margin-bottom: 8px; }
+  .watch-item .status { font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); }
+  .badge-status { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
+  .badge-active { background: var(--critical); color: #fff; }
+  .badge-monitoring { background: var(--warning); color: #1a1a19; }
+  .badge-dormant { background: var(--baseline); color: var(--text-primary); }
+
+  .stale-note { color: var(--text-muted); font-size: 0.74rem; }
+  .na-note { color: var(--text-muted); font-style: italic; font-size: 0.8rem; }
+
+  /* 배경 해설(비전문가용 부연 설명) — 본문과 구별되는 연한 박스 */
+  .explain-box {
+    background: var(--page); border: 1px solid var(--grid); border-radius: 6px;
+    padding: 8px 10px; margin: 6px 0; font-size: 0.8rem; color: var(--text-secondary);
+  }
+  .explain-box::before { content: "해설 "; font-weight: 700; font-size: 0.72rem; color: var(--text-muted); }
+
+  /* 용어 주석(축약어 풀이) — 각주 스타일 */
+  .glossary { margin: 6px 0 2px; padding: 0; list-style: none; font-size: 0.74rem; color: var(--text-muted); }
+  .glossary li { margin: 1px 0; padding-left: 12px; text-indent: -12px; }
+  .glossary li::before { content: "※ "; }
+  .glossary .term { font-weight: 600; color: var(--text-secondary); }
+
+  /* 운영·프로그램 문구(수명주기 원칙 적용, 1차 미확인 등) — 본문과 명확히 구별 */
+  .ops-note {
+    display: inline-block; margin: 4px 0; padding: 2px 8px;
+    border: 1px dashed var(--baseline); border-radius: 4px;
+    font-size: 0.72rem; color: var(--text-muted);
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  .ops-note::before { content: "⚙ 운영 "; font-weight: 700; }
+
+  /* 차트 보조 설명(지표가 무엇을 의미하는지) */
+  .chart-desc { font-size: 0.76rem; color: var(--text-muted); margin: 2px 0 8px; line-height: 1.45; }
+
+  /* 차트 필터 버튼(국가·섹터 토글) */
+  .chart-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; }
+  .chart-filter button {
+    border: 1px solid var(--border); background: var(--surface-1); color: var(--text-primary);
+    border-radius: 999px; padding: 3px 10px; font-size: 0.76rem; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .chart-filter button .swatch {
+    width: 9px; height: 9px; border-radius: 2px; display: inline-block;
+    background-color: var(--sw-light);
+  }
+  .chart-filter button.off { opacity: 0.42; }
+  .chart-filter button.off .swatch { background-color: var(--baseline); }
+  .chart-filter button.ctrl { color: var(--text-muted); font-size: 0.72rem; }
+  @media (prefers-color-scheme: dark) {
+    .chart-filter button .swatch { background-color: var(--sw-dark); }
+    .chart-filter button.off .swatch { background-color: var(--baseline); }
+  }
+
+  footer.report-footer { margin-top: 24px; color: var(--text-muted); font-size: 0.76rem; text-align: center; }
+
+  .kv-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--grid); font-size: 0.86rem; }
+  .kv-row .k { color: var(--text-secondary); }
+  .kv-row .v { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .v.pos { color: var(--pos); }
+  .v.neg { color: var(--neg); }
+
+  /* 지수 마감 리캡 스트립(Daily 상단) */
+  .index-strip { display: flex; align-items: baseline; gap: 10px 16px; flex-wrap: wrap;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 16px; margin-bottom: 20px; }
+  .index-strip .strip-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--text-muted); font-weight: 700; }
+  .index-strip .strip-cells { display: flex; gap: 20px; flex-wrap: wrap; }
+  .index-cell { display: inline-flex; align-items: baseline; gap: 7px; }
+  .index-cell .ix-name { font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; }
+  .index-cell .ix-level { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 0.92rem; }
+  .index-cell .ix-chg { font-variant-numeric: tabular-nums; font-size: 0.8rem; font-weight: 600; }
+  .index-cell .ix-chg.pos { color: var(--pos); }
+  .index-cell .ix-chg.neg { color: var(--neg); }
+
+  /* 속보 중요도 시각 구분 + 원문/출처 스타일 */
+  .watch-item.importance-high { border-left-color: var(--critical); border-left-width: 4px; }
+  .watch-item.importance-medium { border-left-color: var(--warning); border-left-width: 4px; }
+  .watch-item .status { display: flex; align-items: center; gap: 5px; margin-bottom: 3px; }
+  .imp-pill { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 0.68rem;
+    font-weight: 700; letter-spacing: 0.03em; }
+  .imp-pill.imp-high { background: var(--critical); color: #fff; }
+  .imp-pill.imp-medium { background: var(--warning); color: #1a1a19; }
+  .wl-tag { display: inline-block; padding: 1px 6px; border: 1px solid var(--border);
+    border-radius: 4px; font-size: 0.66rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.03em; }
+  .orig-title { color: var(--text-muted); font-weight: 400; font-size: 0.86em; }
+  .source-line { display: block; margin-top: 6px; font-size: 0.74rem; color: var(--text-muted); }
+
+  /* 커머디티 사이클 보드 (Commodity-Agent_설계서 §D.5) */
+  .commodity-board td { vertical-align: top; }
+  .cycle-bottoming { background: var(--good); color: #fff; }
+  .cycle-early_recovery { background: var(--pos); color: #fff; }
+  .cycle-mid { background: var(--baseline); color: var(--text-primary); }
+  .cycle-late { background: var(--warning); color: #1a1a19; }
+  .cycle-downturn { background: var(--critical); color: #fff; }
+  .badge-trig-hit { background: var(--critical); color: #fff; }
+  .badge-trig-cand { background: var(--serious); color: #fff; }
+  .badge-bottom-zone { background: var(--good); color: #fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="report-header">
+  <h1>Events &amp; News · Weekly Report — 2026-W33</h1>
+  <div class="meta">리캡 2026-08-03~08-07 · 전망 2026-08-10~08-14 · America/New_York 월요일 09:00 앵커 · 생성 2026-08-10T09:35:41-04:00</div>
+</header>
+
+
+
+<section class="summary-panel">
+  <h2>한눈에 보기</h2>
+  <ul>
+  
+    <li>7월 고용보고서(8/7 발표) 충격: 비농업고용 2만3천명 감소(예상 +8만명 대폭 하회), 실업률은 4.1%로 소폭 하락. 노동시장 냉각 신호가 뚜렷해지며 이번 주(8/12 CPI·8/13 PPI·8/14 소매판매) 3대 물가·소비 지표 연속 발표가 9월 15~16일 FOMC의 금리 경로 판단에 핵심 변수로 부상. 이번 주엔 FOMC 회의 자체는 없음.</li>
+  
+    <li>중동 리스크는 '완화 신호'와 '확전 신호'가 동시 진행: 이란-오만이 호르무즈 해협 임시 통항로에 원칙 합의(8/5)했으나 이란은 美 측 보상 등 추가조건을 요구하며 실제 통항 재개는 미확인('선언≠해소', active 유지). 반면 후티는 8/6 사우디 유조선 'Wafa'호를 홍해 '북부'까지 확대된 범위에서 공격(캠페인 개시 후 8번째 피격) — 두 전선이 엇갈리는 가운데 WTI +$4.10·Brent +$5.40(주간)로 유가는 오히려 상승.</li>
+  
+    <li>위험자산 랠리는 지속되나 속도는 둔화: S&P500 +3.58%(전주 +5.79%)·Nasdaq +5.19%·Dow +2.96%, VIX 15.42로 안정권 유지. 반도체(+7.80%)·Growth/Intangible(+8.02%)·Biotech(+6.65%)가 재차 주도한 반면 Energy 바스켓은 유가 상승에도 -3.44%(XLE)로 소외 — 지난주 유가 급락 랠리의 되돌림 성격, AI 테마 중심 쏠림은 여전.</li>
+  
+    <li>신용 여건은 안정적: HY OAS 271bp(전주 273bp 대비 -2bp, 임계 500bp/5일 75bp 모두 미이탈)·IG OAS 78bp 보합. 7월 SLOOS(8/3 발표)는 C&I 대출태도 보합·CRE는 오히려 완화로 나타나 은행권 신용공급 태도가 우호적으로 유지.</li>
+  
+    <li>관세 전선 이중 확대: 25개 주 연합이 Section 301 강제노동 관세를 상대로 국제무역법원(CIT)에 소송 제기(8/3, watchlist 후속)한 가운데, 트럼프 대통령이 1949년 이후 처음으로 통상법 338조를 발동해 캐나다산 자동차·주류·유제품(약 200억 달러 규모)에 50% 관세를 8/19 발효 예정으로 부과(7/20 서명) — USMCA 무력화 리스크로 신규 watchlist 등록 검토 대상. 2026 중간선거(11/3, D-85)는 경제·물가가 최대 쟁점으로 부상.</li>
+  
+  </ul>
+</section>
+
+<details class="section" open>
+  <summary>정량 지표 · 차트</summary>
+  <div class="section-body">
+
+    <div class="chart-card">
+      <div class="chart-title">지수 · 섹터 ETF 주간변화 (W32 vs W31)</div>
+      <p class="chart-desc">직전 거래주 마감 기준, 그 전주 마감 대비 등락률(%). 지수 3종 + 섹터 그룹별 대표 ETF 바스켓.</p>
+      <canvas id="chart_etf_bar" height="160"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">섹터 RRG 4분면 (벤치마크: SPY, 최근 8주 꼬리)</div>
+      <p class="chart-desc">RRG(Relative Rotation Graph) = 각 섹터가 벤치마크(SPY, S&amp;P500 추종 ETF) 대비 얼마나 강한지(가로: RS-Ratio 상대강도)와 그 강도가 좋아지는 중인지(세로: RS-Momentum 모멘텀)를 함께 보는 차트. 우상=선도, 우하=둔화, 좌하=후행, 좌상=개선 — 섹터는 통상 시계방향으로 회전. 선 꼬리는 최근 8주 궤적, 끝의 큰 점이 최신 위치. 아래 버튼으로 섹터별 표시/숨김.</p>
+      <div class="chart-filter" data-charts="chart_rrg">
+        
+        <button type="button" data-label="Consumer Defensive"><span class="swatch" style="--sw-light: #2a78d6; --sw-dark: #3987e5;"></span>Consumer Defensive</button>
+        
+        <button type="button" data-label="Cyclical Industrials (A&D + Chemicals)"><span class="swatch" style="--sw-light: #1baf7a; --sw-dark: #199e70;"></span>Cyclical Industrials (A&D + Chemicals)</button>
+        
+        <button type="button" data-label="Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)"><span class="swatch" style="--sw-light: #eda100; --sw-dark: #c98500;"></span>Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)</button>
+        
+        <button type="button" data-label="Capital-Intensive Regulated (Utilities/Telecom/Midstream)"><span class="swatch" style="--sw-light: #008300; --sw-dark: #008300;"></span>Capital-Intensive Regulated (Utilities/Telecom/Midstream)</button>
+        
+        <button type="button" data-label="Financial"><span class="swatch" style="--sw-light: #4a3aa7; --sw-dark: #9085e9;"></span>Financial</button>
+        
+        <button type="button" data-label="Growth/Intangible (SaaS/Internet/IT Svcs)"><span class="swatch" style="--sw-light: #e34948; --sw-dark: #e66767;"></span>Growth/Intangible (SaaS/Internet/IT Svcs)</button>
+        
+        <button type="button" data-label="REIT"><span class="swatch" style="--sw-light: #e87ba4; --sw-dark: #d55181;"></span>REIT</button>
+        
+        <button type="button" data-label="Semiconductors"><span class="swatch" style="--sw-light: #eb6834; --sw-dark: #d95926;"></span>Semiconductors</button>
+        
+        <button type="button" data-label="Auto Manufacturers"><span class="swatch" style="--sw-light: #2a78d6; --sw-dark: #3987e5;"></span>Auto Manufacturers</button>
+        
+        <button type="button" data-label="Large Pharma"><span class="swatch" style="--sw-light: #1baf7a; --sw-dark: #199e70;"></span>Large Pharma</button>
+        
+        <button type="button" data-label="Biotech"><span class="swatch" style="--sw-light: #eda100; --sw-dark: #c98500;"></span>Biotech</button>
+        
+        <button type="button" class="ctrl" data-action="all">전체 표시</button>
+        <button type="button" class="ctrl" data-action="none">모두 숨김</button>
+      </div>
+      <canvas id="chart_rrg" height="220"></canvas>
+      
+      <table class="data-table" style="margin-top: 10px;">
+        <thead><tr><th>섹터</th><th>현재 4분면</th><th>해석</th></tr></thead>
+        <tbody>
+        
+          <tr><td>Consumer Defensive</td><td>후행(Lagging)</td><td class="stale-note">상대강도·모멘텀 모두 열위 — 시장 대비 부진한 섹터</td></tr>
+        
+          <tr><td>Cyclical Industrials (A&D + Chemicals)</td><td>후행(Lagging)</td><td class="stale-note">상대강도·모멘텀 모두 열위 — 시장 대비 부진한 섹터</td></tr>
+        
+          <tr><td>Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)</td><td>후행(Lagging)</td><td class="stale-note">상대강도·모멘텀 모두 열위 — 시장 대비 부진한 섹터</td></tr>
+        
+          <tr><td>Capital-Intensive Regulated (Utilities/Telecom/Midstream)</td><td>개선(Improving)</td><td class="stale-note">상대강도는 열위지만 모멘텀 회복 중 — 반등 후보</td></tr>
+        
+          <tr><td>Financial</td><td>후행(Lagging)</td><td class="stale-note">상대강도·모멘텀 모두 열위 — 시장 대비 부진한 섹터</td></tr>
+        
+          <tr><td>Growth/Intangible (SaaS/Internet/IT Svcs)</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
+        
+          <tr><td>REIT</td><td>개선(Improving)</td><td class="stale-note">상대강도는 열위지만 모멘텀 회복 중 — 반등 후보</td></tr>
+        
+          <tr><td>Semiconductors</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
+        
+          <tr><td>Auto Manufacturers</td><td>개선(Improving)</td><td class="stale-note">상대강도는 열위지만 모멘텀 회복 중 — 반등 후보</td></tr>
+        
+          <tr><td>Large Pharma</td><td>후행(Lagging)</td><td class="stale-note">상대강도·모멘텀 모두 열위 — 시장 대비 부진한 섹터</td></tr>
+        
+          <tr><td>Biotech</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
+        
+        </tbody>
+      </table>
+      
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">VIX 시계열</div>
+      <p class="chart-desc">VIX = S&amp;P500 옵션 가격에 내재된 향후 30일 기대 변동성('공포지수'). 통상 20 미만이면 안정, 30 이상이면 불안 국면으로 해석.</p>
+      <canvas id="chart_vix_series" height="100"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">유가 시계열 (WTI/Brent)</div>
+      <p class="chart-desc">국제 유가 양대 벤치마크($/배럴) — WTI는 미국(서부텍사스산), Brent는 유럽·중동 수출가 기준(북해산).</p>
+      <canvas id="chart_oil_series" height="100"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">신용 스프레드 추세 (HY/IG OAS)</div>
+      <p class="chart-desc">OAS(Option-Adjusted Spread·옵션조정 스프레드) = 회사채 금리가 미 국채 대비 얼마나 높은지, 즉 투자자가 신용위험에 요구하는 추가 보상(bp, 1bp=0.01%p). HY(High Yield)는 투기등급, IG(Investment Grade)는 우량 투자등급 회사채 기준. 낮을수록 시장이 신용위험을 낮게 보고 안정적이라는 뜻 — HY 500bp 초과 시 경보.</p>
+      <canvas id="chart_credit_trend" height="140"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">수익률곡선 2s10s (UST10Y − UST2Y)</div>
+      <p class="chart-desc">미 국채 10년물과 2년물 금리 차. 0 이하로 역전되면 단기금리가 장기금리를 초과한 상태로, 역사적으로 경기침체(Recession)의 전조 신호로 해석돼 왔음. 반대로 스프레드 확대(+)는 완화적 통화정책·경기 회복과 함께 정상적인 우상향 곡선으로 복귀함을 시사.</p>
+      <canvas id="chart_2s10s" height="120"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">5개국 실질 · 기준금리 (미·유로·일·영·한)</div>
+      <p class="chart-desc">기준금리 = 각국 중앙은행의 정책금리. 실질금리 = 기준금리 − CPI(소비자물가) 상승률 — 물가를 감안한 실제 긴축/완화 강도로, 마이너스면 물가 대비 완화적 환경을 뜻함. 중국은 데이터 품질 이슈로 제외. 아래 버튼으로 국가별 표시/숨김.</p>
+      
+      <div class="chart-filter" data-charts="chart_rates5_real,chart_rates5_policy">
+        
+        <button type="button" data-label="미국"><span class="swatch" style="--sw-light: #2a78d6; --sw-dark: #3987e5;"></span>미국</button>
+        
+        <button type="button" data-label="유로존"><span class="swatch" style="--sw-light: #1baf7a; --sw-dark: #199e70;"></span>유로존</button>
+        
+        <button type="button" data-label="일본"><span class="swatch" style="--sw-light: #eda100; --sw-dark: #c98500;"></span>일본</button>
+        
+        <button type="button" data-label="영국"><span class="swatch" style="--sw-light: #008300; --sw-dark: #008300;"></span>영국</button>
+        
+        <button type="button" data-label="한국"><span class="swatch" style="--sw-light: #4a3aa7; --sw-dark: #9085e9;"></span>한국</button>
+        
+        <button type="button" class="ctrl" data-action="all">전체 표시</button>
+        <button type="button" class="ctrl" data-action="none">모두 숨김</button>
+      </div>
+      
+      
+      <div class="chart-title">① 실질금리 (%)</div>
+      <canvas id="chart_rates5_real" height="130"></canvas>
+      
+      
+      <div class="chart-title">② 기준금리 (%)</div>
+      <canvas id="chart_rates5_policy" height="130"></canvas>
+      
+      
+      <p class="na-note">데이터 누락: 일본·영국·한국 — CPI 미수신으로 실질금리 산출 불가(기준금리만 표시)</p>
+      
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">연준 경로 (FedWatch 헤드라인 확률)</div>
+      <p class="chart-desc">금리 선물시장(CME FedWatch)에 반영된, 다음 FOMC(연방공개시장위원회) 금리 결정 시나리오별 시장 내재 확률.</p>
+      
+      <p class="na-note">이번 주 FedWatch/점도표 갱신 없음 — 서술 참조</p>
+      
+    </div>
+
+  </div>
+</details>
+
+
+
+
+
+<details class="section">
+  <summary>거시·연준·재정</summary>
+  <div class="section-body">
+    
+      
+      <div class="watch-item">
+        <span class="badge-status badge-dormant">기보도</span>
+        <strong>7월 고용동향보고서: 비농업고용 2만3천명 감소, 예상치 크게 하회</strong> <span class="stale-note">(July 2026 Employment Situation — Nonfarm Payrolls -23K vs +80K Expected)</span>
+        <p>BLS(Bureau of Labor Statistics·미국 노동통계국)가 8월 7일(금) 발표한 7월 고용동향보고서에 따르면 비농업부문 고용(Nonfarm Payrolls)이 전월대비 2만3천명 감소해 시장 예상치(+8만명 증가)를 크게 밑돌았다. 실업률(Unemployment Rate)은 4.1%로 전월 대비 소폭 하락했다. 정부(-5만3천명)·레저/숙박(-4만명)·소매(-1만9천4백명) 부문이 감소를 주도했고, 헬스케어·사회복지(+2만2천6백명)·건설(+2만2천명)이 증가를 견인했다.</p>
+        <div class="explain-box">비농업고용은 연준의 이중책무(물가안정·최대고용) 중 고용축 판단의 핵심 지표다. 예상을 크게 밑돈 이번 결과는 노동시장 냉각 신호로, 실업률 하락에도 불구하고 시장은 9월 FOMC의 인하 기대를 강화하는 재료로 받아들이고 있다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">비농업고용(Nonfarm Payrolls)</span>: 농업을 제외한 민간·공공부문 신규 고용자 수의 전월 대비 변화</li><li><span class="term">실업률(Unemployment Rate)</span>: 경제활동인구 중 실업자가 차지하는 비율</li>
+        </ul>
+        
+        <div><span class="ops-note">8/7 Daily에서 이미 속보로 보도됨 — 이번 주는 노동시장 냉각 신호가 9월 FOMC 경로에 갖는 함의를 종합해 재정리.</span></div>
+        <span class="stale-note">출처: BLS</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>이번 주(8/10~14) 3대 지표 연속 발표 — CPI(8/12)·PPI(8/13)·소매판매(8/14)</strong> <span class="stale-note">(This Week: CPI (Aug 12), PPI (Aug 13), Retail Sales (Aug 14))</span>
+        <p>BLS가 8월 12일(수) 08:30 ET 7월 CPI(Consumer Price Index·소비자물가지수)를, 8월 13일(목) 08:30 ET 7월 PPI(Producer Price Index·생산자물가지수)를 발표한다. Census Bureau는 8월 14일(금) 08:30 ET 7월 소매판매 속보치를 발표 예정이다. 관세발 비용 전가가 헤드라인·근원 물가에 얼마나 반영됐는지, 그리고 고용 둔화 이후 소비 흐름이 유지되는지가 관전 포인트다. 차기 FOMC 정례회의는 9월 15~16일로 이번 주 회의는 없다.</p>
+        <div class="explain-box">CPI·PPI는 관세 비용이 생산자에서 소비자로 전가되는 경로를 순차적으로 보여주고, 소매판매는 개인소비지출(PCE)의 가장 이른 월간 신호다. 이번 주 발표되는 세 지표는 지난주 고용 충격 이후 첫 인플레이션·소비 확인 지표라 9월 FOMC 인하 폭 논쟁에 직접 영향을 준다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">CPI</span>: Consumer Price Index·소비자물가지수 — 도시 소비자 대상 상품·서비스 가격 변동 측정</li><li><span class="term">PPI</span>: Producer Price Index·생산자물가지수 — 국내 생산자가 판매하는 재화·서비스 가격 변동 측정</li><li><span class="term">FOMC</span>: Federal Open Market Committee·연방공개시장위원회 — 미국 기준금리를 결정하는 연준 내 위원회</li>
+        </ul>
+        
+        <div><span class="ops-note">2차 보도 간 PPI(8/14 vs 8/13)·소매판매(8/15 vs 8/14) 발표일 표기가 엇갈려 1차(BLS·Census 공식 일정) 기준으로 채택 — 요일 불일치 있는 2차 보도는 기각.</span></div>
+        <span class="stale-note">출처: BLS / Census Bureau / federalreserve.gov</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>미시간대 소비자심리지수 8월 예비치 — 정확한 발표일 확인필요</strong> <span class="stale-note">(University of Michigan Consumer Sentiment (Aug Prelim) — Date Unconfirmed)</span>
+        <p>미시간대(University of Michigan) 소비자심리지수 8월 예비치가 이번 주 후반 나올 것으로 보이나, 2차 소스 간 발표 요일 표기가 엇갈려(8/14 대 8/15) 1차 소스로 정확한 날짜를 확인하지 못했다.</p>
+        <div class="explain-box">소비자심리지수는 가계의 경기·물가 인식을 보여주는 서베이 지표로, 단기 기대인플레이션 항목이 연준의 정책 커뮤니케이션에서 종종 인용된다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">소비자심리지수(Consumer Sentiment Index)</span>: 미시간대가 매월 발표하는 가계 경기 체감도 서베이 지표</li>
+        </ul>
+        
+        <div><span class="ops-note">1차(University of Michigan) 확인 불가 — 다음 주 재확인 필요.</span></div>
+        <span class="stale-note">출처: 확인필요</span>
+      </div>
+      
+    
+  </div>
+</details>
+
+<details class="section">
+  <summary>신용·유동성</summary>
+  <div class="section-body">
+    
+      
+      <div class="watch-item">
+        
+        <strong>HY 스프레드 271bp — 7월말 확대분 되돌리며 완화 기조</strong> <span class="stale-note">(US High Yield OAS at 271bp, Retracing Late-July Widening)</span>
+        <p>ICE BofA 하이일드 OAS(Option-Adjusted Spread·국채 대비 초과 스프레드)는 7월 29일 287bp까지 확대됐다가 8월 6일 기준 271bp로 다시 좁혀졌다(전주 273bp 대비 -2bp). 투자등급(IG) OAS는 78bp로 보합. §1 임계값(레벨 500bp/5일 75bp, IG 5일 25bp) 이탈은 없다(any_breach: false, fetch_market.py 산출을 그대로 채택).</p>
+        <div class="explain-box">하이일드 OAS는 신용등급이 낮은 기업의 회사채가 국채 대비 얼마나 높은 금리를 요구받는지를 나타내는 지표로, 스프레드가 좁혀지면 시장의 위험선호가 회복됐다는 신호다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">OAS</span>: Option-Adjusted Spread·옵션 조정 스프레드, 국채 대비 회사채의 초과 수익률</li><li><span class="term">bp</span>: basis point·베이시스포인트, 1bp=0.01%포인트</li>
+        </ul>
+        
+        
+        <span class="stale-note">출처: FRED (BAMLH0A0HYM2, BAMLC0A0CM)</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>7월 SLOOS: 은행 대출태도 보합, 상업용 부동산은 오히려 완화</strong> <span class="stale-note">(July 2026 SLOOS: C&I Standards Broadly Unchanged, CRE Eases)</span>
+        <p>연준이 8월 3일 발표한 2026년 7월 SLOOS(Senior Loan Officer Opinion Survey·고위대출책임자 서베이)에 따르면, 은행들은 기업 대상 C&I(Commercial & Industrial·상업 및 산업) 대출 태도를 대체로 '보합'으로 유지했다. CRE(Commercial Real Estate·상업용 부동산) 대출 기준은 오히려 완화됐고, 대형·중견기업 대출 수요는 소폭 증가했다.</p>
+        <div class="explain-box">SLOOS는 연준이 분기마다 은행의 대출 심사 기준·수요 변화를 설문하는 지표로, 신용공급 태도가 실물경제로 얼마나 흘러가는지를 가늠하는 선행지표다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">SLOOS</span>: Senior Loan Officer Opinion Survey·연준이 분기별로 실시하는 은행 대출태도 서베이</li><li><span class="term">C&I 대출</span>: Commercial & Industrial Loan·기업 운전자금 등 상업·산업 대출</li>
+        </ul>
+        
+        
+        <span class="stale-note">출처: Federal Reserve (federalreserve.gov/data/sloos/sloos-202607.htm)</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>SOFR-IORB 스프레드 미미 — 레포시장 급박한 경색 신호 없음, ON RRP 완충여력은 소진</strong> <span class="stale-note">(SOFR-IORB Spread Minimal; ON RRP Buffer Remains Drained)</span>
+        <p>8월 4일 기준 SOFR(담보부 익일물 조달금리)는 IORB(지준부리금리) 대비 1bp 높은 수준에 그쳐 레포시장의 구조적 경색 신호는 없다. 다만 익일역레포(ON RRP) 잔고가 거의 소진된 상태라 향후 지준 감소 국면에서 단기금리 변동성이 커질 잠재 리스크는 남아있다. SOFR-3개월 T-bill 펀딩 스프레드는 -12bp(전주 -9bp)로 자금시장 경색 신호 없음.</p>
+        <div class="explain-box">ON RRP는 과잉 유동성을 흡수하는 완충장치인데, 잔고가 소진되면 지준이 줄어들 때 완충 여력 없이 단기금리가 튈 위험이 커진다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">SOFR</span>: Secured Overnight Financing Rate·국채를 담보로 한 익일물 자금조달금리</li><li><span class="term">ON RRP</span>: Overnight Reverse Repo·익일역레포, 연준이 초과 유동성을 흡수하는 창구</li>
+        </ul>
+        
+        
+        <span class="stale-note">출처: New York Fed / 시장 리서치</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>하이일드 발행 강세 지속, 2026년 부도율은 낮은 수준 전망</strong> <span class="stale-note">(HY Issuance Strong, Fitch Sees Low 2026 Default Rate)</span>
+        <p>2026년 7월까지 미국 회사채 발행 누적액은 1조 6810억 달러로 전년 동기 대비 26.9% 증가했다. Fitch는 2026년 연말 하이일드 부도율을 2.5~3% 범위로 전망해 과거 장기평균 대비 낮은 수준을 유지할 것으로 봤다.</p>
+        <div class="explain-box">회사채 발행 증가와 낮은 부도율 전망은 기업들이 자금조달에 어려움을 겪지 않고 있다는 뜻으로, 신용시장 전반의 우호적 여건을 뒷받침하는 보조 지표다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">부도율(Default Rate)</span>: 발행된 채권 중 실제로 이자·원금 지급이 불이행된 비율</li>
+        </ul>
+        
+        
+        <span class="stale-note">출처: SIFMA / Fitch Ratings</span>
+      </div>
+      
+    
+  </div>
+</details>
+
+<details class="section">
+  <summary>관세·정책·선거</summary>
+  <div class="section-body">
+    
+      
+      <div class="watch-item">
+        
+        <strong>25개 주, 강제노동 관세(통상법 301조) 상대로 국제무역법원에 소송 제기</strong> <span class="stale-note">(25 States Sue Over Section 301 Forced-Labor Tariffs)</span>
+        <p>오리건·애리조나·캘리포니아 등 25개 주 법무장관·주지사 연합이 8월 3일 美 국제무역법원(CIT: Court of International Trade)에 소송을 제기했다. 7월 24일 발효된 통상법 301조 강제노동 관세(60개국, 대미 수입의 99.4%에 10~12.5% 추가관세)가 행정절차법(APA)을 위반하고 301조의 법정 권한 범위를 넘어선다는 주장이다. USTR이 국가별 협의를 생략한 채 60개국 조사를 약 2.5개월 만에 속성 처리했고 관세율 산정 근거를 설명하지 않았다는 지적이다. 원고 측은 관세의 위법 선언·부과 중단·기납부 관세 환급을 요구한다.</p>
+        <div class="explain-box">이 소송이 인용되면 이미 걷은 관세의 환급과 향후 부과 중단으로 이어질 수 있어 관세정책의 지속가능성을 흔드는 변수다. 다만 소송은 이제 시작 단계이고 관세는 현재도 그대로 시행 중이다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">Section 301(통상법 301조)</span>: 불공정 무역관행에 대응해 대통령이 관세 등 보복조치를 취할 수 있게 하는 근거 법령</li><li><span class="term">CIT(Court of International Trade)</span>: 미국 국제무역법원. 관세·무역 관련 연방 소송을 전담하는 특별법원</li>
+        </ul>
+        
+        <div><span class="ops-note">watchlist 'ustr-section301-forced-labor-tariffs' 후속 이슈. 관세 자체는 현재도 시행 중(선언 상태 유지)이며 판결 전까지 정책이 해소된 것으로 간주하지 않는다('선언≠해소').</span></div>
+        <span class="stale-note">출처: Supply Chain Dive / International Trade Insights (2차, 소송 자체는 CIT 공개 기록)</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>트럼프, 통상법 338조 근거 캐나다산 제품에 50% 관세 발동(8/19 발효 예정) — 1949년 이후 첫 발동</strong> <span class="stale-note">(Trump Invokes Section 338 on Canada — First Use Since 1949, Effective Aug 19)</span>
+        <p>트럼프 대통령이 7월 20일 통상법(Tariff Act of 1930) 338조를 근거로 캐나다산 자동차·주류·유제품 등 약 200억 달러 규모 상품에 50% 추가관세를 부과하는 포고문 3건에 서명했다. 338조가 실제 발동된 것은 1949년 이후 처음이며, 기존 USMCA(미국-멕시코-캐나다 협정)의 무관세 보호를 무력화한다. 관세는 이번 주 대상기간(8/10~14) 이후인 8월 19일 0시 1분(ET)부터 발효된다.</p>
+        <div class="explain-box">통상법 338조는 외국의 대미 차별적 무역관행에 최대 50% 관세로 대응할 수 있게 한 조항으로, 발효일이 이번 주 이후(8/19)라 이번 주 시장에는 아직 본격 반영되지 않았지만 USMCA 재협상 국면의 협상 지렛대로 해석되며 캐나다 관련 업종(자동차·주류·유제품 수입업체)에는 선반영 리스크가 있다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">Section 338(통상법 338조)</span>: 1930년 관세법 338조. 외국의 대미 차별적 무역관행에 최대 50% 관세로 대응할 수 있는 권한(1949년 이후 미사용되다 이번에 재발동)</li><li><span class="term">USMCA</span>: 미국-멕시코-캐나다 협정(구 NAFTA 후속). 역내 무관세 교역을 보장하는 자유무역협정</li>
+        </ul>
+        
+        <div><span class="ops-note">신규 watchlist 등록 후보로 판단 — §2.6.1 결정론 트리: Fit(美 수입비용·자동차/주류/유제품 섹터 영향) 충족, Breadth(캐나다 3개 업종·약 200억달러, 단일국 한정이라 Section 301(60개국) 대비 좁음), Magnitude(50% 관세·1949년 이후 최초 발동으로 규모·상징성 큼), Persistence(USMCA 재협상과 연계돼 진행형 전개 예상) — severity medium으로 W9에서 watchlist 신규 등록.</span></div>
+        <span class="stale-note">출처: White & Case / Holland & Knight / C.H. Robinson (2차 법률자문 요약, 원 조치는 백악관 대통령 포고문)</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>2026 중간선거(11/3) D-85 — 경제·물가가 최대 쟁점으로 부상</strong> <span class="stale-note">(2026 Midterms (Nov 3, D-85): Economy/Affordability Top Voter Issue)</span>
+        <p>Pew Research Center와 Morgan Stanley 리서치에 따르면 유권자들이 의회 후보들에게 가장 듣고 싶어하는 의제는 경제·물가 문제이며, 어느 정당이 경제정책을 더 잘 다룰지에 대한 신뢰도는 민주당 37% 대 공화당 36%로 거의 동률이다. 현재 하원 의석은 공화 220석 대 민주 215석의 초박빙 구도다. Morgan Stanley는 중간선거 직전 증시는 통상 눌림목을 보이다가 선거 후 약 한 달 후부터 반등하는 계절적 패턴을 짚었다.</p>
+        <div class="explain-box">하원 다수당 구도가 220대215로 초박빙이라 이번 선거 결과에 따라 관세·재정정책 등 향후 입법 지형이 바뀔 수 있다. 8~11월 시장 심리 참고지표로 의미가 있다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">중간선거(Midterm Election)</span>: 대통령 임기 중간에 치러지는 상·하원 및 주지사 선거</li>
+        </ul>
+        
+        <div><span class="ops-note">카테고리3(선거) 활성 조건(선거일 D-180 이내, 현재 D-85) 충족으로 이번 주부터 포함. 현재는 배경 모니터링 신호.</span></div>
+        <span class="stale-note">출처: Morgan Stanley / Pew Research Center (2차)</span>
+      </div>
+      
+    
+  </div>
+</details>
+
+<details class="section">
+  <summary>지정학</summary>
+  <div class="section-body">
+    
+      
+      <div class="watch-item">
+        <span class="badge-status badge-dormant">기보도</span>
+        <strong>이란-오만, 호르무즈 해협 임시 통항로 합의 — 실제 재개방은 미확정</strong> <span class="stale-note">(Iran-Oman Provisional Hormuz Transit Route Agreed; Reopening Unconfirmed)</span>
+        <p>이란과 오만이 호르무즈 해협을 통과하는 선박들의 임시 통항 경로에 원칙적으로 합의했다고 8월 5일 발표했다. 기존 TSS(교통분리체계)를 대체할 정식 체계가 아니라 잠정 경로이며, 이란은 미국의 보상(compensation) 등 추가 조건이 충족돼야 완전한 재개방이 가능하다는 입장이다(8/8, 아락치 외무장관). 오만은 이란의 선박 공격이 계속되면 협상 진전이 위협받을 수 있다고 경고했다.</p>
+        <div class="explain-box">호르무즈 해협은 전 세계 해상 원유 물동량의 약 20%가 통과하는 핵심 병목 지점이다. 이번 합의는 긴장 완화 신호이지만, 정식 발효나 실제 통항 재개가 확인되기 전까지는 여전히 리스크 요인이다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">TSS(Traffic Separation Scheme)</span>: 선박의 입항·출항 항로를 분리해 충돌 위험을 낮추는 국제 항로 통항 규정</li>
+        </ul>
+        
+        <div><span class="ops-note">'선언≠해소' 원칙 적용 — 항로 합의는 협상 진전 신호일 뿐 실제 재개방·통항재개 확인 전까지 active 유지. 8/5~8/8 Daily에서 이미 속보로 보도됨.</span></div>
+        <span class="stale-note">출처: Bloomberg, CNN, Al Jazeera</span>
+      </div>
+      
+      <div class="watch-item">
+        <span class="badge-status badge-dormant">기보도</span>
+        <strong>후티, 홍해 북부까지 공격범위 확대 — 사우디 유조선 8번째 피격</strong> <span class="stale-note">(Houthis Expand Attacks to Northern Red Sea — 8th Saudi Tanker Hit)</span>
+        <p>후티(Houthis) 반군이 8월 6일 사우디 유조선 'Wafa'호를 홍해 북부 얀부(Yanbu) 인근에서 탄도미사일로 공격했다 — 7월 말 봉쇄 캠페인 개시 이후 8번째 표적 사우디 유조선이다. 후티는 사우디가 선박을 바브엘만데브 이남 우회 항로로 돌리자 이에 대응해 8/5 공격범위를 홍해 북부까지 확대하겠다고 공식 선언했다. 후티 측은 사우디 유조선 29척이 회항했다고 주장했으나 제3자 검증은 안 됐다.</p>
+        <div class="explain-box">공격 범위가 남부(바브엘만데브)에서 북부 홍해로 확대된 것은 봉쇄의 지리적 심화를 뜻해, 호르무즈 협상 진전과 무관하게 리스크가 오히려 커지고 있다는 신호다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">바브엘만데브(Bab el-Mandeb)</span>: 홍해와 아덴만을 잇는 해협으로, 수에즈 운하를 이용하는 유럽-아시아 해상 물류의 핵심 관문</li>
+        </ul>
+        
+        <div><span class="ops-note">공격 지리 범위 확대는 severity 'high' 유지 근거로 반영. 8/7 Daily에서 이미 속보로 보도됨.</span></div>
+        <span class="stale-note">출처: Bloomberg, gCaptain</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>대만, 연례 최대 방어훈련 '한광' 진행 중(8/5~14) — PLA 신규 임계선 돌파는 미확인</strong> <span class="stale-note">(Taiwan's Annual 'Han Kuang' Drill Underway; No New PLA Escalation Threshold Crossed)</span>
+        <p>대만군의 연례 최대 규모 방어훈련 '한광(漢光)' 훈련이 8월 5일부터 14일까지 진행되고 있다. PLA(중국 인민해방군)의 새로운 도발은 이번 주 검색 범위 내에서 확인되지 않았으나, 7월 말 PLA 헬기가 대만해협 협소구간 중간선을 넘은 사례(2022년 이후 최초) 등 회색지대(gray zone) 압박 패턴은 계속되고 있다.</p>
+        <div class="explain-box">대만해협의 군사적 긴장은 TSMC 등 글로벌 반도체 공급망의 핵심 지역에서 발생한다는 점에서 시장 민감도가 높다. 임계선(대규모 봉쇄훈련·미사일 발사 등)을 넘지 않는 한 '관리된 마찰' 수준으로 분류된다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">회색지대(Gray Zone) 전술</span>: 정규전과 평화 사이의 모호한 영역에서 군사적 압박을 가하되 전면전 문턱은 넘지 않는 전략</li><li><span class="term">중간선(Median Line)</span>: 대만해협을 사실상 양분하는 비공식 경계선</li>
+        </ul>
+        
+        <div><span class="ops-note">한광훈련 기간(~8/14) 중 PLA 대응 동향은 다음 주 델타에서 재확인 필요. '관리된 마찰' 단계 유지, active.</span></div>
+        <span class="stale-note">출처: Taipei Times, The Diplomat</span>
+      </div>
+      
+      <div class="watch-item">
+        <span class="badge-status badge-dormant">기보도</span>
+        <strong>美, 중국 AI 스타트업 문샷(Moonshot) 제재 검토 지속 — 확정 조치는 미발효</strong> <span class="stale-note">(US Continues Reviewing Sanctions on Moonshot; No Formal Action Yet)</span>
+        <p>중국 AI 스타트업 문샷(Moonshot)의 'Kimi K3' 모델이 앤트로픽(Anthropic) 모델을 증류(distillation)했다는 의혹과 관련해 美 재무장관이 엔티티리스트(Entity List) 등재를 검토할 수 있다고 밝힌 바 있다. 이번 주 검색범위 내에서는 실제 등재 확정이나 관보 공고 등 조치 발효 정황은 확인되지 않았다. Moonshot은 7/16 Kimi K3를 오픈소스로 공개하며 '독자 아키텍처 개선' 반박을 지속하고 있다.</p>
+        <div class="explain-box">엔티티리스트 등재는 대상 기업의 미국산 반도체·클라우드 구매를 사실상 막는 강력한 조치로, 확정되면 미중 AI·반도체 공급망 전반에 파급될 수 있다. 다만 검토 발언 자체는 아직 조치 발동이 아니다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">엔티티리스트(Entity List)</span>: 미 상무부 산업안보국(BIS)이 수출통제 대상 기업·기관을 지정하는 명단</li><li><span class="term">모델 증류(Distillation)</span>: 크고 성능이 좋은 AI 모델의 출력을 학습시켜 더 작고 저렴한 모델을 만드는 기법</li>
+        </ul>
+        
+        <div><span class="ops-note">'위협≠제재 발동' 원칙 유지 — 정식 엔티티리스트 등재 관보 공고 전까지 active 유지, 확정 시 즉시 severity 상향. 8/5~8/7 Daily에서 이미 배경으로 보도됨.</span></div>
+        <span class="stale-note">출처: Caixin Global, CNBC</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>우크라이나-러시아: 이번 주 신규 material 이벤트 없음, 교착 지속 추정</strong> <span class="stale-note">(Russia-Ukraine: No New Material Events This Week, Stalemate Continues)</span>
+        <p>이번 주(8/3~8/10) 검색범위 내 신규 material 전개는 확인되지 않았다. 7/22 트럼프-푸틴 통화 이후 교착 국면이 이어지고 있는 것으로 추정되나 확인 가능한 1차 소스는 확보하지 못했다. 영토(돈바스)·안전보장 쟁점에서 이견이 지속 중이다.</p>
+        <div class="explain-box">이 전쟁은 유가·천연가스에 '전쟁 프리미엄'을 내재시키고 방산주 수요·곡물 선물 변동성에 영향을 준다. 신규 전개가 없다는 것 자체도 정보로, 이번 주 유가 상승은 러·우 요인이 아니라 중동(호르무즈·홍해) 요인에서 나왔음을 시사한다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">전쟁 프리미엄(War Premium)</span>: 분쟁으로 인한 공급 차질 우려가 원자재 가격에 상시로 얹혀 있는 부분</li>
+        </ul>
+        
+        <div><span class="ops-note">material_update: false — active 유지(active→monitoring 전이는 종전·합의 등 명시적 진정 신호가 있을 때만 가능하며, 이번 주는 단순 무소식이라 전이 사유에 해당하지 않음).</span></div>
+        <span class="stale-note">출처: 리서처 종합(신규 취재 사항 없음)</span>
+      </div>
+      
+    
+  </div>
+</details>
+
+<details class="section">
+  <summary>IPO·딜·어닝 트렌드 <span class="stale-note">(probation)</span></summary>
+  <div class="section-body">
+    
+      
+      <div class="watch-item">
+        
+        <strong>이번 주(8/10~14) 어닝시즌 비활성 — 메가캡·벨웨더 실적 발표 0건</strong> <span class="stale-note">(No Earnings Season This Week — 0 Megacap/Bellwether Reports Scheduled)</span>
+        <p>earnings_calendar.py 결정론적 조회 결과 이번 주(8/10~8/14) 감시 대상 메가캡+섹터 벨웨더 20개 종목 중 실적 발표 예정 종목이 0개로, 어닝시즌 활성 임계값(5개)에 못 미쳐 비활성 상태다.</p>
+        <div class="explain-box">Q2 어닝시즌(7월 말~8월 초 집중)이 마무리되며 이번 주는 개별 기업 실적 발표에 따른 변동성보다 거시지표(CPI·PPI·소매판매)가 시장의 주된 변수가 되는 국면이다.</div>
+        
+        
+        <span class="stale-note">출처: calendar-fetch/earnings_calendar.py (yfinance)</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>일렉트로닉아츠(EA) 550억달러 비상장화 거래 완료(참고용, 메가캡 기준 미달)</strong> <span class="stale-note">(EA's $55B Take-Private Deal Completes (Reference Only, Below Megacap Threshold))</span>
+        <p>게임업체 일렉트로닉아츠(EA)를 사우디 국부펀드(PIF) 주도 투자자 그룹이 인수하는 550억 달러 규모 비상장화(take-private) 거래가 8월 4일 모든 규제 승인을 통과하며 완료됐다. 역대 최대 규모 레버리지 바이아웃(LBO) 중 하나다.</p>
+        <div class="explain-box">거래 규모(550억 달러) 자체는 크지만 EA의 인수 전 시가총액이 프로젝트 기준 메가캡 임계값(2,000억 달러)에 못 미쳐 이 카테고리의 '메가캡 한정' 범위에는 엄밀히 해당하지 않는다. 참고용으로만 병기한다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">비상장화(take-private)</span>: 상장기업을 사모펀드·투자자그룹이 인수해 상장폐지시키고 비공개 기업으로 전환하는 거래</li>
+        </ul>
+        
+        <div><span class="ops-note">메가캡 임계값($2,000억) 미달로 핵심 신호로 격상하지 않음.</span></div>
+        <span class="stale-note">출처: Yahoo Finance</span>
+      </div>
+      
+    
+  </div>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+<footer class="report-footer">Events &amp; News Tracking Agent · America/New_York · 완전 자동 생성</footer>
+</div>
+
+<script>window.__CHARTS__ = [{"id": "chart_credit_trend", "config": {"type": "line", "data": {"labels": ["2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-01", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-31", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06"], "datasets": [{"label": "HY OAS", "data": [319.0, 306.0, 309.0, 317.0, 328.0, 327.0, 322.0, 320.0, 327.0, 324.0, 319.0, 319.0, 317.0, 321.0, 342.0, 346.0, 328.0, 316.0, 317.0, 313.0, 305.0, 312.0, 294.0, 290.0, 294.0, 295.0, 284.0, 285.0, 286.0, 283.0, 287.0, 285.0, 284.0, 286.0, 286.0, 284.0, 285.0, 282.0, 283.0, 277.0, 278.0, 277.0, 275.0, 279.0, 281.0, 279.0, 282.0, 282.0, 276.0, 280.0, 283.0, 286.0, 280.0, 278.0, 274.0, 274.0, 272.0, 271.0, 272.0, 272.0, 274.0, 272.0, 271.0, 275.0, 274.0, 276.0, 275.0, 278.0, 280.0, 278.0, 271.0, 266.0, 271.0, 263.0, 266.0, 266.0, 265.0, 271.0, 276.0, 278.0, 283.0, 280.0, 275.0, 274.0, 275.0, 274.0, 272.0, 267.0, 270.0, 270.0, 269.0, 269.0, 272.0, 271.0, 271.0, 273.0, 269.0, 269.0, 268.0, 277.0, 279.0, 281.0, 284.0, 287.0, 284.0, 285.0, 278.0, 273.0, 275.0, 271.0], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "IG OAS", "data": [85.0, 84.0, 88.0, 91.0, 93.0, 94.0, 92.0, 91.0, 90.0, 88.0, 88.0, 87.0, 87.0, 88.0, 91.0, 93.0, 90.0, 87.0, 86.0, 86.0, 85.0, 86.0, 83.0, 83.0, 82.0, 82.0, 81.0, 80.0, 81.0, 80.0, 81.0, 80.0, 79.0, 80.0, 80.0, 81.0, 81.0, 81.0, 81.0, 81.0, 80.0, 79.0, 78.0, 79.0, 79.0, 78.0, 77.0, 76.0, 76.0, 75.0, 75.0, 76.0, 75.0, 75.0, 74.0, 74.0, 74.0, 74.0, 73.0, 73.0, 74.0, 73.0, 74.0, 74.0, 74.0, 74.0, 75.0, 75.0, 75.0, 75.0, 74.0, 73.0, 75.0, 74.0, 74.0, 74.0, 74.0, 74.0, 75.0, 76.0, 77.0, 76.0, 76.0, 76.0, 75.0, 75.0, 75.0, 76.0, 76.0, 76.0, 77.0, 78.0, 79.0, 79.0, 78.0, 79.0, 78.0, 78.0, 78.0, 79.0, 80.0, 81.0, 81.0, 81.0, 80.0, 79.0, 78.0, 78.0, 78.0, 78.0], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "bp"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_vix_series", "config": {"type": "line", "data": {"labels": ["2026-05-15", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10"], "datasets": [{"label": "VIX", "data": [18.43000030517578, 17.81999969482422, 18.059999465942383, 17.440000534057617, 16.760000228881836, 16.700000762939453, 16.59000015258789, 17.010000228881836, 16.290000915527344, 15.739999771118164, 15.319999694824219, 16.049999237060547, 15.770000457763672, 16.059999465942383, 15.399999618530273, 21.510000228881836, 18.920000076293945, 19.8700008392334, 22.219999313354492, 19.440000534057617, 17.68000030517578, 16.200000762939453, 16.40999984741211, 18.440000534057617, 16.399999618530273, 17.280000686645508, 19.489999771118164, 18.6299991607666, 18.889999389648438, 18.40999984741211, 17.649999618530273, 16.450000762939453, 16.59000015258789, 16.149999618530273, 15.569999694824219, 16.1299991607666, 16.899999618530273, 15.84000015258789, 15.029999732971191, 17.15999984741211, 16.5, 15.670000076293945, 16.729999542236328, 18.770000457763672, 18.649999618530273, 17.049999237060547, 16.639999389648438, 18.700000762939453, 18.579999923706055, 18.670000076293945, 18.209999084472656, 20.65999984741211, 17.09000015258789, 15.989999771118164, 15.859999656677246, 16.5, 15.8100004196167, 15.149999618530273, 14.899999618530273, 15.420000076293945], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": false}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": false, "text": ""}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_oil_series", "config": {"type": "line", "data": {"labels": ["2026-05-14", "2026-05-15", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10"], "datasets": [{"label": "WTI", "data": [101.16999816894531, 105.41999816894531, 108.66000366210938, 107.7699966430664, 98.26000213623047, 96.3499984741211, 96.5999984741211, 93.88999938964844, 88.68000030517578, 88.9000015258789, 87.36000061035156, 92.16000366210938, 93.76000213623047, 96.0199966430664, 93.04000091552734, 90.54000091552734, 91.30000305175781, 88.19999694824219, 90.02999877929688, 87.70999908447266, 84.87999725341797, 80.75, 76.05000305175781, 76.79000091552734, 76.5999984741211, 74.81999969482422, 73.20999908447266, 70.33999633789062, 71.91999816894531, 69.2300033569336, 70.75, 69.5, 68.58000183105469, 68.69000244140625, 68.55000305175781, 70.44000244140625, 73.5199966430664, 72.08000183105469, 71.41000366210938, 78.13999938964844, 79.33999633789062, 79.5999984741211, 78.94999694824219, 82.48999786376953, 83.2300033569336, 84.91000366210938, 86.83000183105469, 92.19000244140625, 89.30999755859375, 82.61000061035156, 79.26000213623047, 84.45999908447266, 83.58999633789062, 84.66999816894531, 80.33999633789062, 75.7699966430664, 75.22000122070312, 77.29000091552734, 78.18000030517578, 79.3499984741211], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "Brent", "data": [105.72000122070312, 109.26000213623047, 112.0999984741211, 111.27999877929688, 105.0199966430664, 102.58000183105469, 103.54000091552734, 99.58000183105469, 94.29000091552734, 93.70999908447266, 92.05000305175781, 94.9800033569336, 96.0, 97.80999755859375, 95.02999877929688, 93.08999633789062, 94.25, 91.44999694824219, 93.0999984741211, 90.37999725341797, 87.33000183105469, 83.16999816894531, 78.95999908447266, 79.55000305175781, 79.8499984741211, 77.9000015258789, 77.08000183105469, 73.73999786376953, 75.26000213623047, 71.98999786376953, 73.1500015258789, 72.91999816894531, 71.56999969482422, 71.80000305175781, 71.98999786376953, 74.16000366210938, 78.0199966430664, 76.30000305175781, 76.01000213623047, 83.30000305175781, 84.7300033569336, 84.94999694824219, 84.2300033569336, 88.0999984741211, 89.22000122070312, 91.01000213623047, 94.06999969482422, 100.69000244140625, 96.77999877929688, 88.36000061035156, 84.08999633789062, 90.73999786376953, 89.02999877929688, 90.12000274658203, 83.7699966430664, 79.36000061035156, 79.44999694824219, 82.48999786376953, 83.55000305175781, 84.9000015258789], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "$/bbl"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_etf_bar", "config": {"type": "bar", "data": {"labels": ["S&P500", "Dow", "Nasdaq", "Consumer Defensive", "Cyclical Industrials (A&D + Chemicals)", "Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)", "Capital-Intensive Regulated (Utilities/Telecom/Midstream)", "Financial", "Growth/Intangible (SaaS/Internet/IT Svcs)", "REIT", "Semiconductors", "Auto Manufacturers", "Large Pharma", "Biotech"], "datasets": [{"label": "지수·섹터 ETF 주간변화(%) (W32 vs W31)", "data": [3.577, 2.957, 5.189, 0.082, 2.623, 2.427, -0.241, 1.159, 8.024, -0.2, 7.802, -0.011, 0.688, 6.653], "backgroundColorLight": ["#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#e34948", "#2a78d6", "#2a78d6", "#e34948", "#2a78d6", "#e34948", "#2a78d6", "#2a78d6"], "backgroundColorDark": ["#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#e66767", "#3987e5", "#3987e5", "#e66767", "#3987e5", "#e66767", "#3987e5", "#3987e5"]}]}, "options": {"plugins": {"legend": {"display": false}, "valueLabel": {"enabled": true}}, "scales": {"y": {"title": {"display": true, "text": "%"}}}}}}, {"id": "chart_2s10s", "config": {"type": "line", "data": {"labels": ["2026-03-06", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-01", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06"], "datasets": [{"label": "10Y-2Y", "data": [0.59, 0.56, 0.58, 0.57, 0.51, 0.55, 0.55, 0.52, 0.5, 0.46, 0.51, 0.51, 0.49, 0.49, 0.46, 0.56, 0.53, 0.51, 0.52, 0.52, 0.51, 0.5, 0.52, 0.5, 0.51, 0.5, 0.52, 0.5, 0.53, 0.54, 0.55, 0.54, 0.52, 0.51, 0.51, 0.53, 0.57, 0.52, 0.5, 0.52, 0.51, 0.5, 0.5, 0.49, 0.49, 0.48, 0.47, 0.46, 0.48, 0.47, 0.5, 0.54, 0.54, 0.53, 0.49, 0.43, 0.49, 0.48, 0.46, 0.47, 0.42, 0.41, 0.41, 0.42, 0.38, 0.41, 0.4, 0.42, 0.4, 0.39, 0.4, 0.38, 0.29, 0.27, 0.27, 0.34, 0.3, 0.31, 0.31, 0.28, 0.3, 0.31, 0.35, 0.35, 0.36, 0.35, 0.38, 0.35, 0.36, 0.4, 0.42, 0.41, 0.37, 0.39, 0.37, 0.36, 0.34, 0.36, 0.34, 0.35, 0.45, 0.45, 0.47, 0.45, 0.43, 0.45, 0.44], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": false}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "pp"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_rates5_real", "config": {"type": "line", "data": {"labels": ["2025-07", "2025-08", "2025-09", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"], "datasets": [{"label": "미국", "data": [1.625, 1.414, 1.207, 1.145, 1.043, 1.254, 1.226, 0.384, -0.171, -0.619, 0.099], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "유로존", "data": [null, -0.022, -0.217, -0.115, 0.065, 0.364, 0.128, -0.534, -0.999, -1.141, -0.483], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "%"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_rates5_policy", "config": {"type": "line", "data": {"labels": ["2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "datasets": [{"label": "미국", "data": [4.33, 4.33, 4.22, 4.09, 3.88, 3.72, 3.64, 3.64, 3.64, 3.64, 3.63, 3.63, 3.63], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "유로존", "data": [null, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.25, 2.25], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "일본", "data": [0.478, 0.477, 0.477, 0.477, 0.478, 0.557, 0.728, 0.728, 0.728, 0.727, 0.727, 0.841, null], "borderColorLight": "#eda100", "borderColorDark": "#c98500", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "영국", "data": [null, 3.9665, 3.9671, 3.9689, 3.9693, 3.7257, 3.7254, 3.7267, 3.7296, 3.7299, 3.7302, 3.7318, 3.7313], "borderColorLight": "#008300", "borderColorDark": "#008300", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "한국", "data": [2.5, 2.506, 2.526, 2.516, 2.512, 2.53, 2.531, 2.541, 2.527, 2.517, 2.537, 2.537, null], "borderColorLight": "#4a3aa7", "borderColorDark": "#9085e9", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "%"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_rrg", "config": {"type": "scatter", "data": {"datasets": [{"label": "Consumer Defensive", "data": [{"x": 95.96, "y": 92.89}, {"x": 113.28, "y": 105.3}, {"x": 104.19, "y": 111.01}, {"x": 90.02, "y": 108.15}, {"x": 110.53, "y": 100.47}, {"x": 106.68, "y": 108.65}, {"x": 101.11, "y": 94.04}, {"x": 86.82, "y": 97.92}], "showLine": true, "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "backgroundColorLight": "#2a78d6", "backgroundColorDark": "#3987e5", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Cyclical Industrials (A&D + Chemicals)", "data": [{"x": 99.71, "y": 71.12}, {"x": 102.91, "y": 103.85}, {"x": 109.55, "y": 114.99}, {"x": 84.43, "y": 103.03}, {"x": 91.66, "y": 112.41}, {"x": 116.61, "y": 96.89}, {"x": 107.53, "y": 99.12}, {"x": 99.39, "y": 88.37}], "showLine": true, "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "backgroundColorLight": "#1baf7a", "backgroundColorDark": "#199e70", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)", "data": [{"x": 91.21, "y": 78.19}, {"x": 116.92, "y": 99.3}, {"x": 91.42, "y": 111.3}, {"x": 85.04, "y": 105.38}, {"x": 100.9, "y": 105.87}, {"x": 123.5, "y": 116.65}, {"x": 109.87, "y": 79.05}, {"x": 99.63, "y": 92.6}], "showLine": true, "borderColorLight": "#eda100", "borderColorDark": "#c98500", "backgroundColorLight": "#eda100", "backgroundColorDark": "#c98500", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Capital-Intensive Regulated (Utilities/Telecom/Midstream)", "data": [{"x": 89.18, "y": 96.08}, {"x": 119.03, "y": 114.05}, {"x": 108.08, "y": 109.94}, {"x": 101.45, "y": 101.0}, {"x": 112.45, "y": 99.66}, {"x": 116.8, "y": 99.11}, {"x": 88.17, "y": 97.39}, {"x": 78.97, "y": 101.61}], "showLine": true, "borderColorLight": "#008300", "borderColorDark": "#008300", "backgroundColorLight": "#008300", "backgroundColorDark": "#008300", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Financial", "data": [{"x": 108.99, "y": 87.33}, {"x": 112.7, "y": 101.01}, {"x": 120.05, "y": 107.95}, {"x": 107.18, "y": 98.62}, {"x": 115.86, "y": 97.63}, {"x": 115.54, "y": 106.74}, {"x": 106.42, "y": 87.49}, {"x": 86.73, "y": 83.34}], "showLine": true, "borderColorLight": "#4a3aa7", "borderColorDark": "#9085e9", "backgroundColorLight": "#4a3aa7", "backgroundColorDark": "#9085e9", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Growth/Intangible (SaaS/Internet/IT Svcs)", "data": [{"x": 93.52, "y": 105.25}, {"x": 92.23, "y": 113.14}, {"x": 96.05, "y": 88.61}, {"x": 94.4, "y": 77.28}, {"x": 85.64, "y": 102.74}, {"x": 78.53, "y": 100.01}, {"x": 100.98, "y": 98.63}, {"x": 121.11, "y": 107.22}], "showLine": true, "borderColorLight": "#e34948", "borderColorDark": "#e66767", "backgroundColorLight": "#e34948", "backgroundColorDark": "#e66767", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "REIT", "data": [{"x": 93.2, "y": 93.33}, {"x": 116.92, "y": 106.32}, {"x": 100.03, "y": 104.95}, {"x": 90.4, "y": 103.76}, {"x": 113.53, "y": 104.46}, {"x": 121.1, "y": 113.14}, {"x": 99.21, "y": 92.07}, {"x": 84.26, "y": 100.17}], "showLine": true, "borderColorLight": "#e87ba4", "borderColorDark": "#d55181", "backgroundColorLight": "#e87ba4", "backgroundColorDark": "#d55181", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Semiconductors", "data": [{"x": 122.92, "y": 111.92}, {"x": 101.91, "y": 89.92}, {"x": 86.65, "y": 90.77}, {"x": 91.35, "y": 100.1}, {"x": 82.82, "y": 102.35}, {"x": 88.78, "y": 91.42}, {"x": 86.92, "y": 101.06}, {"x": 100.65, "y": 107.45}], "showLine": true, "borderColorLight": "#eb6834", "borderColorDark": "#d95926", "backgroundColorLight": "#eb6834", "backgroundColorDark": "#d95926", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Auto Manufacturers", "data": [{"x": 82.87, "y": 99.03}, {"x": 91.07, "y": 115.97}, {"x": 82.01, "y": 89.52}, {"x": 93.77, "y": 113.66}, {"x": 96.54, "y": 90.82}, {"x": 91.39, "y": 107.07}, {"x": 108.09, "y": 93.94}, {"x": 88.96, "y": 104.14}], "showLine": true, "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "backgroundColorLight": "#2a78d6", "backgroundColorDark": "#3987e5", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Large Pharma", "data": [{"x": 90.8, "y": 87.99}, {"x": 121.28, "y": 108.31}, {"x": 118.44, "y": 111.33}, {"x": 99.86, "y": 95.16}, {"x": 108.85, "y": 104.93}, {"x": 114.29, "y": 102.39}, {"x": 100.74, "y": 90.71}, {"x": 92.72, "y": 99.92}], "showLine": true, "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "backgroundColorLight": "#1baf7a", "backgroundColorDark": "#199e70", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Biotech", "data": [{"x": 119.53, "y": 90.27}, {"x": 123.72, "y": 99.55}, {"x": 116.47, "y": 101.73}, {"x": 105.62, "y": 87.46}, {"x": 99.86, "y": 115.9}, {"x": 90.08, "y": 92.22}, {"x": 82.61, "y": 76.3}, {"x": 104.05, "y": 119.09}], "showLine": true, "borderColorLight": "#eda100", "borderColorDark": "#c98500", "backgroundColorLight": "#eda100", "backgroundColorDark": "#c98500", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}]}, "options": {"plugins": {"legend": {"display": false}, "quadrant": {"enabled": true}}, "scales": {"x": {"title": {"display": true, "text": "RS-Ratio (상대강도)"}}, "y": {"title": {"display": true, "text": "RS-Momentum (모멘텀)"}}}}}}];</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+  var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var gridColor = isDark ? '#2c2c2a' : '#e1e0d9';
+  var tickColor = isDark ? '#c3c2b7' : '#52514e';
+
+  function pickThemeColors(obj) {
+    if (Array.isArray(obj)) {
+      obj.forEach(pickThemeColors);
+      return;
+    }
+    if (obj && typeof obj === 'object') {
+      Object.keys(obj).forEach(function (key) {
+        var m = key.match(/^(.*)(Light|Dark)$/);
+        if (m) {
+          var base = m[1], mode = m[2];
+          if ((isDark && mode === 'Dark') || (!isDark && mode === 'Light')) {
+            obj[base] = obj[key];
+          }
+        }
+      });
+      Object.keys(obj).forEach(function (key) {
+        if (/^(.*)(Light|Dark)$/.test(key)) {
+          delete obj[key];
+        } else {
+          pickThemeColors(obj[key]);
+        }
+      });
+    }
+  }
+
+  var valueLabelPlugin = {
+    id: 'valueLabel',
+    afterDatasetsDraw: function (chart) {
+      var opts = chart.options.plugins && chart.options.plugins.valueLabel;
+      if (!opts || !opts.enabled) return;
+      var ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = tickColor;
+      ctx.font = '11px system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      chart.data.datasets.forEach(function (ds, di) {
+        var meta = chart.getDatasetMeta(di);
+        meta.data.forEach(function (bar, i) {
+          var v = ds.data[i];
+          if (v === null || v === undefined) return;
+          var label = (v > 0 ? '+' : '') + v.toFixed(1) + '%';
+          var y = v >= 0 ? bar.y - 6 : bar.y + 14;
+          ctx.fillText(label, bar.x, y);
+        });
+      });
+      ctx.restore();
+    },
+  };
+
+  var quadrantPlugin = {
+    id: 'quadrant',
+    afterDraw: function (chart) {
+      var opts = chart.options.plugins && chart.options.plugins.quadrant;
+      if (!opts || !opts.enabled) return;
+      var ctx = chart.ctx;
+      var xScale = chart.scales.x, yScale = chart.scales.y;
+      if (!xScale || !yScale) return;
+      var xMid = xScale.getPixelForValue(100);
+      var yMid = yScale.getPixelForValue(100);
+      ctx.save();
+      ctx.strokeStyle = gridColor;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(xMid, chart.chartArea.top);
+      ctx.lineTo(xMid, chart.chartArea.bottom);
+      ctx.moveTo(chart.chartArea.left, yMid);
+      ctx.lineTo(chart.chartArea.right, yMid);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = tickColor;
+      ctx.font = '10px system-ui, sans-serif';
+      ctx.fillText('개선', chart.chartArea.left + 20, chart.chartArea.top + 12);
+      ctx.fillText('선도', chart.chartArea.right - 20, chart.chartArea.top + 12);
+      ctx.fillText('후행', chart.chartArea.left + 20, chart.chartArea.bottom - 6);
+      ctx.fillText('둔화', chart.chartArea.right - 20, chart.chartArea.bottom - 6);
+      ctx.restore();
+    },
+  };
+
+  Chart.register(valueLabelPlugin, quadrantPlugin);
+  Chart.defaults.color = tickColor;
+  Chart.defaults.borderColor = gridColor;
+  Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', sans-serif";
+
+  var charts = window.__CHARTS__ || [];
+  var instances = {};
+  charts.forEach(function (c) {
+    var config = c.config;
+    pickThemeColors(config);
+    var el = document.getElementById(c.id);
+    if (!el) return;
+    try {
+      instances[c.id] = new Chart(el.getContext('2d'), config);
+    } catch (e) {
+      var msg = document.createElement('p');
+      msg.className = 'na-note';
+      msg.textContent = '차트 렌더링 실패: ' + c.id;
+      el.replaceWith(msg);
+    }
+  });
+  window.__CHART_INSTANCES__ = instances;
+
+  // 차트 필터 버튼: data-charts="id1,id2" data-label="시리즈명" 버튼 클릭 시 해당 데이터셋 표시/숨김.
+  // data-action="all"/"none" 버튼은 그룹 내 전체 표시/숨김.
+  function setSeries(chartIds, label, visible) {
+    chartIds.forEach(function (id) {
+      var chart = instances[id];
+      if (!chart) return;
+      chart.data.datasets.forEach(function (ds, i) {
+        if (ds.label === label) chart.setDatasetVisibility(i, visible);
+      });
+      chart.update();
+    });
+  }
+  document.querySelectorAll('.chart-filter').forEach(function (bar) {
+    var chartIds = (bar.getAttribute('data-charts') || '').split(',').filter(Boolean);
+    var seriesButtons = bar.querySelectorAll('button[data-label]');
+    bar.addEventListener('click', function (ev) {
+      var btn = ev.target.closest('button');
+      if (!btn) return;
+      var action = btn.getAttribute('data-action');
+      if (action === 'all' || action === 'none') {
+        var visible = action === 'all';
+        seriesButtons.forEach(function (b) {
+          b.classList.toggle('off', !visible);
+          setSeries(chartIds, b.getAttribute('data-label'), visible);
+        });
+        return;
+      }
+      var label = btn.getAttribute('data-label');
+      if (!label) return;
+      var nowOff = btn.classList.toggle('off');
+      setSeries(chartIds, label, !nowOff);
+    });
+  });
+})();
+</script>
+</body>
+</html>
