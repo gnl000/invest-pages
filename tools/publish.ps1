@@ -110,6 +110,10 @@ try {
 
         $msg = "auto update $Abbrev $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
         git commit -m $msg 2>&1 | ForEach-Object { Write-Log "commit: $_" }
+        if ($LASTEXITCODE -ne 0) {
+            Write-Log "ERROR: git commit failed (exit $LASTEXITCODE)"
+            exit 1
+        }
 
         $pushed = $false
         for ($i = 1; $i -le 3; $i++) {
