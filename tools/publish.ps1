@@ -9,6 +9,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $LogFile = Join-Path $PagesDir 'tools\publish.log'
+New-Item -ItemType Directory -Force -Path (Split-Path $LogFile) | Out-Null
 
 function Write-Log {
     param([string]$Message)
@@ -68,6 +69,18 @@ function Acquire-Lock {
     }
 }
 
+function Invoke-GitLogged {
+    param([string[]]$GitArgs, [string]$LogPrefix)
+    $prevEAP = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        & git @GitArgs 2>&1 | ForEach-Object { Write-Log "$LogPrefix`: $_" }
+    } finally {
+        $ErrorActionPreference = $prevEAP
+    }
+    return $LASTEXITCODE
+}
+
 Write-Log "start: Project=$Project CopyPairs=$CopyPairs"
 
 try {
@@ -88,9 +101,9 @@ try {
 try {
     Push-Location $PagesDir
     try {
-        git pull --rebase origin main 2>&1 | ForEach-Object { Write-Log "pull: $_" }
-        if ($LASTEXITCODE -ne 0) {
-            Write-Log "ERROR: git pull --rebase failed (exit $LASTEXITCODE)"
+        $rc = Invoke-GitLogged -GitArgs @('pull', '--rebase', 'origin', 'main') -LogPrefix 'pull'
+        if ($rc -ne 0) {
+            Write-Log "ERROR: git pull --rebase failed (exit $rc)"
             exit 1
         }
 
@@ -109,18 +122,18 @@ try {
         }
 
         $msg = "auto update $Abbrev $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
-        git commit -m $msg 2>&1 | ForEach-Object { Write-Log "commit: $_" }
-        if ($LASTEXITCODE -ne 0) {
-            Write-Log "ERROR: git commit failed (exit $LASTEXITCODE)"
+        $rc = Invoke-GitLogged -GitArgs @('commit', '-m', $msg) -LogPrefix 'commit'
+        if ($rc -ne 0) {
+            Write-Log "ERROR: git commit failed (exit $rc)"
             exit 1
         }
 
         $pushed = $false
         for ($i = 1; $i -le 3; $i++) {
-            git push origin main 2>&1 | ForEach-Object { Write-Log "push attempt ${i}: $_" }
-            if ($LASTEXITCODE -eq 0) { $pushed = $true; break }
+            $rc = Invoke-GitLogged -GitArgs @('push', 'origin', 'main') -LogPrefix "push attempt $i"
+            if ($rc -eq 0) { $pushed = $true; break }
             Write-Log "push attempt $i failed - pull --rebase and retry"
-            git pull --rebase origin main 2>&1 | ForEach-Object { Write-Log "pull retry: $_" }
+            Invoke-GitLogged -GitArgs @('pull', '--rebase', 'origin', 'main') -LogPrefix 'pull retry' | Out-Null
             Start-Sleep -Seconds (5 * $i)
         }
         if (-not $pushed) {
