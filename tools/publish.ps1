@@ -3,10 +3,14 @@ param(
     [Parameter(Mandatory = $true)][string]$Project,
     [Parameter(Mandatory = $true)][string]$Abbrev,
     [Parameter(Mandatory = $true)][string]$CopyPairs,
-    [string]$PagesDir = (Split-Path -Parent $PSScriptRoot)
+    [string]$PagesDir
 )
 
 $ErrorActionPreference = 'Stop'
+
+if (-not $PagesDir) {
+    $PagesDir = Split-Path -Parent $PSScriptRoot
+}
 
 $LogFile = Join-Path $PagesDir 'tools\publish.log'
 New-Item -ItemType Directory -Force -Path (Split-Path $LogFile) | Out-Null
