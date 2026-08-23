@@ -105,7 +105,7 @@ try {
 try {
     Push-Location $PagesDir
     try {
-        $rc = Invoke-GitLogged -GitArgs @('pull', '--rebase', 'origin', 'main') -LogPrefix 'pull'
+        $rc = Invoke-GitLogged -GitArgs @('pull', '--rebase', '--autostash', 'origin', 'main') -LogPrefix 'pull'
         if ($rc -ne 0) {
             Write-Log "ERROR: git pull --rebase failed (exit $rc)"
             exit 1
@@ -118,7 +118,11 @@ try {
             Write-Log "copied $($pair.Src) -> $destPath"
         }
 
-        git add -- "$Project"
+        $rc = Invoke-GitLogged -GitArgs @('add', '--', $Project) -LogPrefix 'add'
+        if ($rc -ne 0) {
+            Write-Log "ERROR: git add failed (exit $rc)"
+            exit 1
+        }
         git diff --cached --quiet
         if ($LASTEXITCODE -eq 0) {
             Write-Log "no changes to commit"
@@ -137,7 +141,7 @@ try {
             $rc = Invoke-GitLogged -GitArgs @('push', 'origin', 'main') -LogPrefix "push attempt $i"
             if ($rc -eq 0) { $pushed = $true; break }
             Write-Log "push attempt $i failed - pull --rebase and retry"
-            Invoke-GitLogged -GitArgs @('pull', '--rebase', 'origin', 'main') -LogPrefix 'pull retry' | Out-Null
+            Invoke-GitLogged -GitArgs @('pull', '--rebase', '--autostash', 'origin', 'main') -LogPrefix 'pull retry' | Out-Null
             Start-Sleep -Seconds (5 * $i)
         }
         if (-not $pushed) {
