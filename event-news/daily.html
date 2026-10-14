@@ -48,6 +48,13 @@
     line-height: 1.5;
   }
   .wrap { max-width: 760px; margin: 0 auto; padding: 16px 14px 48px; }
+  .site-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 14px; font-size: 0.85rem; }
+  .site-nav a { color: var(--text-secondary); text-decoration: none; }
+  .site-nav-home:hover { color: var(--text-primary); }
+  .site-nav-switch { display: inline-flex; padding: 3px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-1); }
+  .site-nav-switch a { padding: 5px 14px; border-radius: 999px; font-weight: 600; transition: background .15s, color .15s; }
+  .site-nav-switch a:hover { color: var(--text-primary); }
+  .site-nav-switch a.is-current { background: var(--text-primary); color: var(--page); }
   header.report-header { padding: 4px 0 14px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
   header.report-header h1 { font-size: 1.25rem; margin: 0 0 4px; }
   header.report-header .meta { color: var(--text-muted); font-size: 0.82rem; }
@@ -241,6 +248,14 @@
 </head>
 <body>
 <div class="wrap">
+
+<nav class="site-nav" aria-label="리포트 이동">
+  <a class="site-nav-home" href="https://gnl000.github.io/invest-pages/">← Invest Pages</a>
+  <div class="site-nav-switch" role="group">
+    <a href="https://gnl000.github.io/invest-pages/event-news/daily.html" class="is-current" aria-current="page">Daily</a>
+    <a href="https://gnl000.github.io/invest-pages/event-news/weekly.html">Weekly</a>
+  </div>
+</nav>
 
 <header class="report-header">
   <h1>Events &amp; News · Daily Briefing — 2026-10-14 (수요일)</h1>
