@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Report — 2026-W46</title>
+<title>Weekly Report — 2026-W47</title>
 <style>
   :root {
     --surface-1: #fcfcfb;
@@ -258,8 +258,8 @@
 </nav>
 
 <header class="report-header">
-  <h1>Events &amp; News · Weekly Report — 2026-W46</h1>
-  <div class="meta">2026-11-02~2026-11-13 · America/New_York 월요일 09:00 앵커 · 생성 </div>
+  <h1>Events &amp; News · Weekly Report — 2026-W47</h1>
+  <div class="meta">2026-11-09~2026-11-20 · America/New_York 월요일 09:00 앵커 · 생성 </div>
 </header>
 
 
@@ -268,15 +268,17 @@
   <h2>한눈에 보기</h2>
   <ul>
   
-    <li>시장: S&P 500 -0.09%·나스닥 +0.28%·다우 +0.39%로 주간 보합 마감했으나 장중 변동 극심 — 11/4 중간선거 직후 급반등, 11/5 AI 반도체 급락(나스닥 조정 진입, Daily 기보도). 반도체 -4.40%·산업재 -2.49% 약세, REIT +2.52%·바이오 +2.31% 강세. VIX 18.14→20.99 (fetch_market.py 산출)</li>
+    <li>시장: S&P 500 +2.51%·나스닥 +2.27%·다우 +2.07% 주간 반등 — 11/9 급반등 후 뜨거운 CPI·엔비디아 CEO 사태로 등락. 반도체 +4.91%·경기순환 산업재 +4.00%·대형제약 +3.22% 강세, 수익성 바이오만 -0.87%. VIX 20.99→20.62 (fetch_market.py 산출)</li>
   
-    <li>고용·연준: 10월 비농업 고용 +16.5만(예상 6만대 크게 상회)·실업률 4.1%·평균시급 전년比 +3.1%(BLS) — 10월 FOMC 인상 반대 2표(Cook·Hammack)에 이어 12월 인상 논의에 힘을 싣는 재료</li>
+    <li>물가·연준: 10월 CPI 헤드라인 +0.4%·근원 +0.3%(예상 +0.2% 상회, BLS) vs PPI 최종수요 +0.3%(예상 +0.4% 하회). 연준 위원들 12월 0.5%p 인상 가능성 언급 — 2s10s 0.38→0.24pp로 단기금리 주도 평탄화</li>
   
-    <li>유가·신용: WTI $97.35→$88.45·Brent $106.03→$95.12로 급락(이란의 일부국 통항 허용·협상 기대) — 단 11/5 이후 유조선 피격 재개로 불안 지속. HY OAS(하이일드 가산금리) 344→342bp·IG 94→93bp 보합, 경보 임계 미달</li>
+    <li>기업: 엔비디아 젠슨 황 CEO 사임(11/12), 콜렛 크레스 CFO 임시 CEO — 11/17 실적이 첫 시험대. Anthropic IPO 로드쇼 개시, 주당 $70~78·8.25억주·Nasdaq 'ANT'(2차)</li>
   
-    <li>금주: 11/10(화) 10월 CPI(소비자물가) 08:30 ET — 근원 +0.2% 안팎 전망(2차), 12월 FOMC 향방의 핵심. 11/13(금) PPI. 11/10~11 美·러·우 3자 실무협상(아부다비)</li>
+    <li>신용·유가: HY OAS(하이일드 가산금리) 342→320bp·IG 93→89bp로 축소, 경보 임계 미달 — 단 CCC 등급 약 1,000bp로 저등급 스트레스 잔존. WTI $88.45→$88.04·Brent $95.12→$94.83 보합, 이란 '봉쇄·제재 해제 전 호르무즈 폐쇄 유지'</li>
   
-    <li>정책·기업: 민주당 의회 장악 후에도 관세는 대통령 행정권 기반이라 즉각 되돌림 가능성 낮다는 분석. 대중 301조 관세 예외 178개 품목 11/9 23:59 ET 만료 — 연장 공지 미확인. Anthropic IPO 희망 기업가치 $1.2T~1.3T로 하향 논의 보도(2차)</li>
+    <li>정책·지정학: 대중 301조 예외 178품목·BIS Affiliates Rule 유예 2027-01-09~10까지 연장(2차) — 미중 이슈 monitoring 전환. 러·우 포로교환 합의·유럽 협상 참여 수용, 영토는 교착</li>
+  
+    <li>금주: 11/17(화) 10월 소매판매·엔비디아 실적(장 마감 후) · 11/18(수) 주택착공·FOMC 의사록 14:00 ET</li>
   
   </ul>
 </section>
@@ -286,7 +288,7 @@
   <div class="section-body">
 
     <div class="chart-card">
-      <div class="chart-title">지수 · 섹터 ETF 주간변화 (W45 vs W44)</div>
+      <div class="chart-title">지수 · 섹터 ETF 주간변화 (W46 vs W45)</div>
       <p class="chart-desc">직전 거래주 마감 기준, 그 전주 마감 대비 등락률(%). 지수 3종 + 섹터 그룹별 대표 ETF 바스켓.</p>
       <canvas id="chart_etf_bar" height="160"></canvas>
     </div>
@@ -327,27 +329,27 @@
         <thead><tr><th>섹터</th><th>현재 4분면</th><th>해석</th></tr></thead>
         <tbody>
         
-          <tr><td>Consumer Defensive</td><td>둔화(Weakening)</td><td class="stale-note">상대강도는 아직 우위지만 모멘텀이 꺾임 — 주도권 약화 조짐</td></tr>
+          <tr><td>Consumer Defensive</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
         
-          <tr><td>Cyclical Industrials (A&D + Chemicals)</td><td>둔화(Weakening)</td><td class="stale-note">상대강도는 아직 우위지만 모멘텀이 꺾임 — 주도권 약화 조짐</td></tr>
+          <tr><td>Cyclical Industrials (A&D + Chemicals)</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
         
-          <tr><td>Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)</td><td>둔화(Weakening)</td><td class="stale-note">상대강도는 아직 우위지만 모멘텀이 꺾임 — 주도권 약화 조짐</td></tr>
+          <tr><td>Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
         
-          <tr><td>Capital-Intensive Regulated (Utilities/Telecom/Midstream)</td><td>둔화(Weakening)</td><td class="stale-note">상대강도는 아직 우위지만 모멘텀이 꺾임 — 주도권 약화 조짐</td></tr>
+          <tr><td>Capital-Intensive Regulated (Utilities/Telecom/Midstream)</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
         
-          <tr><td>Financial</td><td>둔화(Weakening)</td><td class="stale-note">상대강도는 아직 우위지만 모멘텀이 꺾임 — 주도권 약화 조짐</td></tr>
+          <tr><td>Financial</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
         
-          <tr><td>Growth/Intangible (SaaS/Internet/IT Svcs)</td><td>개선(Improving)</td><td class="stale-note">상대강도는 열위지만 모멘텀 회복 중 — 반등 후보</td></tr>
+          <tr><td>Growth/Intangible (SaaS/Internet/IT Svcs)</td><td>후행(Lagging)</td><td class="stale-note">상대강도·모멘텀 모두 열위 — 시장 대비 부진한 섹터</td></tr>
         
-          <tr><td>REIT</td><td>둔화(Weakening)</td><td class="stale-note">상대강도는 아직 우위지만 모멘텀이 꺾임 — 주도권 약화 조짐</td></tr>
+          <tr><td>REIT</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
         
-          <tr><td>Semiconductors</td><td>개선(Improving)</td><td class="stale-note">상대강도는 열위지만 모멘텀 회복 중 — 반등 후보</td></tr>
+          <tr><td>Semiconductors</td><td>후행(Lagging)</td><td class="stale-note">상대강도·모멘텀 모두 열위 — 시장 대비 부진한 섹터</td></tr>
         
-          <tr><td>Auto Manufacturers</td><td>둔화(Weakening)</td><td class="stale-note">상대강도는 아직 우위지만 모멘텀이 꺾임 — 주도권 약화 조짐</td></tr>
+          <tr><td>Auto Manufacturers</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
         
-          <tr><td>Large Pharma</td><td>둔화(Weakening)</td><td class="stale-note">상대강도는 아직 우위지만 모멘텀이 꺾임 — 주도권 약화 조짐</td></tr>
+          <tr><td>Large Pharma</td><td>선도(Leading)</td><td class="stale-note">벤치마크 대비 상대강도·모멘텀 모두 우위 — 시장을 이끄는 주도 섹터</td></tr>
         
-          <tr><td>Biotech</td><td>둔화(Weakening)</td><td class="stale-note">상대강도는 아직 우위지만 모멘텀이 꺾임 — 주도권 약화 조짐</td></tr>
+          <tr><td>Biotech</td><td>후행(Lagging)</td><td class="stale-note">상대강도·모멘텀 모두 열위 — 시장 대비 부진한 섹터</td></tr>
         
         </tbody>
       </table>
@@ -416,7 +418,7 @@
       <p class="chart-desc">금리 선물시장(CME FedWatch)에 반영된, 다음 FOMC(연방공개시장위원회) 금리 결정 시나리오별 시장 내재 확률.</p>
       
       <canvas id="chart_fed_path" height="120"></canvas>
-      <p class="stale-note">10월 FOMC는 3.75~4.00% 동결(10대 2, Cook·Hammack 0.25%p 인상 주장). 이후 10월 고용이 예상을 크게 웃돌아 12월 인상 논의가 강화됐다. 12월 인상 확률 약 75%라는 추정은 비주류 2차 단일 출처라 확률 시나리오 차트는 생략(확인필요). 11/10 CPI·11/13 PPI가 12월 결정 전 핵심 물가 점검 재료.</p>
+      <p class="stale-note">현 기준금리 3.75~4.00%(10월 동결, Cook·Hammack 인상 반대). 10월 근원 CPI +0.3%로 3개월 연속 고착되자 월러 이사·굴스비 총재가 12/8~9 FOMC 0.5%p 인상 가능성을 언급. 예측시장 Kalshi 12월 인상 확률 약 97%, CME FedWatch 0.5%p 확률 약 11~14%로 보도되나 2차·출처별 상이해 확률 차트는 생략(확인필요). 11/18 의사록에서 인상 지지 위원 분포, 12/10 11월 CPI는 회의 이후 발표.</p>
       
     </div>
 
@@ -433,59 +435,73 @@
     
       
       <div class="watch-item">
-        
-        <strong>10월 고용보고서: 비농업 고용 +16.5만, 실업률 4.1%</strong> <span class="stale-note">(October jobs report: nonfarm payrolls +165,000, unemployment rate 4.1%)</span>
-        <p>BLS(Bureau of Labor Statistics·노동통계국)는 11/6 발표에서 10월 비농업 고용이 16.5만 명 증가했다고 밝혔다. 시장 예상(약 6.2만~6.5만)을 크게 웃돌았고, 8~9월 수치는 합산 +8.4만 상향 수정됐다. 실업률은 4.1%로 하락했고, 평균시급은 0.4% 오른 $38.00(전년比 3.1%)이다. 경제적 사유 시간제 근로자가 33.9만 명 늘어 U-6(광의 실업률)은 7.9%로 올랐다. 업종별로는 전문·사업서비스 약 +7만, 헬스케어 +4.2만이다. 美 거시 영향: 노동시장 회복과 임금 상승이 겹쳐 12월 FOMC 인상 논의에 힘을 싣는 재료다.</p>
-        <div class="explain-box">고용보고서는 매월 첫 금요일 전후에 나오는 美 경기의 핵심 지표다. 일자리와 임금 증가세가 강하면 연준이 금리를 올릴 여지가 커져 채권금리·주식 밸류에이션에 직접 영향을 준다. 이번에는 임금상승률(3.1%)이 물가상승률(3.7%)에 못 미쳐 실질임금이 줄고 있다는 점도 함께 봐야 한다.</div>
+        <span class="badge-status badge-dormant">기보도</span>
+        <strong>10월 CPI: 전월비 헤드라인 +0.4%, 근원 +0.3% (11/10 발표, 근원은 컨센서스 +0.2% 상회)</strong> <span class="stale-note">(October CPI: all items +0.4% m/m, core +0.3% m/m)</span>
+        <p>BLS(미 노동통계국)는 11/10 08:30 ET에 10월 CPI(Consumer Price Index·소비자물가지수)를 발표했다. 계절조정 전월비 헤드라인 +0.4%, 근원(식품·에너지 제외) +0.3%이며 주거(shelter)가 주요 상승 요인이다. 2차 보도(investinglive)는 근원이 시장 예상 +0.2%를 웃돌았다고 전한다. 2025년 10월 정부 셧다운으로 10월 원자료가 없어 BLS는 대부분 지수의 10월 전년비(12개월 변동률)를 발표하지 않았고, 휘발유만 비계절조정 전년비 약 +37.4%(2차 보도 기준 — 1차 직접 확인 불가)로 보도됐다. 다음 CPI(11월분)는 12/10 발표. 12월 FOMC(12/8~9) 직전 마지막 CPI이며, 근원이 예상을 웃돈 점은 인상 반대 의견(Cook·Hammack)이 나온 10월 FOMC 이후 매파 기조를 지지하는 재료다.</p>
+        <div class="explain-box">CPI는 미국 가계가 사는 상품·서비스 가격의 변화를 측정하는 대표 물가지표로, 연준(Fed)의 금리 결정에 가장 직접적인 영향을 준다. 근원 CPI는 변동성 큰 식품·에너지를 뺀 기조적 물가 흐름을 보여주기 때문에 예상 상회 시 금리 인상·동결 장기화 기대가 커지고 채권 금리·성장주 밸류에이션에 부담이 된다.</div>
         
         <ul class="glossary">
-          <li><span class="term">비농업 고용(NFP)</span>: 농업을 제외한 美 민간·정부 부문의 월간 일자리 증감</li><li><span class="term">U-6</span>: 실업자에 구직 단념자와 비자발적 시간제 근로자까지 포함한 광의 실업률</li><li><span class="term">BLS</span>: Bureau of Labor Statistics, 美 노동통계국</li>
+          <li><span class="term">CPI(소비자물가지수)</span>: 도시 소비자가 구매하는 상품·서비스 바구니 가격의 변화율. BLS가 매월 발표.</li><li><span class="term">근원(Core) CPI</span>: 식품·에너지를 제외한 CPI. 일시적 변동을 걷어낸 기조 물가.</li><li><span class="term">shelter(주거비)</span>: 임대료와 자가 주거비(귀속임대료) 등 CPI에서 비중이 가장 큰 항목.</li><li><span class="term">BLS</span>: Bureau of Labor Statistics, 미 노동통계국.</li>
         </ul>
         
-        <div><span class="ops-note">BLS 원문 전체 미열람 — 검색 결과 요약 기준. 세부 수치(U-6·업종별)는 2차 보도 의존, 확인필요.</span></div>
-        <span class="stale-note">출처: BLS</span>
+        <div><span class="ops-note">BLS 원문 직접 열람이 차단되어(스크래핑 실패) 검색 노출된 1차 페이지 요약과 2차 보도로 교차확인. 10월 전년비는 BLS 미발표라 CPI YoY 수치 인용 금지.</span></div>
+        <span class="stale-note">출처: BLS (11/10 CPI 릴리스 — 검색결과 요약 확인) + investinglive(근원 컨센서스 대비)</span>
       </div>
       
       <div class="watch-item">
         
-        <strong>10월 FOMC: 3.75~4.00% 동결, 10대2 (Cook·Hammack 인상 주장)</strong> <span class="stale-note">(FOMC holds target range at 3.75%-4.00% on Oct 28, vote 10-2 (Cook, Hammack dissent in favor of a hike))</span>
-        <p>FOMC(Federal Open Market Committee·연방공개시장위원회)는 10/28 정책금리 목표 범위를 3.75~4.00%로 동결했다. 표결은 10대2로, Lisa Cook 이사와 Beth Hammack 클리블랜드 연은 총재가 25bp 인상을 주장하며 반대했다. 성명은 물가가 최근 국제 에너지 가격 상승 등을 반영해 높은 수준이라고 했고, 추가 정보가 다음 결정에 도움이 될 것이라고 밝혔다. 지급준비금 이자율(IORB)은 3.90%다. 다음 회의는 12월이다. 美 거시 영향: 동결이지만 매파 반대 2표로 정책 편향이 인상 쪽에 기울었음을 시사한다.</p>
-        <div class="explain-box">FOMC는 연 8회 열려 기준금리를 정한다. 반대표(dissent)는 위원회 내부 의견 분열을 보여주며, 이번처럼 '인상' 쪽 반대는 시장이 금리 인상 가능성을 더 높게 보는 근거가 된다.</div>
+        <strong>10월 PPI(생산자물가): 최종수요 전월비 +0.3%·전년비 +6.5% — 예상(+0.4%/+6.6%) 소폭 하회</strong> <span class="stale-note">(October PPI: final demand +0.3% m/m, +6.5% y/y)</span>
+        <p>BLS는 11/13 08:30 ET 10월 PPI(Producer Price Index·생산자물가지수)를 발표했다. 최종수요 지수는 전월비 +0.3%(상품 +0.5%, 서비스 +0.2%), 12개월 기준 +6.5%로 집계됐다. 발표 전 Dow Jones 컨센서스(전월비 +0.4%·전년비 +6.6%)를 소폭 밑돌았다. 직전 9월은 전월비 +1.3%·전년비 +6.3%(2022년 12월 이후 최대)였다. CPI 근원이 예상을 웃돈 것과 달리 도매 단계 압력은 9월 급등 이후 다소 진정된 모습이다.</p>
+        <div class="explain-box">PPI는 기업이 생산·납품 단계에서 받는 가격의 변화로, 소비자물가에 선행해 비용 압력을 보여준다. 도매 단계 물가가 높게 유지되면 기업 마진 압박과 이후 CPI 상승 전가 우려가 커진다.</div>
         
         <ul class="glossary">
-          <li><span class="term">dissent(반대표)</span>: FOMC 투표에서 다수 결정에 반대한 위원의 표</li><li><span class="term">IORB</span>: 연준이 은행 지급준비금에 주는 이자율(Interest on Reserve Balances)</li><li><span class="term">bp</span>: 베이시스포인트, 0.01%p</li>
+          <li><span class="term">PPI(생산자물가지수)</span>: 국내 생산자가 판매하는 재화·서비스의 가격 변동. 최종수요 PPI가 헤드라인.</li><li><span class="term">최종수요(Final demand)</span>: PPI 헤드라인 기준으로, 최종 소비·투자·수출용 상품·서비스 가격 묶음.</li>
         </ul>
         
-        <div><span class="ops-note">성명 전문은 직접 열람하지 못함 — 검색 요약 기준. 성명 표현은 확인필요. / 2차 보도 중 3인 반대로 쓴 매체 1건이 있으나 상이, 1차(연준 보도자료) 10대2 기준 채택</span></div>
+        <div><span class="ops-note">리서처 검색예산 소진으로 에디터가 보완 검색. BLS 홈페이지 스냅샷 기준 수치이며 전문 릴리스 원문 미열람 — 세부 항목 확인필요.</span></div>
+        <span class="stale-note">출처: BLS(홈페이지 릴리스 요약 — 1차) + Stock Titan(컨센서스, 2차)</span>
+      </div>
+      
+      <div class="watch-item">
+        <span class="badge-status badge-dormant">기보도</span>
+        <strong>연준 위원들, 12월 0.5%p 인상 가능성 언급 — 2년물 급등·10년물 5.1%대</strong> <span class="stale-note">(Fed officials open door to a half-point hike in December)</span>
+        <p>근원 CPI가 3개월 연속 +0.3%로 나오자 월러(Waller) 이사는 12/8~9 FOMC에서 0.5%p 인상을 검토하겠다는 기존 조건이 충족됐다는 해석을 낳았고, 굴스비(시카고 연은)도 0.5%p가 '테이블 위에 있다'고 밝혔다(2차). 2년물 국채금리가 하루 17bp 급등했다는 보도, 11/12엔 10년물이 5.1%를 넘었다는 보도가 나왔다. 예측시장 Kalshi의 12월 '인상' 확률은 약 97%, CME FedWatch 0.5%p 인상 확률은 약 11~14%로 보도(2차, 출처별 상이). 2s10s(2년·10년 금리차)는 0.38→0.24pp로 축소(FRED, state_io delta) — 단기금리 상승 주도의 평탄화.</p>
+        <div class="explain-box">연준(Fed)은 물가가 목표(2%)를 크게 웃돌면 기준금리를 올려 수요를 억제한다. 0.5%p 인상은 통상 0.25%p의 두 배 속도로, 시장 금리·주택담보대출·기업 차입비용을 빠르게 끌어올려 성장주 밸류에이션과 금리 민감 업종에 부담을 준다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">2s10s</span>: 미 국채 10년물과 2년물 금리 차이. 축소(평탄화)는 단기 긴축 기대가 강해졌다는 신호</li><li><span class="term">CME FedWatch</span>: 연방기금금리 선물 가격으로 FOMC 결정 확률을 추정하는 도구</li><li><span class="term">Kalshi</span>: 미 CFTC 규제 예측시장</li>
+        </ul>
+        
+        <div><span class="ops-note">1차 미확인 — 2차 교차 채택. 확률 수치는 출처별 상이해 fed_path 차트 생략.</span></div>
+        <span class="stale-note">출처: Kitco(Reuters)·MPA·Benzinga(2차 교차) — 연준 원문 발언록 미확인</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>10월 FOMC 의사록 11/18(수) 14:00 ET 공개 — 12월 경로 단서</strong> <span class="stale-note">(FOMC minutes of Oct 27-28 meeting due Wed Nov 18, 2:00pm ET)</span>
+        <p>연준(federalreserve.gov) 11월 일정에 10/27~28 FOMC 의사록이 11/18 14:00 ET 공개로 게재되어 있다. 10월 회의는 기준금리 3.75~4.00% 동결, Cook·Hammack 위원이 인상을 주장하며 반대했다(W46 판정 기준). 의사록에서 인상 지지 위원 수와 12월 인상 조건, 대차대조표·물가 판단이 확인 포인트다. 다음 FOMC는 12/8~9(2차 출처 기준, 1차 일정 재확인 권장).</p>
+        <div class="explain-box">FOMC 의사록은 금리 결정 회의 후 3주 뒤 공개되는 토론 요약본으로, 성명서에 드러나지 않는 위원들 간 의견 분포와 향후 정책 방향 힌트를 준다. 시장은 이를 통해 다음 회의 금리 인상·동결 확률을 재조정한다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">FOMC</span>: Federal Open Market Committee, 연준의 금리 결정 기구(연 8회 회의).</li><li><span class="term">의사록(Minutes)</span>: 정례회의 후 3주 뒤 공개되는 회의 토론 요약.</li><li><span class="term">반대(dissent)</span>: 다수 결정에 표결로 반대하는 위원의 의견 표명.</li>
+        </ul>
+        
+        <div><span class="ops-note">12월 FOMC 날짜(12/8~9)는 2차 출처 기반 — 1차 확정은 fomccalendars 재확인 권장.</span></div>
         <span class="stale-note">출처: federalreserve.gov</span>
       </div>
       
       <div class="watch-item">
         
-        <strong>10월 CPI 발표(11/10 화 8:30 ET): 근원 전월比 +0.2% 안팎 전망, 연간 수치 공백</strong> <span class="stale-note">(October CPI due Nov 10, 8:30am ET: core expected near +0.2% m/m; no y/y available due to data gap)</span>
-        <p>BLS 일정상 10월 CPI(Consumer Price Index·소비자물가지수)는 11/10 오전 8:30 ET 발표다. 9월은 근원 +0.3%(전년比 2.6%), 헤드라인 전년比 3.7%였고 휘발유가 월간 상승의 절반 이상을 차지했다. 10월 전망은 근원 약 +0.2%이며(Continuum Economics 근원 0.22%·헤드라인 0.24%, Kalshi 내재 헤드라인 0.28%), 지난해 10월 정부 셧다운 여파의 데이터 공백으로 전년比 수치는 제공되지 않을 수 있다. 12월 인상 확률 약 75%라는 2차 추정이 있다. 美 거시 영향: 12월 FOMC 인상 여부를 가를 핵심 지표다.</p>
-        <div class="explain-box">CPI는 소비자가 사는 상품·서비스 가격의 변화로 연준 물가 판단의 핵심 근거다. 근원 CPI는 변동성이 큰 식품·에너지를 제외해 추세를 본다. 예상보다 높으면 금리 인상 기대가 커져 성장주와 채권에 부담이 된다.</div>
+        <strong>금주 일정: 10월 소매판매 11/17(화)·주택착공 11/18(수)·FOMC 의사록 11/18·엔비디아 실적 11/17</strong> <span class="stale-note">(Week ahead: Oct retail sales (Tue Nov 17), housing starts (Wed Nov 18))</span>
+        <p>금주(11/16~20)는 10월 소매판매(Census, 11/17 08:30 ET 예정), 10월 신규주택착공(Census·HUD, 11/18 08:30 ET 예정), FOMC 의사록(11/18), 엔비디아 실적(11/17 장 마감 후, 회사 공지)이 주요 이벤트다. 소매판매·주택착공 날짜는 2차 캘린더(fedratecalc·financecalendar·thetrading.tools) 기준이며 Census 공식 캘린더로 직접 확인하지 못해 확인필요로 표기한다. 이 외 금주 지표(PPI 외 주택시장지수·필라델피아 연은·신규실업수당청구 등)는 이번 조사에서 날짜를 확인하지 못했다.</p>
+        <div class="explain-box">소매판매는 미국 GDP의 약 70%를 차지하는 소비의 월간 척도이고, 주택착공은 금리 민감 업종인 주택경기의 선행 신호다. 물가가 높은 국면에서는 소비 둔화 여부가 연준의 추가 긴축 필요성 판단에 영향을 준다.</div>
         
         <ul class="glossary">
-          <li><span class="term">근원 CPI(core)</span>: 식품·에너지를 제외한 소비자물가</li><li><span class="term">m/m, y/y</span>: 전월 대비, 전년 동월 대비</li><li><span class="term">Kalshi</span>: 경제지표 결과에 베팅하는 예측시장</li>
+          <li><span class="term">소매판매(Retail Sales)</span>: 소매점·외식 등 소비자 지출 월간 집계(Census).</li><li><span class="term">주택착공(Housing Starts)</span>: 해당 월 새로 착공된 주택 호수(연율). 금리 민감 지표.</li>
         </ul>
         
-        <div><span class="ops-note">컨센서스 수치와 12월 인상 확률 75%는 비주류 2차 출처(bydfi) 의존 — 확인필요. 전년比 공백 여부도 발표 후 확인.</span></div>
-        <span class="stale-note">출처: BLS (일정) / Continuum Economics·bydfi (전망, 2차)</span>
-      </div>
-      
-      <div class="watch-item">
-        
-        <strong>금주 후속 일정: 10월 PPI(11/13 금), 소매판매(11/17 화), PCE(11/25 수), Fed 인사 발언</strong> <span class="stale-note">(Rest of calendar: October PPI (Nov 13), retail sales (Nov 17), PCE (Nov 25); Fedspeak)</span>
-        <p>PPI(Producer Price Index·생산자물가지수)는 11/13(금) 8:30 ET로 다수 캘린더가 일치하나 BLS 원문 미확인이다. 10월 소매판매(Census)는 11/17(화)로 차주 소관이다. PCE(Personal Consumption Expenditures·개인소비지출 물가)는 BEA(Bureau of Economic Analysis) 일정상 11/25(수) 8:30 ET다. 주간 프리뷰(FXStreet, 11/6)는 CPI, PPI, Fed 인사 발언에 주목하며 인상 베팅이 유지되고 있다고 전한다. 구체적 연준 발언자 일정은 확인하지 못했다. 美 거시 영향: CPI에 이어 PPI가 12월 FOMC 전 마지막 물가 점검 재료로 작용한다.</p>
-        <div class="explain-box">PPI는 기업이 받는 도매 단계 가격으로 소비자물가의 선행 신호로 쓰인다. 연준이 가장 중시하는 물가 지표는 PCE이며 CPI, PPI 결과로 시장이 사전에 PCE를 추정한다.</div>
-        
-        <ul class="glossary">
-          <li><span class="term">PPI</span>: 생산자물가지수, 생산 단계의 가격 변화</li><li><span class="term">Fedspeak</span>: 연준 위원들의 공개 발언</li>
-        </ul>
-        
-        <div><span class="ops-note">PPI 11/13·소매판매 11/17은 1차(BLS·Census) 미확인 — 2차 캘린더 채택, 확인필요. Fed 발언자 일정 확인필요.</span></div>
-        <span class="stale-note">출처: BLS / BEA / 캘린더 2차</span>
+        <div><span class="ops-note">1차 확인 불가로 2차 캘린더 채택. 컨센서스 수치는 수집하지 않음. / 확인필요 — 1차(Census) 일정 미확인, 2차 캘린더 간에는 일치</span></div>
+        <span class="stale-note">출처: Census Bureau 일정(공식 캘린더 직접 확인 불가) + 2차 캘린더</span>
       </div>
       
     
@@ -499,44 +515,44 @@
       
       <div class="watch-item">
         
-        <strong>HY 스프레드, 10월 말 고점권에서 횡보 (HY OAS 342bp)</strong>
-        <p>HY OAS(High Yield Option-Adjusted Spread·하이일드 채권과 국채의 금리 차이)는 11/6 342bp로 전주 대비 -2bp. 9월 하순 이후 약 70bp 확대된 구간의 고점 부근이다. 임계(레벨 500bp, 5일 변화 +75bp)에는 미달.</p>
-        <div class="explain-box">HY 스프레드는 신용등급이 낮은 기업이 국채보다 더 부담하는 금리로, 커질수록 시장이 기업 부도 위험을 높게 본다는 뜻이다. 주식시장의 위험선호와 은행·금융 업종 건전성을 가늠하는 선행 지표로 쓰인다.</div>
+        <strong>하이일드 내 양극화: CCC 등급 약 1,000bp, 상위 등급은 안정 (Vanguard 'Beyond CCC, high yield appears resilient')</strong>
+        <p>Vanguard는 11/10 기준 CCC 등급 스프레드(국채 대비 가산금리)가 연중 저점보다 500bp 이상 확대된 약 1,000bp라고 밝혔고, BB-·B 등급은 상대적으로 억제돼 있다고 평가했다. 11/6 기준 HY 시장 수익률은 8.21%.</p>
+        <div class="explain-box">하이일드(HY·투기등급 회사채) 전체 스프레드는 안정적이어도 최하위 등급(CCC)만 크게 벌어지면 약한 기업의 자금난이 커지고 있다는 뜻이다. 지수 평균만 보면 놓치기 쉬운 신호다.</div>
         
         <ul class="glossary">
-          <li><span class="term">OAS</span>: Option-Adjusted Spread. 옵션 효과를 제거한 국채 대비 가산금리</li><li><span class="term">bp</span>: basis point. 0.01%p</li>
+          <li><span class="term">OAS(Option-Adjusted Spread·옵션조정 스프레드)</span>: 회사채가 국채보다 추가로 주는 금리. 클수록 신용 위험 인식이 큼</li><li><span class="term">CCC</span>: 투기등급 중에서도 가장 낮은 등급대로 부도 위험이 높음</li>
         </ul>
         
         
-        <span class="stale-note">출처: FRED BAMLH0A0HYM2 (fetch_market.py)</span>
+        <span class="stale-note">출처: Vanguard</span>
       </div>
       
       <div class="watch-item">
         
-        <strong>Fed 10월 SLOOS: 기업대출 수요 약화, 서브프라임 기준 강화</strong>
-        <p>Fed 은행 대출담당자 설문(SLOOS) 10월분에 대한 보도(11/2)에 따르면 3분기 기업대출 수요가 전 규모 기업에서 약해졌고(2025년 2분기 이후 처음) 대출 기준은 대체로 유지됐다. 서브프라임 대출 기준은 순 20% 강화로 2023년 2분기 이후 최대이나 해당 대출 은행은 10곳뿐이다. 2차 출처 단일 보도이며 Fed 원문은 미확인.</p>
-        <div class="explain-box">SLOOS(Senior Loan Officer Opinion Survey·은행 대출담당자 설문)는 Fed가 분기마다 은행의 대출 문턱과 수요를 조사한 결과다. 대출 기준이 강화되면 기업 자금조달이 어려워져 경기와 신용 스프레드에 부담이 된다.</div>
+        <strong>BBB 107bp·BB 184bp (10/28 기준, Real Investment Advice)</strong>
+        <p>ICE BofA BBB 등급 OAS 107bp, BB 등급 HY OAS 184bp(10/28 기준). 우량~중간 등급은 비교적 낮은 수준을 유지.</p>
+        <div class="explain-box">투자적격 최하단(BBB)과 HY 최상단(BB)의 스프레드가 낮다는 것은 경계선 기업의 차환 환경이 아직 열려 있다는 뜻이다.</div>
         
         <ul class="glossary">
-          <li><span class="term">SLOOS</span>: Fed가 분기별로 발표하는 은행 대출태도 설문</li><li><span class="term">서브프라임</span>: 신용도가 낮은 차주 대상 대출</li>
+          <li><span class="term">BBB/BB</span>: BBB는 투자적격 최하단, BB는 투기등급 최상단</li>
         </ul>
         
-        <div><span class="ops-note">1차(federalreserve.gov) 미확인, 2차 보도 기준. 수치 확인필요</span></div>
-        <span class="stale-note">출처: TheStreet (Reuters 11/2 인용)</span>
+        
+        <span class="stale-note">출처: Real Investment Advice</span>
       </div>
       
       <div class="watch-item">
         
-        <strong>10월 HY 스프레드 분산 확대, IG는 안정</strong>
-        <p>Markets Media에 따르면 10월 HY 스프레드 분산(종목별 스프레드 격차)이 USD·EUR 모두 0.977로 역사적으로 높은 수준인 반면 IG는 낮게 유지됐다. 약한 기업과 강한 기업의 선별이 심화되는 양상이다.</p>
-        <div class="explain-box">분산이 크다는 것은 시장 전체 위험보다 개별 취약 기업에 스트레스가 집중된다는 뜻이다. 전반적 신용경색보다는 선별적 부담 신호로 해석한다.</div>
+        <strong>레포(환매조건부채권) 시장: 이번 주 확인 가능한 11월 자료 없음</strong>
+        <p>검색에서 2026년 11월자 SOFR·SRF 이용 현황 보도는 확인되지 않았다. 정량 지표(SOFR-3M T-bill -24bp)상 단기 자금 경색 신호는 없다.</p>
+        <div class="explain-box">레포는 금융기관이 국채 등을 담보로 단기 자금을 빌리는 시장이다. 지급준비금이 줄면 금리가 튀는데, 2025년 말 이런 압력이 있었다. 이번 주는 최신 보도 미확인으로 정량 지표에만 의존한다.</div>
         
         <ul class="glossary">
-          <li><span class="term">dispersion</span>: 종목별 스프레드가 평균에서 벌어진 정도</li>
+          <li><span class="term">SRF(Standing Repo Facility·상시 레포 창구)</span>: 연준이 은행에 담보를 받고 단기 자금을 공급하는 안전판</li><li><span class="term">SOFR</span>: 미 국채 담보 익일물 대출 금리, 달러 단기자금 기준금리</li>
         </ul>
         
-        
-        <span class="stale-note">출처: Markets Media / fi-desk</span>
+        <div><span class="ops-note">11월 레포 헤드라인 1차 미확인, 수치 보류. 정량(FRED) 지표만 사용</span></div>
+        <span class="stale-note">출처: WebSearch(결과 없음)</span>
       </div>
       
     
@@ -549,45 +565,59 @@
     
       
       <div class="watch-item">
-        <span class="badge-status badge-dormant">기보도</span>
-        <strong>대중 301조 관세 예외 178개 품목 만료 시한 도래 - 연장 공지 미확인</strong> <span class="stale-note">(China Section 301 tariff exclusions (178 items) reach expiry; no extension notice found)</span>
-        <p>2025년 12월 연방관보 공지로 연장된 대중 301조 관세 예외 178개 품목(제품별 164개 + 태양광 제조장비 14개)이 미 동부시간 2026-11-09 23:59에 만료된다(일부 2차 자료는 11-10로 표기). 11-09 현재 USTR(미국 무역대표부)·연방관보에서 추가 연장 공지는 확인되지 않았다. 연장 없이 만료되면 해당 품목에 301조 관세가 다시 부과될 수 있어, 11-10 전후 USTR 발표 여부가 핵심 점검 사항이다.</p>
-        <div class="explain-box">301조 관세는 중국의 기술이전·지식재산권 관행을 이유로 부과된 대중 관세다. 일부 품목은 미국 기업의 조달 사정을 감안해 관세를 면제(예외)해 왔고, 이 면제는 보통 3~12개월씩 연장되어 왔다. 만료 시 수입 원가가 오르는 산업(특히 태양광 장비 등)에 영향이 있다.</div>
+        
+        <strong>USTR, 대중 301조 관세 예외 178품목 2027-01-09까지 연장</strong> <span class="stale-note">(USTR extends all 178 China Section 301 tariff exclusions through January 9, 2027)</span>
+        <p>2026-11-09~10 만료 예정이던 대중 301조(Section 301·불공정 무역관행 조사에 근거한 대중 관세) 관세 예외 178품목(재지정 164개 + 태양광 제조장비 14개)이 2027-01-09까지 연장됐다. Federal Register 고시는 11/10자로 보도됐고, USTR은 중국과의 협의 지속을 사유로 들었다. 만료 시한이 사실상 2개월 뒤로 이월된 셈이다.</p>
+        <div class="explain-box">301조 관세 예외는 중국산 일부 품목(주로 부품·장비)에 대해 기존 301조 관세를 면제해 주는 조치다. 수입 비용에 민감한 제조업·태양광 업종에 중요하며, 연장은 미중 휴전(Busan 합의) 기조가 유지되고 있다는 신호로 읽힌다.</div>
         
         <ul class="glossary">
-          <li><span class="term">Section 301(301조)</span>: 미국 통상법 301조. 불공정 무역관행에 대해 미국무역대표부(USTR)가 조사·관세 부과를 할 수 있는 근거 조항</li><li><span class="term">HTS 9903.88.69/70</span>: 예외가 적용되는 품목을 신고할 때 쓰는 관세 분류 코드(69: 제품별 164개, 70: 태양광 제조장비 14개)</li><li><span class="term">USTR</span>: United States Trade Representative, 미국 무역대표부</li>
+          <li><span class="term">Section 301(301조)</span>: 미 무역법 301조. USTR이 불공정 무역관행을 조사해 관세 등 보복조치를 부과하는 근거 조항</li><li><span class="term">USTR</span>: 미국 무역대표부. 통상 협상·관세 조사를 담당하는 행정부 기관</li><li><span class="term">관세 예외(exclusion)</span>: 특정 품목을 관세 부과 대상에서 한시적으로 면제하는 조치</li>
         </ul>
         
-        <div><span class="ops-note">1차 출처(USTR/연방관보)에서 2026-11 시점 연장 공지 미확인. 2025-12 연방관보 공지의 만료일 기준. 다음 주 연장/만료 여부 재확인 필요(watchlist: us-china-trade-tech-war).</span></div>
-        <span class="stale-note">출처: USTR / Federal Register (2025-12-01, 2025-21671)</span>
-      </div>
-      
-      <div class="watch-item">
-        <span class="badge-status badge-dormant">기보도</span>
-        <strong>11/3 중간선거 결과(민주당 의회 장악 분석)와 관세·재정정책 함의</strong> <span class="stale-note">(Midterm results and implications for tariffs and fiscal policy)</span>
-        <p>11-03 중간선거에서 민주당이 의회 다수를 차지한 것으로 분석되며, 생활물가가 핵심 쟁점이었다. 다수 분석은 트럼프 행정부가 관세를 포기할 가능성은 낮고, 관세 권한이 대통령 행정권에 기반한 만큼 의회 변화가 즉각적인 정책 되돌림으로 이어지지는 않을 것으로 본다. 대신 감독·조사 강화, 예산(세출) 협상력 확대, 추가 재정 확대 제동 가능성이 거론된다. 교역 상대국은 협상에서 관망·저항 여지가 커졌다는 평가(통신사 보도). 정량적 관세수입·재정적자 영향 수치는 확인되지 않았다.</p>
-        <div class="explain-box">관세 대부분은 의회 입법이 아닌 대통령 행정권(301조, 338조 등)에 근거하므로 의회 다수당이 바뀌어도 바로 폐지되지 않는다. 다만 의회는 예산·감독 권한으로 압박할 수 있어 향후 관세 정책의 불확실성과 재정 전망에 영향을 준다.</div>
-        
-        <ul class="glossary">
-          <li><span class="term">중간선거(Midterm)</span>: 대통령 임기 중간에 치러지는 연방 의회 선거</li><li><span class="term">세출(Appropriations)</span>: 의회가 정부 지출을 승인하는 예산 절차</li>
-        </ul>
-        
-        <div><span class="ops-note">해설·논평 기반(Carnegie, STR 등 2차). 공식 수치 부재로 방향성만 채택.</span></div>
-        <span class="stale-note">출처: Carnegie Endowment / STR Trade Report / Reuters 인용 보도 (2차)</span>
+        <div><span class="ops-note">1차 미확인 — 2차(KPMG TaxNewsFlash 2026-11, GHY 2026-11-11) 교차 채택. USTR·Federal Register 원문 직접 확인 필요. 연장 종료일 1/9와 FR 게재일 11/10은 2차 기준.</span></div>
+        <span class="stale-note">출처: KPMG / GHY (2차; 1차 USTR·Federal Register 미확인)</span>
       </div>
       
       <div class="watch-item">
         
-        <strong>301조 강제노동 관세 및 캐나다 338조 관세 - 금주 신규 공식 발표 미확인</strong> <span class="stale-note">(Section 301 forced-labor tariffs and Canada Section 338 tariffs - no new official action found this week)</span>
-        <p>301조 강제노동 관세(캐나다·에콰도르·EU·인도네시아·멕시코·파키스탄 6개 경제권 10%)는 2026-07-24 발효, 캐나다 338조 50% 관세(약 200억 달러 규모)는 08-19 발효 예정이었다. 두 건 모두 국제통상법원(CIT) 소송이 진행 중이며(338조 관련 10-15 보도), 이번 주 신규 공식 발표나 판결은 검색에서 확인되지 않았다. 중간선거 결과로 캐나다 관세 이슈가 국내 정치 쟁점으로 부각되고 있다.</p>
-        <div class="explain-box">338조는 외국의 차별 대우에 대응해 최대 50% 관세를 부과할 수 있는 1930년 관세법 조항으로 사용 사례가 매우 드물어 법적 다툼 여지가 크다. 법원 판단이 나오면 관세 유지 여부에 직접 영향을 준다.</div>
+        <strong>BIS, Affiliates Rule(자회사 확대 수출통제) 유예 2027-01-10까지 연장</strong> <span class="stale-note">(BIS extends suspension of Affiliates Rule through January 10, 2027)</span>
+        <p>2026-11-10 복원 예정이던 BIS(미 상무부 산업안보국) Affiliates Rule 유예가 2027-01-10까지 연장됐다. 규정 자체를 폐기·수정한 것은 아니며 시행만 미룬 것이다. 9월 미중이 Busan 합의를 2027-01-10까지 연장한 흐름과 맞물린다. 로펌 간 공표 시점 서술이 일부 상이하다(11/5 발표, 11/9 FR 게재 등).</p>
+        <div class="explain-box">Affiliates Rule은 수출통제 블랙리스트(Entity List) 기업이 50% 이상 지분을 가진 자회사까지 동일하게 수출을 제한하는 규정이다. 유예 연장은 미중 무역 휴전의 핵심 축이 유지된다는 의미이며, 반도체·장비 공급망 기업에는 불확실성이 2027-01로 이월된 것이다.</div>
         
         <ul class="glossary">
-          <li><span class="term">Section 338</span>: 1930년 관세법 338조. 차별 대우 국가 상품에 최대 50% 추가 관세 부과 근거</li><li><span class="term">CIT</span>: Court of International Trade, 국제통상법원</li><li><span class="term">USMCA</span>: 미국·멕시코·캐나다 무역협정. 적합 상품은 301조 10% 관세에서 제외</li>
+          <li><span class="term">BIS</span>: 미 상무부 산업안보국. 수출통제 규정을 집행</li><li><span class="term">Affiliates Rule</span>: Entity List 등재 기업의 지분 50% 이상 자회사에도 수출통제를 확대 적용하는 규정</li><li><span class="term">Busan 합의</span>: 2025년 미중 정상 간 무역 휴전 합의. 9월 2027-01-10까지 연장됨</li>
         </ul>
         
-        <div><span class="ops-note">신규 이벤트 없음 - 진행 이슈 상태 유지(monitoring 성격). 최신 CIT 상태는 2차 요약 기준으로 1차 미확인.</span></div>
-        <span class="stale-note">출처: Cleary Trade Watch / Willkie / GT (2차, 7~10월 자료)</span>
+        <div><span class="ops-note">1차 미확인 — 2차(Skadden, Squire Patton Boggs, Nixon Peabody 등 로펌) 교차 채택. FR 문서번호 2026-22793은 2차 기재. BIS·Federal Register 직접 확인 필요.</span></div>
+        <span class="stale-note">출처: Skadden / Squire Patton Boggs (2차; 1차 BIS·Federal Register 미확인)</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>301조 강제노동 관세(60개국 10~12.5%) CIT 판결 미확인 — 대기 지속</strong> <span class="stale-note">(CIT ruling on Section 301 forced-labor tariffs (No. 26-cv-3555) not yet found)</span>
+        <p>9/30 구두변론에서 3인 재판부는 USTR의 법적 근거·증거에 회의적인 질문을 이어갔다. 검색 범위에서 11월 중 판결 보도는 확인되지 않았고, 추가 서면 제출을 요청한 것으로 보도돼 판결이 지연될 가능성이 있다(해당 명령 일자는 미확인). 판결은 무효화 또는 USTR의 재조사 명령 중 하나가 될 수 있다.</p>
+        <div class="explain-box">이 소송은 국가별 개별 인정 없이 60개국에 일괄 부과한 강제노동 관련 301조 관세가 적법한지 다툰다. 무효 판결 시 관세 환급과 신규 관세 수단 재편 가능성이 있어 시장 영향이 크다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">CIT</span>: 미 국제통상법원. 관세 관련 소송을 전담하는 연방법원</li><li><span class="term">vacate(무효화)</span>: 법원이 행정 조치의 효력을 취소하는 것</li>
+        </ul>
+        
+        <div><span class="ops-note">신규 판결 무신호 — watchlist 상태 유지(선언≠해소). 마지막 확인 보도는 10월 초로 11월 동향은 미확인.</span></div>
+        <span class="stale-note">출처: MLex / 2차 보도</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>캐나다 338조 50% 관세 — 금주 신규 진전 미확인</strong> <span class="stale-note">(Canada Section 338 tariffs: no new developments)</span>
+        <p>캐나다 338조 50% 관세: 이번 주 신규 보도 미확인(검색에서 최신 자료가 7~8월 수준). 2027-01-01 자동차 관세 인상 위협 관련 신규 진전은 확인되지 않음. watchlist 상태 유지.</p>
+        <div class="explain-box">통상법 338조는 미국 상거래를 차별하는 국가에 최대 50% 관세를 부과할 수 있는 1930년 조항이다. 캐나다는 미국의 최대 교역국 중 하나여서 자동차·에너지·소재 공급망에 영향이 크다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">338조</span>: 1930년 관세법 338조 — 차별 국가에 추가 관세 부과 권한</li>
+        </ul>
+        
+        
+        <span class="stale-note">출처: policy-research(신규 보도 미확인)</span>
       </div>
       
     
@@ -601,44 +631,58 @@
       
       <div class="watch-item">
         <span class="badge-status badge-dormant">기보도</span>
-        <strong>미국, 호르무즈 인근 이란 공습·유조선 피격 재개 — 선거 후에도 완화 없음</strong>
-        <p>11/3 미국이 호르무즈 인근 이란 목표를 공습한 것으로 보도됐고(2차), 11/5~6 걸프·호르무즈 유조선 피격이 이어졌다. Brent(북해산 브렌트유) 선물은 11/5 $98.29 마감(+$3.67), 11/6 약 $99로 보도됐다(수치는 2차 보도, 시장 산출값 우선). 중간선거 후 재공습 가능성이 부분 현실화했으나 합의 신호는 없다.</p>
-        <div class="explain-box">호르무즈 해협은 세계 해상 원유 물동량의 약 1/4이 통과하는 요충지다. 통항 차질은 유가를 끌어올려 美 인플레이션과 에너지·운송·방산 섹터에 직접 영향을 준다.</div>
+        <strong>호르무즈: 이란 '봉쇄·제재 해제 전 해협 폐쇄 유지' — 美 봉쇄 지속, 이스라엘 공격 준비 보도</strong> <span class="stale-note">(Iran says Hormuz stays shut until blockade and sanctions lifted; Israel reportedly readies strike)</span>
+        <p>美 중부사령부(CENTCOM)는 11/7 이란 항만 해상봉쇄를 반복 돌파하려던 벌크선 'Huda'를 무력화했고, 이란 혁명수비대(IRGC)는 11/8 유조선 3척 화재를 주장했다(독립 확인 없음). 이란은 美와의 협상설을 부인하며 '7개 요구조건 수용 전' 해협 재개방은 없다고 했고, 갈리바프 의회의장은 美 봉쇄·제재 해제를 조건으로 내걸었다. 이스라엘 안보내각이 對이란 공격 준비 강화를 지시했다는 보도에 이란은 확전을 경고했다(2차). 유가는 주간 WTI $88.45→$88.04·Brent $95.12→$94.83로 보합(fetch_market.py) — 선택적 통항 면제·협상 기대와 공격 지속이 상쇄. 10월 선박 피격은 37건으로 개전 이후 월간 최다(2차).</p>
+        <div class="explain-box">호르무즈 해협은 세계 원유의 약 5분의 1이 지나는 좁은 수로다. 휴전·협상 기대가 커지면 유가가 급락하고, 선박 공격이 나오면 반등하므로 인플레이션 기대와 에너지·운송 업종에 직접 영향을 준다.</div>
         
         <ul class="glossary">
-          <li><span class="term">Brent</span>: 국제 원유 가격의 기준이 되는 북해산 원유 선물</li><li><span class="term">UKMTO</span>: 영국 해상무역운영기구. 해상 사고·공격 보고를 집계</li>
+          <li><span class="term">Brent</span>: 국제 원유 가격의 기준이 되는 북해산 원유</li><li><span class="term">IRGC</span>: 이란 혁명수비대</li><li><span class="term">CENTCOM</span>: 美 중부사령부 — 중동 작전 담당</li>
         </ul>
         
-        <div><span class="ops-note">'선언≠해소' 적용, 2차 단일 보도 위주 — 1차(CENTCOM·UKMTO) 확인 권고.</span></div>
-        <span class="stale-note">출처: Nation Thailand(11/5), straits.live 브리프(11/5~6, 로이터 인용)</span>
-      </div>
-      
-      <div class="watch-item">
-        
-        <strong>미·러·우 3자 실무 협상 11/10~11 아부다비 개최 확정 발표</strong>
-        <p>위트코프 美 특사가 11/10~11 아부다비에서 우크라이나·러시아 실무급 협상을 중재한다고 발표했다. 의제는 전후 안보보장, 에너지·해상 휴전, 포로교환 등. 이란 분쟁 발발 후 중단된 이후 첫 재개이며 올해 4번째 공식 3자 라운드다. 독일 총리는 러시아의 진지한 참여에 회의적이다.</p>
-        <div class="explain-box">협상 진전은 에너지·곡물 가격의 '전쟁 프리미엄'과 방산주 기대에 영향을 준다. 다만 개최 자체는 합의가 아니라 절차 재개일 뿐이다.</div>
-        
-        <ul class="glossary">
-          <li><span class="term">3자 협상</span>: 미국·러시아·우크라이나가 참여하는 협상</li>
-        </ul>
-        
-        <div><span class="ops-note">개최 예정은 선언 수준 — monitoring 전이 근거 아님.</span></div>
-        <span class="stale-note">출처: Khaleej Times, Al Jazeera(11/3), Al-Monitor</span>
+        <div><span class="ops-note">1차 미확인 — 2차 교차 채택. IRGC 피해 주장·이스라엘 내각 지시는 확인필요. 선언≠해소 — active 유지.</span></div>
+        <span class="stale-note">출처: Seatrade Maritime·Al Jazeera·CBS News·Khaleej Times(2차 교차), 유가는 fetch_market.py</span>
       </div>
       
       <div class="watch-item">
         <span class="badge-status badge-dormant">기보도</span>
-        <strong>미·중 휴전 관련 데드라인 11/9~10 집중 — 301조 예외·BIS 자회사 규칙</strong>
-        <p>Section 301 대중 관세 예외 178개 품목과 BIS Affiliates Rule 유예가 11/9~10 만료 예정이다. 연장 여부는 검색범위 내 확인되지 않았다. 9/23 베센트가 부산합의 휴전을 2027-01-10까지 연장했다는 2차 보도가 있으나 이 데드라인들이 포함되는지는 불명이다.</p>
-        <div class="explain-box">301조 예외는 일부 중국산 수입품의 관세를 면제해 주는 장치이고, BIS 50% 규칙은 수출통제 대상 기업의 지분 50%+ 자회사까지 통제를 확대하는 규정이다. 만료 시 반도체·제조업 공급망 비용과 규제 리스크가 커진다.</div>
+        <strong>러·우: 아부다비 3자 협상 포로교환 합의 → 美 특사 푸틴 회동, 유럽 협상 참여 수용 — 영토는 교착</strong> <span class="stale-note">(Abu Dhabi talks yield prisoner swap; Putin accepts European participation but holds firm on territory)</span>
+        <p>9개월 만에 재개된 美 중재 러·우 3자 협상(11/10~11, 아부다비)은 대규모 포로교환 원칙 합의로 끝났으나 영토·NATO 가입 제한·우크라이나 군 규모 등 핵심 쟁점은 진전이 없었다. 11/12 위트코프·쿠슈너 특사가 모스크바에서 푸틴과 회동해 '개전 이후 최대' 규모의 포로교환에 합의했고, 쿠슈너는 차기 협상에 유럽 대표단이 참여한다고 밝혔다. 푸틴은 외국 평화유지군 주둔 반대와 돈바스 영토 요구를 고수했고, 크렘린은 11월 말 APEC(중국)에서 푸틴-트럼프 논의를 이어간다고 했다(2차).</p>
+        <div class="explain-box">미국이 중재하는 종전 협상은 방산·에너지·곡물 시장과 유럽 자산 가격에 영향을 준다. 협상 진전은 선언 단계일 뿐 전쟁이 끝났다는 뜻은 아니다.</div>
         
         <ul class="glossary">
-          <li><span class="term">Section 301</span>: 무역법 301조에 따른 대중 추가관세</li><li><span class="term">BIS</span>: 美 상무부 산업안보국. 수출통제 담당</li>
+          <li><span class="term">3자 협상</span>: 美·러·우 세 나라가 함께 참여하는 협상</li><li><span class="term">APEC</span>: 아시아태평양경제협력체 정상회의</li>
         </ul>
         
-        <div><span class="ops-note">1차 미확인 — 연방관보 확인 필요, 수치·일자 보류.</span></div>
-        <span class="stale-note">출처: greatlakescustomslaw.com, JD Supra, China Briefing(2차)</span>
+        <div><span class="ops-note">포로교환·유럽 참여는 선언 수준(선언≠해소) — active 유지.</span></div>
+        <span class="stale-note">출처: Euronews·NPR·CNN·Interfax-Ukraine·TIME(2차 교차) — 크렘린 공식 결과문 미확인</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>BIS Affiliates Rule 유예 연장, 301조 예외 178품목 연장</strong>
+        <p>BIS(美 상무부 산업보안국)가 50% 소유 자회사까지 수출통제 대상에 넣는 Affiliates Rule의 유예를 2027-01-10까지 연장했다. USTR(미국 무역대표부) 대중 301조 관세 예외 178품목도 2027-01-09까지 연장된 것으로 보도됐다.</p>
+        <div class="explain-box">미중 관세 휴전의 일부로, 시한 직전에 규제 강화를 미루는 조치다. 반도체·기술 업종의 단기 불확실성은 낮아지지만 2027년 1월에 같은 시한이 다시 온다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">Affiliates Rule</span>: 수출통제 제재 명단 기업이 50% 이상 지분을 가진 자회사에도 통제를 확대하는 규칙</li><li><span class="term">301조</span>: 불공정 무역관행에 대한 美 관세 부과 근거 조항</li>
+        </ul>
+        
+        <div><span class="ops-note">'선언≠해소' 적용 — 유예 연장이며 closed 아님. 301조 연장은 연방관보 1차 미확인. watchlist us-china-trade-tech-war: active→monitoring 전이(다음 시한 2027-01-09~10).</span></div>
+        <span class="stale-note">출처: Skadden, Thompson Hine, KPMG</span>
+      </div>
+      
+      <div class="watch-item">
+        
+        <strong>대만해협·후티 홍해 — 금주 신규 전개 미확인</strong> <span class="stale-note">(Taiwan Strait / Red Sea: no new developments found)</span>
+        <p>대만해협은 대규모 훈련·임계선 돌파 보도가 없었고, 후티 홍해 봉쇄는 11월 신규 공격이 확인되지 않았다(11월 초 사우디 송유관 공격 보도는 제목 수준·가해 주체 미확인). 두 이슈 모두 전주 상태(active)를 유지한다.</p>
+        <div class="explain-box">대만해협은 세계 첨단 반도체 생산의 핵심 지역이고, 홍해 바브엘만데브 해협은 호르무즈 봉쇄 이후 사우디 원유 수출의 우회로라 두 곳 모두 공급망·유가에 영향이 크다.</div>
+        
+        <ul class="glossary">
+          <li><span class="term">회색지대(gray-zone)</span>: 전쟁 문턱 아래의 군사·준군사 압박 활동</li>
+        </ul>
+        
+        <div><span class="ops-note">검색예산 소진 — 대만해협 별도 확인 못 함(미확인≠미발생).</span></div>
+        <span class="stale-note">출처: geopolitics-research</span>
       </div>
       
     
@@ -651,41 +695,45 @@
     
       
       <div class="watch-item">
-        
-        <strong>어닝시즌 비활성 — 금주(11/9~13) 메가캡·벨웨더 실적 0건</strong> <span class="stale-note">(Earnings season inactive: 0 bellwether reports this week)</span>
-        <p>이번 주(11/9~11/13) 메가캡·섹터 벨웨더 실적 발표 예정 종목 0개 (earnings_calendar.py 기준) - 어닝시즌 아님</p>
-        <div class="explain-box">어닝시즌은 주요 기업이 분기 실적을 집중 발표하는 기간으로, 메가캡·섹터 벨웨더 발표가 5개 이상일 때 활성으로 봅니다. 이번 주는 해당 기준에 못 미쳐 어닝 트렌드 취재는 생략하고 예산을 IPO/딜에 집중했습니다.</div>
+        <span class="badge-status badge-dormant">기보도</span>
+        <strong>엔비디아 젠슨 황 CEO 사임 — 콜렛 크레스 CFO 임시 CEO, 11/17 실적이 첫 시험대</strong> <span class="stale-note">(Nvidia CEO Jensen Huang resigns; CFO Colette Kress named interim CEO)</span>
+        <p>엔비디아 이사회는 11/8 황 CEO가 '외국 정보기관 공작의 표적'이었다는 보도와 관련해 독립 조사를 발표했고, 11/11 WSJ의 '이사회 해임 준비' 보도와 NYT의 부적절한 관계 의혹 보도가 이어졌다. 11/12 황 CEO가 사임했고 콜렛 크레스(Colette Kress) CFO가 임시 CEO를 맡았다. 조사 발표 이후 시가총액이 4,500억 달러 이상 줄었다는 보도. 사임 당일 주가는 장중 약 12% 급락 후 -4.34% 마감했지만 AMD(+5.86%)·브로드컴(+5.54%)은 올랐고(2차), 반도체 그룹은 주간 +4.91%로 11개 그룹 중 최고(fetch_market.py) — AI 수요 자체보다 엔비디아 개별 지배구조 리스크로 해석되는 흐름. 11/17(화) 장 마감 후 FY2027 3분기 실적 발표(회사 공지, 5pm ET 컨퍼런스콜).</p>
+        <div class="explain-box">엔비디아는 S&P500·나스닥에서 비중이 가장 큰 종목 중 하나이고 AI 반도체 공급의 핵심이라, 경영진 공백·지배구조 리스크는 지수 전체와 AI 투자 심리에 파급된다. 對中 정보 유출 의혹이 얽혀 있어 美 의회·수출통제 이슈로 번질 가능성도 있다.</div>
         
         <ul class="glossary">
-          <li><span class="term">벨웨더(bellwether)</span>: 섹터 전반의 흐름을 가늠하게 해주는 대표 기업</li><li><span class="term">가이던스</span>: 기업이 제시하는 향후 실적 전망치</li>
+          <li><span class="term">임시 CEO(interim CEO)</span>: 정식 후임 선임 전까지 경영을 맡는 대행 최고경영자</li><li><span class="term">8-K</span>: 상장사가 중요 사건 발생 시 SEC에 제출하는 수시공시</li>
         </ul>
         
-        
-        <span class="stale-note">출처: earnings_calendar.py</span>
+        <div><span class="ops-note">corporate-research 미포착 항목 — Daily 기보도(11/10·11/12·11/13)로 에디터 보완. 사임 8-K 원문 1차 미확인(확인필요). watchlist 신규 등록(nvidia-ceo-governance).</span></div>
+        <span class="stale-note">출처: NVIDIA 이사회 성명·IR 실적일 공지(1차), WSJ·NYT·CNBC·StockTitan(2차 교차)</span>
       </div>
       
       <div class="watch-item">
         
-        <strong>Anthropic IPO: 로드쇼 시작 주차 불확실, 희망 기업가치 하향 보도</strong> <span class="stale-note">(Anthropic IPO: roadshow timing unclear; target valuation reportedly cut)</span>
-        <p>Anthropic은 6/1 SEC에 비공개 S-1(증권신고서 초안)을 제출했고, 수정 S-1(S-1/A)에는 공모가·주식 수가 공란으로 남아 가격범위는 미공개입니다. 로드쇼(기관투자자 대상 설명회)는 11/9 주간 시작 예정이라는 보도와 일정이 재검토 중이라는 보도가 엇갈립니다. 기업가치는 투자자 측이 기존 거론 약 $2T에서 $1.5T~$1.6T로, 11/6 Bloomberg 인용 보도로는 $1.2T~$1.3T(이전 $1.4T~$1.5T)까지 낮춰 논의 중이라고 전해집니다. 직전 비공개 라운드(Series H, $650억 조달) 기업가치는 $9,650억입니다. 모두 2차 매체 인용이며 공식 가격범위가 아닙니다.</p>
-        <div class="explain-box">IPO는 비상장 기업이 주식을 일반 투자자에게 처음 공개 판매하는 절차입니다. Anthropic은 AI 대표 기업이라 상장 규모와 가격이 AI 섹터 밸류에이션(기업가치 평가)과 대형 기술주 수급(자금 쏠림)의 가늠자가 됩니다. 희망 가치가 낮아졌다는 것은 최근 기술주 조정 이후 투자자들이 더 보수적으로 본다는 신호로 읽힐 수 있습니다.</div>
+        <strong>어닝시즌 비활성 — 단 엔비디아 실적(11/17) 단일 이벤트가 금주 최대 변수</strong> <span class="stale-note">(Earnings season inactive; Nvidia (Nov 17) is the key single event)</span>
+        <p>이번 주 어닝시즌 아님 (earnings_calendar.py 기준 금주 메가캡·섹터 벨웨더 실적 발표 0건, 임계 5건 미달). 다만 엔비디아가 11/17(화) 장 마감 후 FY2027 3분기(10/25 종료) 실적을 발표한다(회사 IR 공지, 1차). CEO 사임 직후 첫 실적이라 가이던스와 임시 경영진 메시지가 AI·반도체 전반 심리를 좌우할 전망.</p>
+        <div class="explain-box">어닝시즌은 주요 기업 실적이 몰리는 기간이다. 이 리포트는 대상 티커 실적이 주 5건 이상일 때 시즌으로 본다. 시즌 밖이라도 시가총액 최상위 기업 실적은 지수 전체를 움직일 수 있다.</div>
         
         <ul class="glossary">
-          <li><span class="term">S-1</span>: 미국 상장을 위해 SEC(증권거래위원회)에 내는 증권신고서</li><li><span class="term">로드쇼</span>: 상장 전 주관사와 기업이 기관투자자를 만나 수요를 확인하는 설명회</li><li><span class="term">가격범위(price range)</span>: 로드쇼 때 제시하는 희망 공모가 구간</li><li><span class="term">Series H</span>: 비상장 기업의 8번째 사모 투자 라운드</li>
+          <li><span class="term">가이던스</span>: 기업이 제시하는 다음 분기 실적 전망치</li>
         </ul>
         
-        <div><span class="ops-note">공개 S-1(10/26)은 로이터 인용 2차 보도 기반이며 SEC EDGAR 1차 확인 불가 - 1차 미확인, 2차 교차 채택. 기업가치 수치는 모두 비공식 보도로 확인필요. 로드쇼 11/9 주간 vs 11/16 주간 vs 상장 11/19~20 보도 상충. watchlist anthropic-ipo active 유지 후보.</span></div>
-        <span class="stale-note">출처: unite.ai, aiweekly.co, fourweekmba.com, tech-insider.org (2차 종합)</span>
+        <div><span class="ops-note">earnings_calendar.py가 NVDA(11/17)를 포착하지 못함 — 스크립트 일정 소스 점검 필요. WMT 등 기타 벨웨더 발표일은 미확인.</span></div>
+        <span class="stale-note">출처: earnings_calendar.py + NVIDIA IR(1차)</span>
       </div>
       
       <div class="watch-item">
+        <span class="badge-status badge-dormant">기보도</span>
+        <strong>Anthropic IPO: 로드쇼 개시(11/10 보도), 주당 $70~78 가격범위·825M주, Nasdaq 'ANT'</strong> <span class="stale-note">(Anthropic IPO: roadshow launched, $70-78 price range, 825M shares, Nasdaq 'ANT')</span>
+        <p>2차 보도 기준 Anthropic은 11/10 로드쇼를 시작했고 S-1 수정본(Amendment No. 2)에 주당 $70~78, Class A 8억 2,500만 주 공모, Nasdaq Global Select Market 'ANT' 상장 조건이 담겼다고 한다. 상장일·확정 공모가는 미확정이며, 로드쇼 후 약 1주 뒤인 11/18~19 프라이싱(가격 확정)이 가능하다는 추정이 있으나 이는 보도가 아닌 분석가 추정이다. 상단 기준 기업가치는 Reuters 약 $1.02T(예상 발행주식수 기준) vs FT 약 $1.26~1.41T(완전희석 기준)로 산정 방식에 따라 엇갈린다. 구글·엔비디아 등 전략적 투자자 7곳이 공모가로 260억 달러어치 무의결권 주식을 추가 매입하기로 했다는 보도(Fortune 등 2차).</p>
+        <div class="explain-box">IPO(기업공개)는 비상장 기업이 증시에 처음 주식을 파는 절차다. 로드쇼는 기관투자자에게 사업을 설명하며 수요를 확인하는 투자설명 행사이고, 가격범위가 나온 뒤 수요에 따라 공모가가 확정(프라이싱)된다. 시가총액 $1조 안팎의 AI 기업이 상장하면 Nasdaq 지수 비중, AI 관련 자금 흐름, 대형주 수급(신규 물량 흡수)에 영향이 커 시장 관심이 높다.</div>
         
-        <strong>OpenAI IPO: 이번 주 신규 전개 미확인</strong> <span class="stale-note">(OpenAI IPO: no new developments this week)</span>
-        <p>검색 범위에서 OpenAI 상장 관련 신규 전개는 확인되지 않았습니다. 기존 방침(2026년 내 상장 없음, 2027년 논의 재개)이 유지되는 것으로 보입니다.</p>
-        <div class="explain-box">OpenAI는 시장 관심이 큰 또 하나의 AI 메가 IPO 후보지만 상장 시점이 2027년으로 미뤄진 상태입니다. Anthropic IPO 흥행 여부가 OpenAI의 상장 시점 판단에 참고 사례가 될 수 있습니다.</div>
+        <ul class="glossary">
+          <li><span class="term">S-1/A</span>: SEC에 제출하는 IPO 등록서류(S-1)의 수정본. 가격범위·공모주식수가 여기서 확정 공개된다.</li><li><span class="term">로드쇼</span>: IPO 전 주관사와 경영진이 기관투자자를 만나 수요를 타진하는 설명 행사.</li><li><span class="term">프라이싱</span>: 수요를 반영해 최종 공모가를 확정하는 단계. 보통 상장 전날 밤에 이뤄진다.</li><li><span class="term">완전희석 기준</span>: 스톡옵션·RSU 등 잠재 주식까지 모두 포함해 계산한 주식수 기준 기업가치.</li>
+        </ul>
         
-        <div><span class="ops-note">dormant 유지 후보. 신규 근거 없음(검색 미확인이며 부재 증명 아님).</span></div>
-        <span class="stale-note">출처: watchlist openai-ipo-timeline 기존 기록</span>
+        <div><span class="ops-note">1차(EDGAR S-1/A) 미확인 — 2차 교차 채택. 가격범위 $70~78와 825M주는 복수 2차 매체 일치하나 상장일·프라이싱일은 미확인(추정 11/18~19). 기존 watchlist의 '희망 기업가치 $1.2T~1.3T 하향 논의'와 이번 가격범위 기반 산정치(Reuters ~$1.02T / FT $1.26~1.41T)는 산정 기준이 달라 직접 비교 불가. 로드쇼 시작일은 11/9(주간 엇갈림) 대 11/10 보도 중 11/10 보도 쪽이 구체적이나 WSJ 인용 기반 보도로 회사 확인 아님. 에디터는 EDGAR 확인 전 수치를 '확인필요'로 표기 권장.</span></div>
+        <span class="stale-note">출처: RTTNews, Forkast, Indmoney, FutureSearch (2차; EDGAR S-1/A 1차 미확인)</span>
       </div>
       
     
@@ -705,7 +753,7 @@
 <footer class="report-footer">Events &amp; News Tracking Agent · America/New_York · 완전 자동 생성</footer>
 </div>
 
-<script>window.__CHARTS__ = [{"id": "chart_credit_trend", "config": {"type": "line", "data": {"labels": ["2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-07", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06"], "datasets": [{"label": "HY OAS", "data": [275.0, 278.0, 280.0, 278.0, 271.0, 266.0, 271.0, 263.0, 266.0, 266.0, 265.0, 271.0, 276.0, 278.0, 283.0, 280.0, 275.0, 274.0, 275.0, 274.0, 272.0, 267.0, 270.0, 270.0, 269.0, 269.0, 272.0, 271.0, 271.0, 273.0, 269.0, 269.0, 268.0, 277.0, 279.0, 281.0, 284.0, 287.0, 284.0, 285.0, 278.0, 273.0, 275.0, 271.0, 270.0, 270.0, 272.0, 271.0, 271.0, 267.0, 270.0, 275.0, 273.0, 275.0, 270.0, 269.0, 270.0, 267.0, 263.0, 260.0, 263.0, 265.0, 266.0, 265.0, 268.0, 268.0, 267.0, 271.0, 270.0, 265.0, 271.0, 276.0, 270.0, 270.0, 268.0, 266.0, 268.0, 273.0, 280.0, 293.0, 302.0, 308.0, 312.0, 324.0, 310.0, 312.0, 303.0, 309.0, 315.0, 311.0, 311.0, 316.0, 325.0, 323.0, 331.0, 329.0, 333.0, 327.0, 340.0, 338.0, 330.0, 318.0, 314.0, 326.0, 344.0, 343.0, 340.0, 332.0, 348.0, 342.0], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "IG OAS", "data": [75.0, 75.0, 75.0, 75.0, 74.0, 73.0, 75.0, 74.0, 74.0, 74.0, 74.0, 74.0, 75.0, 76.0, 77.0, 76.0, 76.0, 76.0, 75.0, 75.0, 75.0, 76.0, 76.0, 76.0, 77.0, 78.0, 79.0, 79.0, 78.0, 79.0, 78.0, 78.0, 78.0, 79.0, 80.0, 81.0, 81.0, 81.0, 80.0, 79.0, 78.0, 78.0, 78.0, 78.0, 78.0, 78.0, 79.0, 79.0, 79.0, 80.0, 81.0, 82.0, 81.0, 82.0, 81.0, 81.0, 81.0, 80.0, 79.0, 79.0, 80.0, 81.0, 81.0, 81.0, 81.0, 81.0, 81.0, 81.0, 80.0, 80.0, 80.0, 80.0, 78.0, 78.0, 77.0, 77.0, 77.0, 77.0, 79.0, 81.0, 83.0, 84.0, 84.0, 86.0, 85.0, 84.0, 83.0, 82.0, 82.0, 83.0, 83.0, 83.0, 84.0, 84.0, 85.0, 87.0, 87.0, 88.0, 89.0, 91.0, 90.0, 88.0, 86.0, 89.0, 94.0, 94.0, 93.0, 91.0, 93.0, 93.0], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "bp"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_vix_series", "config": {"type": "line", "data": {"labels": ["2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-07", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06", "2026-11-09"], "datasets": [{"label": "VIX", "data": [15.84000015258789, 14.890000343322754, 16.010000228881836, 15.130000114440918, 15.850000381469727, 15.449999809265137, 15.210000038146973, 14.510000228881836, 14.430000305175781, 14.920000076293945, 16.34000015258789, 15.199999809265137, 14.319999694824219, 14.529999732971191, 15.300000190734863, 15.720000267028809, 16.459999084472656, 17.84000015258789, 15.84000015258789, 17.100000381469727, 17.200000762939453, 17.709999084472656, 15.4399995803833, 14.8100004196167, 14.869999885559082, 14.210000038146973, 15.180000305175781, 15.670000076293945, 14.869999885559082, 16.06999969482422, 16.040000915527344, 16.34000015258789, 16.389999389648438, 15.3100004196167, 15.520000457763672, 15.010000228881836, 15.079999923706055, 15.40999984741211, 14.84000015258789, 15.210000038146973, 15.270000457763672, 16.8700008392334, 16.459999084472656, 19.989999771118164, 18.440000534057617, 17.309999465942383, 16.68000030517578, 19.030000686645508, 19.450000762939453, 18.389999389648438, 17.520000457763672, 16.90999984741211, 17.200000762939453, 19.420000076293945, 21.149999618530273, 20.829999923706055, 16.610000610351562, 28.18000030517578, 25.639999389648438, 20.989999771118164], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": false}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": false, "text": ""}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_oil_series", "config": {"type": "line", "data": {"labels": ["2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06", "2026-11-09"], "datasets": [{"label": "WTI", "data": [84.5, 84.94000244140625, 85.83000183105469, 87.83000183105469, 87.05999755859375, 85.01000213623047, 82.36000061035156, 82.2300033569336, 83.52999877929688, 83.4000015258789, 85.76000213623047, 90.22000122070312, 91.01000213623047, 91.30000305175781, 91.4800033569336, 93.02999877929688, 96.05000305175781, 102.4800033569336, 100.05000305175781, 101.38999938964844, 105.83000183105469, 102.43000030517578, 101.91000366210938, 100.30000305175781, 95.77999877929688, 94.58999633789062, 92.16000366210938, 94.61000061035156, 92.41000366210938, 92.5999984741211, 89.37999725341797, 90.41999816894531, 92.87000274658203, 91.11000061035156, 89.43000030517578, 89.44000244140625, 88.27999877929688, 91.48999786376953, 91.8499984741211, 93.73999786376953, 94.13999938964844, 95.08999633789062, 97.97000122070312, 101.41000366210938, 103.66000366210938, 101.79000091552734, 97.1500015258789, 99.47000122070312, 103.2699966430664, 101.76000213623047, 99.9000015258789, 102.77999877929688, 102.0, 104.12000274658203, 96.45999908447266, 96.08999633789062, 88.12000274658203, 90.5199966430664, 90.83000183105469, 88.44999694824219], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "Brent", "data": [90.87000274658203, 91.0199966430664, 91.62000274658203, 93.77999877929688, 94.38999938964844, 92.16999816894531, 88.58000183105469, 87.83999633789062, 89.69999694824219, 89.30999755859375, 90.48999786376953, 94.6500015258789, 95.62999725341797, 95.5199966430664, 96.27999877929688, 97.91999816894531, 101.20999908447266, 107.62999725341797, 104.61000061035156, 105.68000030517578, 108.75, 105.83000183105469, 104.81999969482422, 103.87000274658203, 100.33999633789062, 99.25, 103.08000183105469, 106.5999984741211, 104.31999969482422, 105.27999877929688, 102.58999633789062, 103.52999877929688, 102.30999755859375, 102.25, 100.31999969482422, 100.58000183105469, 100.19999694824219, 104.27999877929688, 104.72000122070312, 106.6500015258789, 105.69000244140625, 106.05999755859375, 105.91999816894531, 109.86000061035156, 109.55000305175781, 108.79000091552734, 108.81999969482422, 113.16999816894531, 116.72000122070312, 115.80999755859375, 113.87999725341797, 115.31999969482422, 114.87999725341797, 117.63999938964844, 104.7699966430664, 103.5999984741211, 94.62000274658203, 98.29000091552734, 98.31999969482422, 95.12000274658203], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "$/bbl"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_etf_bar", "config": {"type": "bar", "data": {"labels": ["S&P500", "Dow", "Nasdaq", "Consumer Defensive", "Cyclical Industrials (A&D + Chemicals)", "Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)", "Capital-Intensive Regulated (Utilities/Telecom/Midstream)", "Financial", "Growth/Intangible (SaaS/Internet/IT Svcs)", "REIT", "Semiconductors", "Auto Manufacturers", "Large Pharma", "Biotech"], "datasets": [{"label": "지수·섹터 ETF 주간변화(%) (W45 vs W44)", "data": [-0.085, 0.387, 0.281, -0.65, -2.49, -1.095, 0.451, 0.434, -1.326, 2.515, -4.401, 0.827, 0.856, 2.313], "backgroundColorLight": ["#e34948", "#2a78d6", "#2a78d6", "#e34948", "#e34948", "#e34948", "#2a78d6", "#2a78d6", "#e34948", "#2a78d6", "#e34948", "#2a78d6", "#2a78d6", "#2a78d6"], "backgroundColorDark": ["#e66767", "#3987e5", "#3987e5", "#e66767", "#e66767", "#e66767", "#3987e5", "#3987e5", "#e66767", "#3987e5", "#e66767", "#3987e5", "#3987e5", "#3987e5"]}]}, "options": {"plugins": {"legend": {"display": false}, "valueLabel": {"enabled": true}}, "scales": {"y": {"title": {"display": true, "text": "%"}}}}}}, {"id": "chart_2s10s", "config": {"type": "line", "data": {"labels": ["2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05"], "datasets": [{"label": "10Y-2Y", "data": [0.38, 0.41, 0.4, 0.42, 0.4, 0.39, 0.4, 0.38, 0.29, 0.27, 0.27, 0.34, 0.3, 0.31, 0.31, 0.28, 0.3, 0.31, 0.35, 0.35, 0.36, 0.35, 0.38, 0.35, 0.36, 0.4, 0.42, 0.41, 0.37, 0.39, 0.37, 0.36, 0.34, 0.36, 0.34, 0.35, 0.45, 0.45, 0.47, 0.45, 0.43, 0.45, 0.44, 0.46, 0.47, 0.48, 0.48, 0.48, 0.51, 0.53, 0.52, 0.46, 0.5, 0.5, 0.46, 0.47, 0.47, 0.47, 0.39, 0.41, 0.4, 0.4, 0.43, 0.41, 0.41, 0.4, 0.39, 0.33, 0.32, 0.33, 0.27, 0.27, 0.25, 0.2, 0.25, 0.26, 0.31, 0.36, 0.32, 0.37, 0.41, 0.46, 0.45, 0.47, 0.48, 0.51, 0.47, 0.44, 0.42, 0.37, 0.33, 0.35, 0.38, 0.33, 0.32, 0.31, 0.31, 0.32, 0.29, 0.38, 0.37, 0.38, 0.32, 0.34, 0.32, 0.38], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": false}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "pp"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_rates5_real", "config": {"type": "line", "data": {"labels": ["2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09"], "datasets": [{"label": "미국", "data": [1.145, 1.043, 1.254, 1.226, 0.384, -0.171, -0.619, 0.099, 0.265, 0.233, 0.012], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "유로존", "data": [-0.115, 0.065, 0.364, 0.128, -0.534, -0.999, -1.141, -0.483, -0.682, -0.976, -1.25], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "%"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_rates5_policy", "config": {"type": "line", "data": {"labels": ["2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"], "datasets": [{"label": "미국", "data": [4.09, 3.88, 3.72, 3.64, 3.64, 3.64, 3.64, 3.63, 3.63, 3.63, 3.63, 3.75, 3.88], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "유로존", "data": [null, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.25, 2.25, 2.25, 2.5, 2.5], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "일본", "data": [0.477, 0.478, 0.557, 0.728, 0.728, 0.728, 0.727, 0.727, 0.841, 0.978, 0.977, 1.043, null], "borderColorLight": "#eda100", "borderColorDark": "#c98500", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "영국", "data": [null, 3.9693, 3.7257, 3.7254, 3.7267, 3.7296, 3.7299, 3.7302, 3.7318, 3.7313, 3.7308, 3.7329, 3.7348], "borderColorLight": "#008300", "borderColorDark": "#008300", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "한국", "data": [2.516, 2.512, 2.53, 2.531, 2.541, 2.527, 2.517, 2.537, 2.537, 2.62, 2.809, 3.044, null], "borderColorLight": "#4a3aa7", "borderColorDark": "#9085e9", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "%"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_rrg", "config": {"type": "scatter", "data": {"datasets": [{"label": "Consumer Defensive", "data": [{"x": 84.02, "y": 103.22}, {"x": 81.34, "y": 100.42}, {"x": 100.75, "y": 93.78}, {"x": 127.95, "y": 100.13}, {"x": 115.99, "y": 88.66}, {"x": 116.13, "y": 107.79}, {"x": 116.81, "y": 89.87}, {"x": 110.2, "y": 90.44}], "showLine": true, "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "backgroundColorLight": "#2a78d6", "backgroundColorDark": "#3987e5", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Cyclical Industrials (A&D + Chemicals)", "data": [{"x": 83.89, "y": 94.03}, {"x": 85.87, "y": 101.48}, {"x": 90.4, "y": 99.78}, {"x": 124.78, "y": 124.37}, {"x": 119.04, "y": 94.83}, {"x": 121.63, "y": 102.12}, {"x": 108.51, "y": 95.01}, {"x": 106.64, "y": 95.64}], "showLine": true, "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "backgroundColorLight": "#1baf7a", "backgroundColorDark": "#199e70", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)", "data": [{"x": 82.18, "y": 100.52}, {"x": 86.8, "y": 101.77}, {"x": 90.42, "y": 99.9}, {"x": 123.18, "y": 134.79}, {"x": 121.27, "y": 101.55}, {"x": 123.94, "y": 107.01}, {"x": 110.46, "y": 95.64}, {"x": 109.67, "y": 97.61}], "showLine": true, "borderColorLight": "#eda100", "borderColorDark": "#c98500", "backgroundColorLight": "#eda100", "backgroundColorDark": "#c98500", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Capital-Intensive Regulated (Utilities/Telecom/Midstream)", "data": [{"x": 78.21, "y": 98.38}, {"x": 86.97, "y": 102.27}, {"x": 92.01, "y": 94.66}, {"x": 123.79, "y": 134.81}, {"x": 118.95, "y": 99.03}, {"x": 120.93, "y": 119.26}, {"x": 119.77, "y": 95.65}, {"x": 110.48, "y": 92.39}], "showLine": true, "borderColorLight": "#008300", "borderColorDark": "#008300", "backgroundColorLight": "#008300", "backgroundColorDark": "#008300", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Financial", "data": [{"x": 83.17, "y": 105.11}, {"x": 84.59, "y": 101.24}, {"x": 94.4, "y": 103.96}, {"x": 123.6, "y": 128.19}, {"x": 118.13, "y": 81.72}, {"x": 117.81, "y": 101.29}, {"x": 117.51, "y": 88.79}, {"x": 112.78, "y": 90.94}], "showLine": true, "borderColorLight": "#4a3aa7", "borderColorDark": "#9085e9", "backgroundColorLight": "#4a3aa7", "backgroundColorDark": "#9085e9", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Growth/Intangible (SaaS/Internet/IT Svcs)", "data": [{"x": 109.33, "y": 93.59}, {"x": 117.11, "y": 90.82}, {"x": 114.87, "y": 111.74}, {"x": 71.94, "y": 74.84}, {"x": 99.1, "y": 113.64}, {"x": 81.7, "y": 88.19}, {"x": 81.29, "y": 106.59}, {"x": 85.15, "y": 106.36}], "showLine": true, "borderColorLight": "#e34948", "borderColorDark": "#e66767", "backgroundColorLight": "#e34948", "backgroundColorDark": "#e66767", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "REIT", "data": [{"x": 78.55, "y": 101.0}, {"x": 82.74, "y": 103.23}, {"x": 93.92, "y": 118.87}, {"x": 117.64, "y": 125.39}, {"x": 120.68, "y": 96.15}, {"x": 120.54, "y": 106.32}, {"x": 119.4, "y": 88.51}, {"x": 115.84, "y": 93.35}], "showLine": true, "borderColorLight": "#e87ba4", "borderColorDark": "#d55181", "backgroundColorLight": "#e87ba4", "backgroundColorDark": "#d55181", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Semiconductors", "data": [{"x": 116.86, "y": 98.27}, {"x": 118.22, "y": 99.55}, {"x": 99.15, "y": 95.3}, {"x": 75.79, "y": 100.56}, {"x": 84.9, "y": 114.65}, {"x": 87.87, "y": 84.89}, {"x": 80.6, "y": 116.59}, {"x": 86.27, "y": 111.21}], "showLine": true, "borderColorLight": "#eb6834", "borderColorDark": "#d95926", "backgroundColorLight": "#eb6834", "backgroundColorDark": "#d95926", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Auto Manufacturers", "data": [{"x": 81.37, "y": 108.08}, {"x": 83.3, "y": 102.08}, {"x": 93.69, "y": 101.15}, {"x": 111.44, "y": 116.93}, {"x": 97.21, "y": 84.7}, {"x": 129.8, "y": 97.44}, {"x": 117.22, "y": 90.28}, {"x": 115.88, "y": 96.36}], "showLine": true, "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "backgroundColorLight": "#2a78d6", "backgroundColorDark": "#3987e5", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Large Pharma", "data": [{"x": 90.9, "y": 98.72}, {"x": 76.36, "y": 92.38}, {"x": 94.04, "y": 107.26}, {"x": 124.69, "y": 102.58}, {"x": 114.56, "y": 90.33}, {"x": 121.09, "y": 108.22}, {"x": 116.65, "y": 94.14}, {"x": 112.83, "y": 93.86}], "showLine": true, "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "backgroundColorLight": "#1baf7a", "backgroundColorDark": "#199e70", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Biotech", "data": [{"x": 87.52, "y": 95.04}, {"x": 82.58, "y": 92.58}, {"x": 89.85, "y": 115.21}, {"x": 86.75, "y": 91.89}, {"x": 103.04, "y": 95.98}, {"x": 121.53, "y": 98.22}, {"x": 114.61, "y": 105.91}, {"x": 113.42, "y": 95.59}], "showLine": true, "borderColorLight": "#eda100", "borderColorDark": "#c98500", "backgroundColorLight": "#eda100", "backgroundColorDark": "#c98500", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}]}, "options": {"plugins": {"legend": {"display": false}, "quadrant": {"enabled": true}}, "scales": {"x": {"title": {"display": true, "text": "RS-Ratio (상대강도)"}}, "y": {"title": {"display": true, "text": "RS-Momentum (모멘텀)"}}}}}}];</script>
+<script>window.__CHARTS__ = [{"id": "chart_credit_trend", "config": {"type": "line", "data": {"labels": ["2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-07", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06", "2026-11-09", "2026-11-11", "2026-11-12"], "datasets": [{"label": "HY OAS", "data": [278.0, 271.0, 266.0, 271.0, 263.0, 266.0, 266.0, 265.0, 271.0, 276.0, 278.0, 283.0, 280.0, 275.0, 274.0, 275.0, 274.0, 272.0, 267.0, 270.0, 270.0, 269.0, 269.0, 272.0, 271.0, 271.0, 273.0, 269.0, 269.0, 268.0, 277.0, 279.0, 281.0, 284.0, 287.0, 284.0, 285.0, 278.0, 273.0, 275.0, 271.0, 270.0, 270.0, 272.0, 271.0, 271.0, 267.0, 270.0, 275.0, 273.0, 275.0, 270.0, 269.0, 270.0, 267.0, 263.0, 260.0, 263.0, 265.0, 266.0, 265.0, 268.0, 268.0, 267.0, 271.0, 270.0, 265.0, 271.0, 276.0, 270.0, 270.0, 268.0, 266.0, 268.0, 273.0, 280.0, 293.0, 302.0, 308.0, 312.0, 324.0, 310.0, 312.0, 303.0, 309.0, 315.0, 311.0, 311.0, 316.0, 325.0, 323.0, 331.0, 329.0, 333.0, 327.0, 340.0, 338.0, 330.0, 318.0, 314.0, 326.0, 344.0, 343.0, 340.0, 332.0, 348.0, 342.0, 334.0, 330.0, 320.0], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "IG OAS", "data": [75.0, 74.0, 73.0, 75.0, 74.0, 74.0, 74.0, 74.0, 74.0, 75.0, 76.0, 77.0, 76.0, 76.0, 76.0, 75.0, 75.0, 75.0, 76.0, 76.0, 76.0, 77.0, 78.0, 79.0, 79.0, 78.0, 79.0, 78.0, 78.0, 78.0, 79.0, 80.0, 81.0, 81.0, 81.0, 80.0, 79.0, 78.0, 78.0, 78.0, 78.0, 78.0, 78.0, 79.0, 79.0, 79.0, 80.0, 81.0, 82.0, 81.0, 82.0, 81.0, 81.0, 81.0, 80.0, 79.0, 79.0, 80.0, 81.0, 81.0, 81.0, 81.0, 81.0, 81.0, 81.0, 80.0, 80.0, 80.0, 80.0, 78.0, 78.0, 77.0, 77.0, 77.0, 77.0, 79.0, 81.0, 83.0, 84.0, 84.0, 86.0, 85.0, 84.0, 83.0, 82.0, 82.0, 83.0, 83.0, 83.0, 84.0, 84.0, 85.0, 87.0, 87.0, 88.0, 89.0, 91.0, 90.0, 88.0, 86.0, 89.0, 94.0, 94.0, 93.0, 91.0, 93.0, 93.0, 91.0, 90.0, 89.0], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "bp"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_vix_series", "config": {"type": "line", "data": {"labels": ["2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-07", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06", "2026-11-09", "2026-11-10", "2026-11-11", "2026-11-12", "2026-11-13", "2026-11-16"], "datasets": [{"label": "VIX", "data": [15.449999809265137, 15.210000038146973, 14.510000228881836, 14.430000305175781, 14.920000076293945, 16.34000015258789, 15.199999809265137, 14.319999694824219, 14.529999732971191, 15.300000190734863, 15.720000267028809, 16.459999084472656, 17.84000015258789, 15.84000015258789, 17.100000381469727, 17.200000762939453, 17.709999084472656, 15.4399995803833, 14.8100004196167, 14.869999885559082, 14.210000038146973, 15.180000305175781, 15.670000076293945, 14.869999885559082, 16.06999969482422, 16.040000915527344, 16.34000015258789, 16.389999389648438, 15.3100004196167, 15.520000457763672, 15.010000228881836, 15.079999923706055, 15.40999984741211, 14.84000015258789, 15.210000038146973, 15.270000457763672, 16.8700008392334, 16.459999084472656, 19.989999771118164, 18.440000534057617, 17.309999465942383, 16.68000030517578, 19.030000686645508, 19.450000762939453, 18.389999389648438, 17.520000457763672, 16.90999984741211, 17.200000762939453, 19.420000076293945, 21.149999618530273, 20.829999923706055, 16.610000610351562, 28.18000030517578, 25.639999389648438, 19.920000076293945, 19.459999084472656, 17.489999771118164, 18.700000762939453, 19.299999237060547, 20.6200008392334], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": false}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": false, "text": ""}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_oil_series", "config": {"type": "line", "data": {"labels": ["2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06", "2026-11-09", "2026-11-10", "2026-11-11", "2026-11-12", "2026-11-13", "2026-11-16"], "datasets": [{"label": "WTI", "data": [85.01000213623047, 82.36000061035156, 82.2300033569336, 83.52999877929688, 83.4000015258789, 85.76000213623047, 90.22000122070312, 91.01000213623047, 91.30000305175781, 91.4800033569336, 93.02999877929688, 96.05000305175781, 102.4800033569336, 100.05000305175781, 101.38999938964844, 105.83000183105469, 102.43000030517578, 101.91000366210938, 100.30000305175781, 95.77999877929688, 94.58999633789062, 92.16000366210938, 94.61000061035156, 92.41000366210938, 92.5999984741211, 89.37999725341797, 90.41999816894531, 92.87000274658203, 91.11000061035156, 89.43000030517578, 89.44000244140625, 88.27999877929688, 91.48999786376953, 91.8499984741211, 93.73999786376953, 94.13999938964844, 95.08999633789062, 97.97000122070312, 101.41000366210938, 103.66000366210938, 101.79000091552734, 97.1500015258789, 99.47000122070312, 103.2699966430664, 101.76000213623047, 99.9000015258789, 102.77999877929688, 102.0, 104.12000274658203, 96.45999908447266, 96.08999633789062, 88.12000274658203, 90.5199966430664, 90.83000183105469, 86.8499984741211, 86.04000091552734, 86.52999877929688, 88.73999786376953, 88.55999755859375, 88.04000091552734], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "Brent", "data": [92.16999816894531, 88.58000183105469, 87.83999633789062, 89.69999694824219, 89.30999755859375, 90.48999786376953, 94.6500015258789, 95.62999725341797, 95.5199966430664, 96.27999877929688, 97.91999816894531, 101.20999908447266, 107.62999725341797, 104.61000061035156, 105.68000030517578, 108.75, 105.83000183105469, 104.81999969482422, 103.87000274658203, 100.33999633789062, 99.25, 103.08000183105469, 106.5999984741211, 104.31999969482422, 105.27999877929688, 102.58999633789062, 103.52999877929688, 102.30999755859375, 102.25, 100.31999969482422, 100.58000183105469, 100.19999694824219, 104.27999877929688, 104.72000122070312, 106.6500015258789, 105.69000244140625, 106.05999755859375, 105.91999816894531, 109.86000061035156, 109.55000305175781, 108.79000091552734, 108.81999969482422, 113.16999816894531, 116.72000122070312, 115.80999755859375, 113.87999725341797, 115.31999969482422, 114.87999725341797, 117.63999938964844, 104.7699966430664, 103.5999984741211, 94.62000274658203, 98.29000091552734, 98.31999969482422, 92.56999969482422, 91.48999786376953, 92.76000213623047, 95.81999969482422, 95.83999633789062, 94.83000183105469], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "$/bbl"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_etf_bar", "config": {"type": "bar", "data": {"labels": ["S&P500", "Dow", "Nasdaq", "Consumer Defensive", "Cyclical Industrials (A&D + Chemicals)", "Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)", "Capital-Intensive Regulated (Utilities/Telecom/Midstream)", "Financial", "Growth/Intangible (SaaS/Internet/IT Svcs)", "REIT", "Semiconductors", "Auto Manufacturers", "Large Pharma", "Biotech"], "datasets": [{"label": "지수·섹터 ETF 주간변화(%) (W46 vs W45)", "data": [2.505, 2.07, 2.265, 2.52, 4.003, 1.849, 2.828, 2.659, 2.747, 0.841, 4.912, 0.977, 3.215, -0.866], "backgroundColorLight": ["#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#2a78d6", "#e34948"], "backgroundColorDark": ["#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#3987e5", "#e66767"]}]}, "options": {"plugins": {"legend": {"display": false}, "valueLabel": {"enabled": true}}, "scales": {"y": {"title": {"display": true, "text": "%"}}}}}}, {"id": "chart_2s10s", "config": {"type": "line", "data": {"labels": ["2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06", "2026-11-09", "2026-11-10", "2026-11-12"], "datasets": [{"label": "10Y-2Y", "data": [0.39, 0.4, 0.38, 0.29, 0.27, 0.27, 0.34, 0.3, 0.31, 0.31, 0.28, 0.3, 0.31, 0.35, 0.35, 0.36, 0.35, 0.38, 0.35, 0.36, 0.4, 0.42, 0.41, 0.37, 0.39, 0.37, 0.36, 0.34, 0.36, 0.34, 0.35, 0.45, 0.45, 0.47, 0.45, 0.43, 0.45, 0.44, 0.46, 0.47, 0.48, 0.48, 0.48, 0.51, 0.53, 0.52, 0.46, 0.5, 0.5, 0.46, 0.47, 0.47, 0.47, 0.39, 0.41, 0.4, 0.4, 0.43, 0.41, 0.41, 0.4, 0.39, 0.33, 0.32, 0.33, 0.27, 0.27, 0.25, 0.2, 0.25, 0.26, 0.31, 0.36, 0.32, 0.37, 0.41, 0.46, 0.45, 0.47, 0.48, 0.51, 0.47, 0.44, 0.42, 0.37, 0.33, 0.35, 0.38, 0.33, 0.32, 0.31, 0.31, 0.32, 0.29, 0.38, 0.37, 0.38, 0.32, 0.34, 0.32, 0.38, 0.35, 0.32, 0.25, 0.24], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": false}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "pp"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_rates5_real", "config": {"type": "line", "data": {"labels": ["2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09"], "datasets": [{"label": "미국", "data": [1.145, 1.043, 1.254, 1.226, 0.384, -0.171, -0.619, 0.099, 0.265, 0.233, 0.012], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "유로존", "data": [-0.115, 0.065, 0.364, 0.128, -0.534, -0.999, -1.141, -0.483, -0.682, -0.976, -1.25], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "%"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_rates5_policy", "config": {"type": "line", "data": {"labels": ["2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"], "datasets": [{"label": "미국", "data": [4.09, 3.88, 3.72, 3.64, 3.64, 3.64, 3.64, 3.63, 3.63, 3.63, 3.63, 3.75, 3.88], "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "유로존", "data": [null, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.25, 2.25, 2.25, 2.5, 2.5], "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "일본", "data": [0.477, 0.478, 0.557, 0.728, 0.728, 0.728, 0.727, 0.727, 0.841, 0.978, 0.977, 1.043, null], "borderColorLight": "#eda100", "borderColorDark": "#c98500", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "영국", "data": [null, 3.9693, 3.7257, 3.7254, 3.7267, 3.7296, 3.7299, 3.7302, 3.7318, 3.7313, 3.7308, 3.7329, 3.7348], "borderColorLight": "#008300", "borderColorDark": "#008300", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}, {"label": "한국", "data": [2.516, 2.512, 2.53, 2.531, 2.541, 2.527, 2.517, 2.537, 2.537, 2.62, 2.809, 3.044, null], "borderColorLight": "#4a3aa7", "borderColorDark": "#9085e9", "borderWidth": 2, "pointRadius": 0, "tension": 0.15, "fill": false}]}, "options": {"plugins": {"legend": {"display": true}, "tooltip": {"mode": "index", "intersect": false}}, "scales": {"y": {"title": {"display": true, "text": "%"}}}, "interaction": {"mode": "index", "intersect": false}}}}, {"id": "chart_rrg", "config": {"type": "scatter", "data": {"datasets": [{"label": "Consumer Defensive", "data": [{"x": 84.02, "y": 103.22}, {"x": 81.34, "y": 100.42}, {"x": 100.75, "y": 93.78}, {"x": 127.95, "y": 100.13}, {"x": 115.99, "y": 88.66}, {"x": 116.13, "y": 107.79}, {"x": 116.81, "y": 89.87}, {"x": 112.37, "y": 110.1}], "showLine": true, "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "backgroundColorLight": "#2a78d6", "backgroundColorDark": "#3987e5", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Cyclical Industrials (A&D + Chemicals)", "data": [{"x": 84.03, "y": 94.09}, {"x": 85.78, "y": 101.3}, {"x": 90.24, "y": 100.05}, {"x": 124.31, "y": 124.84}, {"x": 118.75, "y": 94.83}, {"x": 121.71, "y": 101.76}, {"x": 108.73, "y": 95.11}, {"x": 109.89, "y": 103.41}], "showLine": true, "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "backgroundColorLight": "#1baf7a", "backgroundColorDark": "#199e70", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Asset-Heavy Cyclical (Energy/Materials/Airlines/Steel)", "data": [{"x": 82.21, "y": 100.55}, {"x": 86.74, "y": 101.77}, {"x": 90.28, "y": 99.88}, {"x": 122.48, "y": 134.71}, {"x": 121.26, "y": 101.46}, {"x": 124.04, "y": 106.94}, {"x": 110.74, "y": 95.58}, {"x": 101.59, "y": 101.28}], "showLine": true, "borderColorLight": "#eda100", "borderColorDark": "#c98500", "backgroundColorLight": "#eda100", "backgroundColorDark": "#c98500", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Capital-Intensive Regulated (Utilities/Telecom/Midstream)", "data": [{"x": 78.2, "y": 98.27}, {"x": 86.94, "y": 102.26}, {"x": 92.0, "y": 94.63}, {"x": 123.71, "y": 134.63}, {"x": 118.62, "y": 98.87}, {"x": 120.37, "y": 119.49}, {"x": 119.98, "y": 95.56}, {"x": 115.73, "y": 107.05}], "showLine": true, "borderColorLight": "#008300", "borderColorDark": "#008300", "backgroundColorLight": "#008300", "backgroundColorDark": "#008300", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Financial", "data": [{"x": 83.17, "y": 105.11}, {"x": 84.59, "y": 101.24}, {"x": 94.4, "y": 103.96}, {"x": 123.6, "y": 128.19}, {"x": 118.13, "y": 81.72}, {"x": 117.81, "y": 101.29}, {"x": 117.51, "y": 88.79}, {"x": 111.85, "y": 107.08}], "showLine": true, "borderColorLight": "#4a3aa7", "borderColorDark": "#9085e9", "backgroundColorLight": "#4a3aa7", "backgroundColorDark": "#9085e9", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Growth/Intangible (SaaS/Internet/IT Svcs)", "data": [{"x": 109.22, "y": 93.59}, {"x": 117.09, "y": 90.84}, {"x": 114.96, "y": 111.81}, {"x": 71.98, "y": 74.77}, {"x": 99.25, "y": 113.64}, {"x": 81.68, "y": 88.23}, {"x": 81.31, "y": 106.55}, {"x": 88.73, "y": 96.28}], "showLine": true, "borderColorLight": "#e34948", "borderColorDark": "#e66767", "backgroundColorLight": "#e34948", "backgroundColorDark": "#e66767", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "REIT", "data": [{"x": 78.55, "y": 101.0}, {"x": 82.74, "y": 103.23}, {"x": 93.92, "y": 118.87}, {"x": 117.64, "y": 125.39}, {"x": 120.68, "y": 96.15}, {"x": 120.54, "y": 106.32}, {"x": 119.4, "y": 88.51}, {"x": 108.26, "y": 101.2}], "showLine": true, "borderColorLight": "#e87ba4", "borderColorDark": "#d55181", "backgroundColorLight": "#e87ba4", "backgroundColorDark": "#d55181", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Semiconductors", "data": [{"x": 116.86, "y": 98.27}, {"x": 118.22, "y": 99.55}, {"x": 99.15, "y": 95.3}, {"x": 75.79, "y": 100.56}, {"x": 84.9, "y": 114.65}, {"x": 87.87, "y": 84.89}, {"x": 80.6, "y": 116.59}, {"x": 89.35, "y": 90.83}], "showLine": true, "borderColorLight": "#eb6834", "borderColorDark": "#d95926", "backgroundColorLight": "#eb6834", "backgroundColorDark": "#d95926", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Auto Manufacturers", "data": [{"x": 81.28, "y": 107.95}, {"x": 83.4, "y": 102.39}, {"x": 93.88, "y": 101.29}, {"x": 110.97, "y": 116.44}, {"x": 97.51, "y": 84.3}, {"x": 129.85, "y": 97.08}, {"x": 116.95, "y": 90.66}, {"x": 106.02, "y": 100.12}], "showLine": true, "borderColorLight": "#2a78d6", "borderColorDark": "#3987e5", "backgroundColorLight": "#2a78d6", "backgroundColorDark": "#3987e5", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Large Pharma", "data": [{"x": 90.9, "y": 98.72}, {"x": 76.36, "y": 92.38}, {"x": 94.04, "y": 107.26}, {"x": 124.69, "y": 102.58}, {"x": 114.56, "y": 90.33}, {"x": 121.09, "y": 108.22}, {"x": 116.65, "y": 94.14}, {"x": 112.89, "y": 107.63}], "showLine": true, "borderColorLight": "#1baf7a", "borderColorDark": "#199e70", "backgroundColorLight": "#1baf7a", "backgroundColorDark": "#199e70", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}, {"label": "Biotech", "data": [{"x": 87.55, "y": 95.04}, {"x": 82.58, "y": 92.56}, {"x": 89.85, "y": 115.22}, {"x": 86.76, "y": 91.89}, {"x": 103.06, "y": 95.99}, {"x": 121.54, "y": 98.22}, {"x": 114.61, "y": 105.9}, {"x": 96.71, "y": 95.89}], "showLine": true, "borderColorLight": "#eda100", "borderColorDark": "#c98500", "backgroundColorLight": "#eda100", "backgroundColorDark": "#c98500", "pointRadius": [3, 3, 3, 3, 3, 3, 3, 6], "borderWidth": 2}]}, "options": {"plugins": {"legend": {"display": false}, "quadrant": {"enabled": true}}, "scales": {"x": {"title": {"display": true, "text": "RS-Ratio (상대강도)"}}, "y": {"title": {"display": true, "text": "RS-Momentum (모멘텀)"}}}}}}];</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script>
 (function () {
